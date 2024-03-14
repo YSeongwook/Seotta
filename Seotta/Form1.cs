@@ -25,6 +25,9 @@ namespace Seotta
         {
             InitializeComponent();
 
+            // 폼을 화면에 가운데에 생성
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             // 폼의 배경색을 검정색으로 설정
             this.BackColor = Color.Black;
         }
@@ -49,6 +52,9 @@ namespace Seotta
 
             // 타이머 시작
             timer1.Start();
+
+            // 자동으로 다음 컨트롤로 포커스 이동, 패1 textBox에서 
+            this.SelectNextControl(this.ActiveControl, true, true, true, true);
         }
 
         private string[] ReadAllLinesFromFile(string fileName)
@@ -68,8 +74,8 @@ namespace Seotta
         {
             if (currentIndex1 < lines1.Length)
             {
-                textBox1.AppendText(lines1[currentIndex1] + Environment.NewLine);
-                textBox3.AppendText(lines3[currentIndex3] + Environment.NewLine);
+                pae1.AppendText(lines1[currentIndex1] + Environment.NewLine);
+                pae3.AppendText(lines3[currentIndex3] + Environment.NewLine);
                 currentIndex1++;
                 currentIndex3++;
             }
@@ -85,8 +91,8 @@ namespace Seotta
         {
             if (currentIndex2 < lines2.Length)
             {
-                textBox2.AppendText(lines2[currentIndex2] + Environment.NewLine);
-                textBox4.AppendText(lines4[currentIndex4] + Environment.NewLine);
+                pae2.AppendText(lines2[currentIndex2] + Environment.NewLine);
+                pae4.AppendText(lines4[currentIndex4] + Environment.NewLine);
                 currentIndex2++;
                 currentIndex4++;
             }

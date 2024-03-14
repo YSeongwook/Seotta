@@ -9,3 +9,14 @@ D:\source\repos\Seotta\bin\Debug\Seotta.pdb
 D:\source\repos\Seotta\obj\Debug\Seotta.Form1.resources
 D:\source\repos\Seotta\obj\Debug\Seotta.exe
 D:\source\repos\Seotta\obj\Debug\Seotta.pdb
+D:\Git\Seotta\Seotta\bin\Debug\Seotta.exe.config
+D:\Git\Seotta\Seotta\bin\Debug\Seotta.exe
+D:\Git\Seotta\Seotta\bin\Debug\Seotta.pdb
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.AssemblyReference.cache
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.SuggestedBindingRedirects.cache
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.Form1.resources
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.Properties.Resources.resources
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.GenerateResource.cache
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.CoreCompileInputs.cache
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.exe
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.pdb
