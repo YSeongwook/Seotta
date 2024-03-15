@@ -15,6 +15,10 @@ namespace Seotta
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+            // 섰다 시스템 구현
+            // 우측에 플레이어 족보 보여주기
+            // 베팅
         }
     }
 }

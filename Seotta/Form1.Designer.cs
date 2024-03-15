@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Seotta
 {
@@ -32,7 +33,7 @@ namespace Seotta
             this.labelTitle.Location = new System.Drawing.Point(690, 20);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(124, 240);
-            this.labelTitle.TabIndex = 4;
+            this.labelTitle.TabIndex = 5;
             this.labelTitle.Text = "섰다";
 
             // pae1
@@ -42,9 +43,11 @@ namespace Seotta
             this.pae1.Location = new System.Drawing.Point(10, 100);
             this.pae1.Multiline = true;
             this.pae1.Name = "pae1";
+            this.pae2.TabIndex = 1;
             this.pae1.Size = new System.Drawing.Size(354, 554);
-            this.pae1.TabIndex = 0;
             this.pae1.BorderStyle = BorderStyle.None;
+            this.pae1.ReadOnly = true;  // TextBox를 읽기 전용으로 설정
+            this.pae1.TabStop = false;
 
             // pae2
             this.pae2.BackColor = System.Drawing.Color.Black;
@@ -54,8 +57,10 @@ namespace Seotta
             this.pae2.Multiline = true;
             this.pae2.Name = "pae2";
             this.pae2.Size = new System.Drawing.Size(354, 554);
-            this.pae2.TabIndex = 1;
+            this.pae2.TabIndex = 2;
             this.pae2.BorderStyle = BorderStyle.None;
+            this.pae2.ReadOnly = true;  // TextBox를 읽기 전용으로 설정
+            this.pae2.TabStop = false;
 
             // pae3
             this.pae3.BackColor = System.Drawing.Color.Black;
@@ -65,8 +70,10 @@ namespace Seotta
             this.pae3.Multiline = true;
             this.pae3.Name = "pae3";
             this.pae3.Size = new System.Drawing.Size(354, 554);
-            this.pae3.TabIndex = 2;
+            this.pae3.TabIndex = 3;
             this.pae3.BorderStyle = BorderStyle.None;
+            this.pae3.ReadOnly = true;  // TextBox를 읽기 전용으로 설정
+            this.pae3.TabStop = false;
 
             // pae4
             this.pae4.BackColor = System.Drawing.Color.Black;
@@ -76,8 +83,10 @@ namespace Seotta
             this.pae4.Multiline = true;
             this.pae4.Name = "pae4";
             this.pae4.Size = new System.Drawing.Size(354, 554);
-            this.pae4.TabIndex = 3;
+            this.pae4.TabIndex = 4;
             this.pae4.BorderStyle = BorderStyle.None;
+            this.pae4.ReadOnly = true;  // TextBox를 읽기 전용으로 설정
+            this.pae4.TabStop = false;
 
             // gameProgress
             this.gameProgress.BackColor = System.Drawing.Color.Black;
@@ -86,9 +95,9 @@ namespace Seotta
             this.gameProgress.Location = new System.Drawing.Point(10, 664);
             this.gameProgress.Multiline = true;
             this.gameProgress.Name = "gameProgress";
-            this.gameProgress.ReadOnly = true;
             this.gameProgress.Size = new System.Drawing.Size(1454, 360);
-            this.gameProgress.TabIndex = 5;
+            this.gameProgress.TabIndex = 0; // TabIndex를 0으로 설정해 폼이 생성되면 포커스가 자동으로 할당
+            this.gameProgress.TabStop = false;
 
             // Form1
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
