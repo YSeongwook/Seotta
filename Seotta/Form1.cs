@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections.Generic;
 
 namespace Seotta
 {
@@ -10,16 +10,25 @@ namespace Seotta
     {
         private Timer timer1;
         private Timer timer2;
-
         private Timer[] timer;
+
         private string[] lines1;
         private string[] lines2;
         private string[] lines3;
         private string[] lines4;
+
+        // ASCII ART를 담는 string 배열을 원소로 가지는 리스트 생성
+        private List<string[]> lines = new List<string[]>();
+        
         private int currentIndex1 = 0;
         private int currentIndex2 = 0;
         private int currentIndex3 = 0;
         private int currentIndex4 = 0;
+
+        private List<string> asciiText = new List<string>();
+
+        // 파일 입력으로 string 배열에 순차적으로 데이터 삽입
+        // split()
 
         public Form1()
         {
@@ -44,11 +53,7 @@ namespace Seotta
             timer2.Interval = 1; // 1 밀리초마다 변경
             timer2.Tick += Timer2_Tick;
 
-            // 텍스트 파일에서 줄 읽어오기
-            lines1 = ReadAllLinesFromFile("1.txt");
-            lines2 = ReadAllLinesFromFile("2.txt");
-            lines3 = ReadAllLinesFromFile("3.txt");
-            lines4 = ReadAllLinesFromFile("4.txt");
+            SelectPae();
 
             // 타이머 시작
             timer1.Start();
@@ -72,12 +77,16 @@ namespace Seotta
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (currentIndex1 < lines1.Length)
+            if (currentIndex1 < lines[0].Length && currentIndex3 < lines[3].Length)
             {
-                pae1.AppendText(lines1[currentIndex1] + Environment.NewLine);
-                pae3.AppendText(lines3[currentIndex3] + Environment.NewLine);
-                currentIndex1++;
-                currentIndex3++;
+                pae1.AppendText(lines[0][currentIndex1] + Environment.NewLine);
+                pae3.AppendText(lines[2][currentIndex3] + Environment.NewLine);
+
+                if (currentIndex3 < lines[0].Length)
+                    currentIndex1++;
+
+                if (currentIndex3 < lines[2].Length)
+                    currentIndex3++;
             }
             else
             {
@@ -89,18 +98,47 @@ namespace Seotta
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (currentIndex2 < lines2.Length)
+            if (currentIndex2 < lines[1].Length && currentIndex4 < lines[3].Length)
             {
-                pae2.AppendText(lines2[currentIndex2] + Environment.NewLine);
-                pae4.AppendText(lines4[currentIndex4] + Environment.NewLine);
-                currentIndex2++;
-                currentIndex4++;
+                pae2.AppendText(lines[1][currentIndex2] + Environment.NewLine);
+                pae4.AppendText(lines[3][currentIndex4] + Environment.NewLine);
+
+                if (currentIndex2 < lines[1].Length)
+                    currentIndex2++;
+
+                if (currentIndex4 < lines[3].Length)
+                    currentIndex4++;
             }
             else
             {
                 // 타이머2 중지
                 timer2.Stop();
             }
+        }
+
+
+        public void SelectPae()
+        {
+            lines.Add(lines1);
+            lines.Add(lines2);
+            lines.Add(lines3);
+            lines.Add(lines4);
+
+            for (int i = 1; i <= 20; i++)
+            {
+                asciiText.Add(i + ".txt");
+            }
+
+            Random rand = new Random();
+
+            
+            for(int i = 0; i < 4; i++)
+            {
+                int randNum = rand.Next(0, asciiText.Count - 1);
+                lines[i] = ReadAllLinesFromFile(asciiText[randNum]);
+                asciiText.RemoveAt(randNum);
+            }
+            
         }
     }
 }
