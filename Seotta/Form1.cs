@@ -17,10 +17,10 @@ namespace Seotta
         private string[] lines3;
         private string[] lines4;
 
-        // ASCII ART를 담는 string 배열을 원소로 가지는 리스트 생성
+        // ASCII ART를 담은 string 배열을 원소로 가지는 리스트 생성
         private List<string[]> lines = new List<string[]>();
 
-        // ASCII ART가 그려진 텍스트 파일명 리스트 생성
+        // ASCII ART가 담은 텍스트 파일명 리스트 생성
         private List<string> asciiText = new List<string>();
 
         private int currentIndex1 = 0;
@@ -67,9 +67,8 @@ namespace Seotta
             // Enter 키를 눌렀을 때
             if (e.KeyCode == Keys.Enter)
             {
-                // 카드를 다시 출력하는 메서드 호출
-                ResetPae();
-                SelectPae();
+                ResetPae();     // 패 초기화
+                SelectPae();    // 패 선택
             }
         }
 
@@ -87,6 +86,7 @@ namespace Seotta
             }
         }
 
+        // ASCII ART 출력
         private void Timer1_Tick(object sender, EventArgs e)
         {
             if (currentIndex1 < lines[0].Length && currentIndex3 < lines[2].Length)
@@ -94,7 +94,7 @@ namespace Seotta
                 pae1.AppendText(lines[0][currentIndex1] + Environment.NewLine);
                 pae3.AppendText(lines[2][currentIndex3] + Environment.NewLine);
 
-                if (currentIndex3 < lines[0].Length)
+                if (currentIndex1 < lines[0].Length)
                     currentIndex1++;
 
                 if (currentIndex3 < lines[2].Length)
@@ -108,6 +108,7 @@ namespace Seotta
             }
         }
 
+        // ASCII ART 출력
         private void Timer2_Tick(object sender, EventArgs e)
         {
             if (currentIndex2 < lines[1].Length && currentIndex4 < lines[3].Length)
@@ -128,17 +129,18 @@ namespace Seotta
             }
         }
 
+        // 패 선택
         public void SelectPae()
         {
+            // 이전에 선택된 ASCII ART들을 저장할 리스트 생성
+            List<string> selectedArt = new List<string>();
+
             Random rand = new Random();
 
             lines.Add(lines1);
             lines.Add(lines2);
             lines.Add(lines3);
             lines.Add(lines4);
-
-            // 이전에 선택된 아스키 아트들을 저장할 리스트 생성
-            List<string> selectedArt = new List<string>();
 
             // ASCII ART 텍스트 파일명 저장
             for (int i = 1; i <= 20; i++)
@@ -149,15 +151,18 @@ namespace Seotta
             // 4개의 패를 선택
             for (int i = 0; i < 4; i++)
             {
-                // 중복이 발생할 경우 다시 선택
+                // 이전에 사용한 ASCII ART 파일명이 리스트에 있을경우(중복이 발생할 경우) 다시 선택
                 string selected;
                 do
                 {
+                    // asciiText에 접근하는데 사용할 0 ~ 19 사이의 랜덤 인덱스 생성
                     int randNum = rand.Next(0, asciiText.Count - 1);
                     selected = asciiText[randNum];
                 } while (selectedArt.Contains(selected));
 
+                // 중복이 발생하지 않은 ASCII ART 파일명이 선택되면 해당 파일을 읽어와서 각 패에 할당
                 lines[i] = ReadAllLinesFromFile(selected);
+                // 중복 선택되지 않도록 선택된 ASCII ART 파일명은 asciiText 리스트에서 제거
                 asciiText.Remove(selected);
                 selectedArt.Add(selected);
             }
