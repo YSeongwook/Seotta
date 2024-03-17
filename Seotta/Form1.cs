@@ -23,10 +23,7 @@ namespace Seotta
         // ASCII ART가 담은 텍스트 파일명 리스트 생성
         private List<string> asciiText = new List<string>();
 
-        private int currentIndex1 = 0;
-        private int currentIndex2 = 0;
-        private int currentIndex3 = 0;
-        private int currentIndex4 = 0;
+        private int[] currentIndex = new int[4];
 
         public Form1()
         {
@@ -89,43 +86,35 @@ namespace Seotta
         // ASCII ART 출력
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (currentIndex1 < lines[0].Length && currentIndex3 < lines[2].Length)
-            {
-                pae1.AppendText(lines[0][currentIndex1] + Environment.NewLine);
-                pae3.AppendText(lines[2][currentIndex3] + Environment.NewLine);
-
-                if (currentIndex1 < lines[0].Length)
-                    currentIndex1++;
-
-                if (currentIndex3 < lines[2].Length)
-                    currentIndex3++;
-            }
-            else
-            {
-                // 타이머1 중지 및 타이머2 시작
-                timer1.Stop();
-                timer2.Start();
-            }
+            DisplayLines(0, pae1);
+            DisplayLines(2, pae3);
         }
 
         // ASCII ART 출력
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (currentIndex2 < lines[1].Length && currentIndex4 < lines[3].Length)
+            DisplayLines(1, pae2);
+            DisplayLines(3, pae4);
+        }
+
+        private void DisplayLines(int index, TextBox textBox)
+        {
+            if (currentIndex[index] < lines[index].Length)
             {
-                pae2.AppendText(lines[1][currentIndex2] + Environment.NewLine);
-                pae4.AppendText(lines[3][currentIndex4] + Environment.NewLine);
-
-                if (currentIndex2 < lines[1].Length)
-                    currentIndex2++;
-
-                if (currentIndex4 < lines[3].Length)
-                    currentIndex4++;
+                textBox.AppendText(lines[index][currentIndex[index]] + Environment.NewLine);
+                currentIndex[index]++;
             }
             else
             {
-                // 타이머2 중지
-                timer2.Stop();
+                if (index == 0 || index == 2)
+                {
+                    timer1.Stop();
+                    timer2.Start();
+                }
+                else
+                {
+                    timer2.Stop();
+                }
             }
         }
 
@@ -167,11 +156,11 @@ namespace Seotta
                 selectedArt.Add(selected);
             }
 
-            // currentIndex1, currentIndex2, currentIndex3, currentIndex4 초기화
-            currentIndex1 = 0;
-            currentIndex2 = 0;
-            currentIndex3 = 0;
-            currentIndex4 = 0;
+            // currentIndex 초기화
+            for(int i = 0;i < currentIndex.Length; i++)
+            {
+                currentIndex[i] = 0;
+            }
 
             // 하단의 텍스트 박스에 포커스 설정
             // gameProgress.Focus();
