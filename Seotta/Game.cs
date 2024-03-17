@@ -1,16 +1,22 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 using static System.Console;
 
 namespace Seotta
 {
-    public partial class Form1 : Form
+    public class Game
     {
-        private Timer timer1;
-        private Timer timer2;
+        private Form1 form;
+        private TextBox pae1;
+        private TextBox pae2;
+        private TextBox pae3;
+        private TextBox pae4;
+        private TextBox gameProgress;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
 
         // ASCII ART를 담은 string 배열을 원소로 가지는 리스트
         private List<string[]> lines = new List<string[]>();
@@ -20,37 +26,40 @@ namespace Seotta
 
         private int[] currentIndex = new int[4];
 
-        public Form1()
+        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
         {
-            InitializeComponent();
+            this.form = form;
+            this.pae1 = pae1;
+            this.pae2 = pae2;
+            this.pae3 = pae3;
+            this.pae4 = pae4;
+            this.gameProgress = gameProgress;
 
-            // 폼을 화면에 가운데에 생성
-            this.StartPosition = FormStartPosition.CenterScreen;
-
-            // 폼의 배경색을 검정색으로 설정
-            this.BackColor = Color.Black;
-
-            Game game = new Game(this, pae1, pae2, pae3, pae4, gameProgress);
-            game.StartGame();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
             // 타이머1 설정
-            timer1 = new Timer();
+            timer1 = new System.Windows.Forms.Timer();
             timer1.Interval = 1; // 1밀리초마다 변경
             timer1.Tick += Timer1_Tick;
 
             // 타이머2 설정
-            timer2 = new Timer();
+            timer2 = new System.Windows.Forms.Timer();
             timer2.Interval = 1; // 1밀리초마다 변경
             timer2.Tick += Timer2_Tick;
 
-            GameLoop();
+            form.Focus();
+            form.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
-        
-        // 게임 진행
-        private void GameLoop()
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Enter 키를 눌렀을 때
+            if (e.KeyCode == Keys.Enter)
+            {
+                ResetPae();     // 패 초기화
+                SelectPae();    // 패 선택
+            }
+        }
+
+        public void StartGame()
         {
             gameProgress.AppendText("섰다 게임에 오신 여러분을 환영합니다!\r\n\r\n" +
                 "이 게임은 전통적인 한국 카드 게임인 '섰다'를 즐길 수 있는 프로그램입니다.\r\n" +
@@ -63,19 +72,6 @@ namespace Seotta
 
             // 타이머 시작
             timer1.Start();
-
-            this.Focus();
-            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Enter 키를 눌렀을 때
-            if (e.KeyCode == Keys.Enter)
-            {
-                ResetPae();     // 패 초기화
-                SelectPae();    // 패 선택
-            }
         }
 
         // ASCII ART 텍스트 파일 불러오기

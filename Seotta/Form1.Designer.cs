@@ -32,7 +32,7 @@ namespace Seotta
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new Font("Consolas", 32, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = Color.White;
-            this.labelTitle.Location = new Point(690, 20);
+            this.labelTitle.Location = new Point(688, 20);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new Size(124, 240);
             this.labelTitle.TabIndex = 5;
@@ -98,9 +98,76 @@ namespace Seotta
             this.gameProgress.Location = new Point(10, 664);
             this.gameProgress.Multiline = true;
             this.gameProgress.Name = "gameProgress";
-            this.gameProgress.Size = new Size(1454, 360);
+            this.gameProgress.Size = new Size(1454, 375);
             this.gameProgress.TabIndex = 0; // TabIndex를 0으로 설정해 폼이 생성되면 포커스가 자동으로 할당
             this.gameProgress.TabStop = false;
+            this.gameProgress.ReadOnly = true;
+            this.gameProgress.ScrollBars = ScrollBars.Vertical;
+
+            // bettingButton
+            this.betBtn7 = new System.Windows.Forms.Button();
+            this.betBtn7.Location = new System.Drawing.Point(1480, 660); // 버튼 위치 설정
+            this.betBtn7.Name = "betBtn7";
+            this.betBtn7.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn7.Text = "7|   콜  "; // 버튼 텍스트 설정
+            this.betBtn7.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn7.Font = new Font("Consolas", 20);
+            this.betBtn7.ForeColor = Color.White;
+            this.Controls.Add(this.betBtn7); // 폼에 버튼 추가
+            
+            this.betBtn8 = new System.Windows.Forms.Button();
+            this.betBtn8.Location = new System.Drawing.Point(1700, 660); // 버튼 위치 설정
+            this.betBtn8.Name = "betBtn8";
+            this.betBtn8.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn8.Text = "8|  다이 "; // 버튼 텍스트 설정
+            this.betBtn8.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn8.Font = new Font("Consolas", 20);
+            this.betBtn8.ForeColor = Color.White;
+            this.betBtn8.Padding = new Padding(0, 0, 10, 0);
+            this.Controls.Add(this.betBtn8); // 폼에 버튼 추가
+
+            this.betBtn4 = new System.Windows.Forms.Button();
+            this.betBtn4.Location = new System.Drawing.Point(1480, 760); // 버튼 위치 설정
+            this.betBtn4.Name = "betBtn4";
+            this.betBtn4.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn4.Text = "4|   삥  "; // 버튼 텍스트 설정
+            this.betBtn4.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn4.Font = new Font("Consolas", 20);
+            this.betBtn4.ForeColor = Color.White;
+            this.Controls.Add(this.betBtn4); // 폼에 버튼 추가
+
+            this.betBtn5 = new System.Windows.Forms.Button();
+            this.betBtn5.Location = new System.Drawing.Point(1700, 760); // 버튼 위치 설정
+            this.betBtn5.Name = "betBtn5";
+            this.betBtn5.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn5.Text = "5|  체크 "; // 버튼 텍스트 설정
+            this.betBtn5.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn5.Font = new Font("Consolas", 20);
+            this.betBtn5.ForeColor = Color.White;
+            this.betBtn5.Padding = new Padding(0, 0, 10, 0);
+            this.Controls.Add(this.betBtn5); // 폼에 버튼 추가
+
+            this.betBtn1 = new System.Windows.Forms.Button();
+            this.betBtn1.Location = new System.Drawing.Point(1480, 860); // 버튼 위치 설정
+            this.betBtn1.Name = "betBtn1";
+            this.betBtn1.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn1.Text = "1|  따당 "; // 버튼 텍스트 설정
+            this.betBtn1.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn1.Font = new Font("Consolas", 20);
+            this.betBtn1.ForeColor = Color.White;
+            this.betBtn1.Padding = new Padding(0, 0, 10, 0);
+            this.Controls.Add(this.betBtn1); // 폼에 버튼 추가
+
+            this.betBtn0 = new System.Windows.Forms.Button();
+            this.betBtn0.Location = new System.Drawing.Point(1480, 960); // 버튼 위치 설정
+            this.betBtn0.Name = "betBtn0";
+            this.betBtn0.Size = new System.Drawing.Size(200, 80); // 버튼 크기 설정
+            this.betBtn0.Text = "0|  하프 "; // 버튼 텍스트 설정
+            this.betBtn0.TextAlign = ContentAlignment.MiddleCenter;
+            this.betBtn0.Font = new Font("Consolas", 20);
+            this.betBtn0.ForeColor = Color.White;
+            this.betBtn0.Padding = new Padding(0, 0, 10, 0);
+            this.Controls.Add(this.betBtn0); // 폼에 버튼 추가
 
             // Form1
             this.AutoScaleDimensions = new SizeF(8F, 15F);
@@ -125,5 +192,14 @@ namespace Seotta
         private System.Windows.Forms.TextBox pae3;
         private System.Windows.Forms.TextBox pae4;
         private System.Windows.Forms.TextBox gameProgress;
+
+        // 베팅 버튼
+        private System.Windows.Forms.Button betBtn7;
+        private System.Windows.Forms.Button betBtn8;
+        private System.Windows.Forms.Button betBtn4;
+        private System.Windows.Forms.Button betBtn5;
+        private System.Windows.Forms.Button betBtn1;
+        private System.Windows.Forms.Button betBtn0;
+        private System.Windows.Forms.Button betBtn7Call;
     }
 }
