@@ -44,19 +44,6 @@ namespace Seotta
             timer2 = new System.Windows.Forms.Timer();
             timer2.Interval = 1; // 1밀리초마다 변경
             timer2.Tick += Timer2_Tick;
-
-            form.Focus();
-            form.KeyDown += new KeyEventHandler(Form1_KeyDown);
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Enter 키를 눌렀을 때
-            if (e.KeyCode == Keys.Enter)
-            {
-                ResetPae();     // 패 초기화
-                SelectPae();    // 패 선택
-            }
         }
 
         public void StartGame()
@@ -125,6 +112,23 @@ namespace Seotta
             }
         }
 
+        public void ResetPae()
+        {
+            // 각 패 텍스트 박스 초기화
+            pae1.Clear();
+            pae2.Clear();
+            pae3.Clear();
+            pae4.Clear();
+
+            currentIndex = new int[4];
+
+            // 타이머2 정지
+            timer2.Stop();
+
+            // 타이머1 시작
+            timer1.Start();
+        }
+
         // 패 선택
         public void SelectPae()
         {
@@ -150,23 +154,6 @@ namespace Seotta
                 // 하단의 텍스트 박스에 포커스 설정
                 // gameProgress.Focus();
             }
-        }
-
-        public void ResetPae()
-        {
-            // 각 패 텍스트 박스 초기화
-            pae1.Clear();
-            pae2.Clear();
-            pae3.Clear();
-            pae4.Clear();
-
-            currentIndex = new int[4];
-
-            // 타이머2 정지
-            timer2.Stop();
-
-            // 타이머1 시작
-            timer1.Start();
         }
     }
 }

@@ -113,6 +113,7 @@ namespace Seotta
             this.betBtn7.TextAlign = ContentAlignment.MiddleCenter;
             this.betBtn7.Font = new Font("Consolas", 20);
             this.betBtn7.ForeColor = Color.White;
+            this.betBtn7.TabIndex = 5;
             this.Controls.Add(this.betBtn7); // 폼에 버튼 추가
             
             this.betBtn8 = new System.Windows.Forms.Button();
@@ -124,6 +125,7 @@ namespace Seotta
             this.betBtn8.Font = new Font("Consolas", 20);
             this.betBtn8.ForeColor = Color.White;
             this.betBtn8.Padding = new Padding(0, 0, 10, 0);
+            this.betBtn8.TabIndex = 6;
             this.Controls.Add(this.betBtn8); // 폼에 버튼 추가
 
             this.betBtn4 = new System.Windows.Forms.Button();
@@ -134,6 +136,7 @@ namespace Seotta
             this.betBtn4.TextAlign = ContentAlignment.MiddleCenter;
             this.betBtn4.Font = new Font("Consolas", 20);
             this.betBtn4.ForeColor = Color.White;
+            this.betBtn4.TabIndex = 7;
             this.Controls.Add(this.betBtn4); // 폼에 버튼 추가
 
             this.betBtn5 = new System.Windows.Forms.Button();
@@ -145,6 +148,7 @@ namespace Seotta
             this.betBtn5.Font = new Font("Consolas", 20);
             this.betBtn5.ForeColor = Color.White;
             this.betBtn5.Padding = new Padding(0, 0, 10, 0);
+            this.betBtn5.TabIndex = 8;
             this.Controls.Add(this.betBtn5); // 폼에 버튼 추가
 
             this.betBtn1 = new System.Windows.Forms.Button();
@@ -156,6 +160,7 @@ namespace Seotta
             this.betBtn1.Font = new Font("Consolas", 20);
             this.betBtn1.ForeColor = Color.White;
             this.betBtn1.Padding = new Padding(0, 0, 10, 0);
+            this.betBtn1.TabIndex = 9;
             this.Controls.Add(this.betBtn1); // 폼에 버튼 추가
 
             this.betBtn0 = new System.Windows.Forms.Button();
@@ -167,6 +172,7 @@ namespace Seotta
             this.betBtn0.Font = new Font("Consolas", 20);
             this.betBtn0.ForeColor = Color.White;
             this.betBtn0.Padding = new Padding(0, 0, 10, 0);
+            this.betBtn0.TabIndex = 10;
             this.Controls.Add(this.betBtn0); // 폼에 버튼 추가
 
             // Form1
