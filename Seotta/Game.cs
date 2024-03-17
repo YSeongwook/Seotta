@@ -152,7 +152,7 @@ namespace Seotta
             }
         }
 
-        private void ResetPae()
+        public void ResetPae()
         {
             // 각 패 텍스트 박스 초기화
             pae1.Clear();
