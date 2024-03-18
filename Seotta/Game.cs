@@ -9,14 +9,17 @@ namespace Seotta
 {
     public class Game
     {
-        private Form1 form;
-        private TextBox pae1;
-        private TextBox pae2;
-        private TextBox pae3;
-        private TextBox pae4;
-        private TextBox gameProgress;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
+        Form1 form;
+        TextBox pae1;
+        TextBox pae2;
+        TextBox pae3;
+        TextBox pae4;
+        TextBox gameProgress;
+
+        System.Windows.Forms.Timer timer1;
+        System.Windows.Forms.Timer timer2;
+
+        Pae[] pae;
 
         // ASCII ART를 담은 string 배열을 원소로 가지는 리스트
         private List<string[]> lines = new List<string[]>();
@@ -35,6 +38,8 @@ namespace Seotta
             this.pae4 = pae4;
             this.gameProgress = gameProgress;
 
+            pae = new Pae[20];
+
             // 타이머1 설정
             timer1 = new System.Windows.Forms.Timer();
             timer1.Interval = 1; // 1밀리초마다 변경
@@ -48,17 +53,55 @@ namespace Seotta
 
         public void StartGame()
         {
-            gameProgress.AppendText("섰다 게임에 오신 여러분을 환영합니다!\r\n\r\n" +
-                "이 게임은 전통적인 한국 카드 게임인 '섰다'를 즐길 수 있는 프로그램입니다.\r\n" +
-                "여러분은 컴퓨터와 대결을 펼치게 됩니다.\r\n" +
-                "무작위로 섞인 화투 패로 상대를 이기고, 전략적인 베팅과 판단으로 승리를 거두세요.\r\n" +
-                "즐거운 시간을 보내고 운을 시험해보세요!");
+            DisplayTextFromFile("game_start.txt", gameProgress);
 
             ResetPae();
-            SelectPae();
+            PrintPae();
 
             // 타이머 시작
             timer1.Start();
+
+            ReadPaeFromFile("Pae_Name.txt");
+        }
+
+        public void ReadPaeFromFile(string filePath)
+        {
+            List<string> paeName = new List<string>();
+
+            foreach (string str in File.ReadLines(filePath))
+            {
+                paeName.Add(str); // 리스트에 문자열 추가
+            }
+
+            for (int i = 0; i < pae.Length; i++)
+            {
+                if (i == 0)
+                {
+                    pae[i] = new Pae((i + 1).ToString(), paeName[i]);
+                }
+                else
+                {
+                    pae[i] = new Pae((i / 2 + 1).ToString(), paeName[i]);
+                }
+            }
+        }
+
+        // 문자열 파일 읽어 출력
+        public void DisplayTextFromFile(string filePath, TextBox targetTextBox)
+        {
+            try
+            {
+                // 지정된 파일의 모든 텍스트를 읽는다.
+                string fileContent = File.ReadAllText(filePath);
+
+                // 읽어온 텍스트를 대상 텍스트 박스에 표시
+                targetTextBox.Text = fileContent;
+            }
+            catch (Exception ex)
+            {
+                // 오류 발생 시 처리
+                MessageBox.Show($"파일을 읽는 중 오류가 발생했습니다: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // ASCII ART 텍스트 파일 불러오기
@@ -73,42 +116,6 @@ namespace Seotta
                 WriteLine($"{fileName} 파일을 불러올 수 없습니다.");
 
                 return new string[0];
-            }
-        }
-
-        // ASCII ART 출력
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            DisplayLines(0, pae1);
-            DisplayLines(2, pae3);
-        }
-
-        // ASCII ART 출력
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
-            DisplayLines(1, pae2);
-            DisplayLines(3, pae4);
-        }
-
-        private void DisplayLines(int index, TextBox textBox)
-        {
-            if (currentIndex[index] < lines[index].Length)
-            {
-                // ASCII ART를 한줄 씩 TextBox에 추가
-                textBox.AppendText(lines[index][currentIndex[index]] + Environment.NewLine);
-                currentIndex[index]++;
-            }
-            else
-            {
-                if (index == 0 || index == 2)
-                {
-                    timer1.Stop();
-                    timer2.Start();
-                }
-                else
-                {
-                    timer2.Stop();
-                }
             }
         }
 
@@ -132,6 +139,12 @@ namespace Seotta
         // 패 선택
         public void SelectPae()
         {
+
+        }
+
+        // 패 출력, 패 선택 메소드에서 4장을 선택하면 그 4장이 담기고 출력만 하게 끔 메소드 만들어야함
+        public void PrintPae()
+        {
             Random rand = new Random();
             lines.Clear();
 
@@ -150,9 +163,43 @@ namespace Seotta
                 lines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
                 asciiText.RemoveAt(randIndex); // 중복된 값 제거
                 currentIndex[i] = 0;
+            }
+        }
 
-                // 하단의 텍스트 박스에 포커스 설정
-                // gameProgress.Focus();
+        // ASCII ART 출력
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            DisplayLines(0, pae1);
+            DisplayLines(2, pae3);
+        }
+
+        // ASCII ART 출력
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            DisplayLines(1, pae2);
+            DisplayLines(3, pae4);
+        }
+
+        // ASCII ART 출력
+        private void DisplayLines(int index, TextBox textBox)
+        {
+            if (currentIndex[index] < lines[index].Length)
+            {
+                // ASCII ART를 한줄 씩 TextBox에 추가
+                textBox.AppendText(lines[index][currentIndex[index]] + Environment.NewLine);
+                currentIndex[index]++;
+            }
+            else
+            {
+                if (index == 0 || index == 2)
+                {
+                    timer1.Stop();
+                    timer2.Start();
+                }
+                else
+                {
+                    timer2.Stop();
+                }
             }
         }
     }
