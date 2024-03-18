@@ -115,13 +115,13 @@ namespace Seotta
             this.gameProgress.BackColor = System.Drawing.Color.Black;
             this.gameProgress.Font = new System.Drawing.Font("Consolas", 24F);
             this.gameProgress.ForeColor = System.Drawing.Color.White;
-            this.gameProgress.Location = new System.Drawing.Point(12, 797);
+            this.gameProgress.Location = new System.Drawing.Point(12, 794);
             this.gameProgress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gameProgress.Multiline = true;
             this.gameProgress.Name = "gameProgress";
             this.gameProgress.ReadOnly = true;
             this.gameProgress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.gameProgress.Size = new System.Drawing.Size(1816, 449);
+            this.gameProgress.Size = new System.Drawing.Size(1816, 452);
             this.gameProgress.TabIndex = 0;
             this.gameProgress.TabStop = false;
             // 

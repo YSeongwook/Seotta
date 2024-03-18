@@ -25,7 +25,7 @@ namespace Seotta
         private List<string[]> cpuLines = new List<string[]>();
         private List<string[]> playerLines = new List<string[]>();
 
-        // ASCII ART가 담은 텍스트 파일명 리스트
+        // ASCII ART가 담겨있는 텍스트 파일명 리스트
         private List<string> asciiText = new List<string>();
 
         private int[] currentIndex = new int[4];
@@ -223,7 +223,7 @@ namespace Seotta
             DisplayLines(3, pae4, cpuLines, playerLines, false);
         }
 
-        /// ASCII ART 출력
+        // ASCII ART 출력
         private void DisplayLines(int index, TextBox textBox, List<string[]> cpuLines, List<string[]> playerLines, bool isCpu)
         {
             if (isCpu)
