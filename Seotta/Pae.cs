@@ -8,18 +8,20 @@ namespace Seotta
 {
     public class Pae
     {
-        public string PaeNum { get; set; }
+        public string PaeMonth { get; set; }
         public string PaeName { get; set; }
         public int PaeLevel { get; set; }
 
-        public string SpecialPae;
+        public string AsciiArtTextFileName { get; set; }
+        public string specialPae;
 
-        public Pae(string paeNum, string paeName)
+        public Pae(string paeMonth, string paeName, string asciiArtTextFileName)
         {
-            this.PaeNum = paeNum;
+            this.PaeMonth = paeMonth;
             this.PaeName = paeName;
+            this.AsciiArtTextFileName = asciiArtTextFileName;
         }
-        
+
         // Pae 클래스에 ASCII ART를 입력 받아서 넣으면 될듯
 
         // 출력은 PaeNum으로 "{pae.PaeNum}.txt"을 이용해 출력

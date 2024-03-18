@@ -62,27 +62,36 @@ namespace Seotta
             // 타이머 시작
             timer1.Start();
 
+            // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
             ReadPaeFromFile("Pae_Name.txt");
         }
 
+        // Pae 객체 20개 생성(1광 ~ 10띠)
         public void ReadPaeFromFile(string filePath)
         {
             List<string> paeName = new List<string>();
+
+            // ASCII ART가 담겨진 텍스트 파일명 불러오기
+            asciiText.Clear();
+            for (int i = 1; i <= 20; i++) asciiText.Add($"{i}.txt");
 
             foreach (string str in File.ReadLines(filePath))
             {
                 paeName.Add(str); // 리스트에 문자열 추가
             }
 
+            // PaeMonth, PaeName을 필드로 가지는 객체 생성
+            // pae[0] => ("1", "1광", "아스키 아트 텍스트 파일 이름")
+            // pae[1] => ("1", "1띠", "아스키 아트 텍스트 파일 이름") 
             for (int i = 0; i < pae.Length; i++)
             {
                 if (i == 0)
                 {
-                    pae[i] = new Pae((i + 1).ToString(), paeName[i]);
+                    pae[i] = new Pae((i + 1).ToString(), paeName[i], asciiText[i]);
                 }
                 else
                 {
-                    pae[i] = new Pae((i / 2 + 1).ToString(), paeName[i]);
+                    pae[i] = new Pae((i / 2 + 1).ToString(), paeName[i], asciiText[i]);
                 }
             }
         }
@@ -140,14 +149,7 @@ namespace Seotta
         // 패 선택
         public void SelectPae()
         {
-            // Pae 클래스 이용해서 패 2장을 선택하고
-            // cpu는 뒷면 출력, 플레이어는 1장 출력
-
             Random rand = new Random();
-
-            // ASCII ART가 담겨진 텍스트 파일명 불러오기
-            asciiText.Clear();
-            for (int i = 1; i <= 20; i++) asciiText.Add($"{i}.txt");
 
             for (int i = 0; i < 2; i++)
             {
@@ -172,10 +174,11 @@ namespace Seotta
         }
 
         // SelectPae()
-        // Betting()
-        // SelectPae()
+        // PrintPae()
         // Betting()
         // PrintPae()
+        // Betting()
+        // PrintResult()
 
         // cpu 뒷면 출력, 플레이어 1장 출력
         public void PrintPae()
@@ -196,10 +199,11 @@ namespace Seotta
                     randIndex = rand.Next(0, asciiText.Count);
                 } while (asciiText[randIndex] == null);
 
-                if(i % 2 == 0)
+                if (i % 2 == 0)
                 {
-                    cpuLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
-                } else
+                    cpuLines.Add(ReadAllLinesFromFile("back_of_pae.txt"));
+                }
+                else
                 {
                     playerLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
                 }
@@ -209,8 +213,7 @@ namespace Seotta
             }
         }
 
-        // PrintResult(), cpu 패도 모두 출력하고 비교해서 승
-
+        // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
         private void Timer1_Tick(object sender, EventArgs e)
         {
             DisplayLines(0, pae1, cpuLines, playerLines, true);
