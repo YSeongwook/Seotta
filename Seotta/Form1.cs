@@ -50,7 +50,11 @@ namespace Seotta
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.ResetPae();            // 패 초기화
+<<<<<<< HEAD
                 game.PrintPae();           // 패 선택
+=======
+                game.SelectPae();           // 패 선택
+>>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
             }
         }
 
@@ -61,7 +65,11 @@ namespace Seotta
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.ResetPae();            // 패 초기화
+<<<<<<< HEAD
                 game.PrintPae();           // 패 선택
+=======
+                game.SelectPae();           // 패 선택
+>>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
             }
         }
 
@@ -98,7 +106,10 @@ namespace Seotta
             Button jokboLabel = (Button)panel.Controls[0];  // 형변환 해야 접근 가능
             jokboLabel.TextAlign = ContentAlignment.MiddleCenter;
             jokboLabel.FlatStyle = FlatStyle.Flat;
+<<<<<<< HEAD
             jokboLabel.TabStop = false;
+=======
+>>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
             jokboLabel.Text = "족보";
             jokboLabel.Font = new Font("Consolas", 22F);
