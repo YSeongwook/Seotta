@@ -28,7 +28,11 @@ namespace Seotta
         // ASCII ART가 담겨있는 텍스트 파일명 리스트
         private List<string> asciiText = new List<string>();
 
-        private int[] currentIndex = new int[4];
+        private int[] cpuIndex = new int[2];
+        private int[] playerIndex = new int[2];
+
+        private Pae[] cpuPae = new Pae[2];
+        private Pae[] playerPae = new Pae[2];
 
         public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
         {
@@ -137,7 +141,8 @@ namespace Seotta
             pae3.Clear();
             pae4.Clear();
 
-            currentIndex = new int[4];
+            cpuIndex = new int[2];
+            playerIndex = new int[2];
 
             // 타이머2 정지
             timer2.Stop();
@@ -169,7 +174,8 @@ namespace Seotta
                 }
 
                 asciiText.RemoveAt(randIndex); // 중복된 값 제거
-                currentIndex[i] = 0;
+                cpuIndex[i] = 0;
+                playerIndex[i] = 0;
             }
         }
 
@@ -196,46 +202,60 @@ namespace Seotta
                 int randIndex;
                 do
                 {
-                    randIndex = rand.Next(0, asciiText.Count);
+                    randIndex = rand.Next(0, asciiText.Count - 1);
                 } while (asciiText[randIndex] == null);
 
                 if (i % 2 == 0)
                 {
                     cpuLines.Add(ReadAllLinesFromFile("back_of_pae.txt"));
+                    if(i>1)
+                    {
+                        cpuIndex[i - 1] = 0;
+                    } else
+                    {
+                        cpuIndex[i] = 0;
+                    }
+
                 }
                 else
                 {
                     playerLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
+                    if (i > 1)
+                    {
+                        playerIndex[i - 2] = 0;
+                    }
+                    else
+                    {
+                        playerIndex[i - 1] = 0;
+                    }
                 }
-
-                asciiText.RemoveAt(randIndex); // 중복된 값 제거
-                currentIndex[i] = 0;
+                asciiText.RemoveAt(randIndex);
             }
         }
 
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            DisplayLines(0, pae1, cpuLines, playerLines, true);
-            DisplayLines(2, pae3, cpuLines, playerLines, true);
+            DisplayLines(0, pae1, cpuLines, true);
+            DisplayLines(0, pae3, playerLines, false);
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            DisplayLines(1, pae2, cpuLines, playerLines, false);
-            DisplayLines(3, pae4, cpuLines, playerLines, false);
+            DisplayLines(1, pae2, cpuLines, true);
+            DisplayLines(1, pae4, playerLines, false);
         }
 
         // ASCII ART 출력
-        private void DisplayLines(int index, TextBox textBox, List<string[]> cpuLines, List<string[]> playerLines, bool isCpu)
+        private void DisplayLines(int index, TextBox textBox, List<string[]> lines, bool isCpu)
         {
             if (isCpu)
             {
-                if (currentIndex[index] < cpuLines[index / 2].Length)
+                if (cpuIndex[index] < lines[index].Length)
                 {
                     // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(cpuLines[index / 2][currentIndex[index]] + Environment.NewLine);
-                    currentIndex[index]++;
+                    textBox.AppendText(lines[index][cpuIndex[index]] + Environment.NewLine);
+                    cpuIndex[index]++;
                 }
                 else
                 {
@@ -252,11 +272,11 @@ namespace Seotta
             }
             else
             {
-                if (currentIndex[index] < playerLines[index / 2].Length)
+                if (playerIndex[index] < lines[index].Length)
                 {
                     // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(playerLines[index / 2][currentIndex[index]] + Environment.NewLine);
-                    currentIndex[index]++;
+                    textBox.AppendText(lines[index][playerIndex[index]] + Environment.NewLine);
+                    playerIndex[index]++;
                 }
                 else
                 {
