@@ -26,6 +26,9 @@ namespace Seotta
 
         private int[] currentIndex = new int[4];
 
+        string[] paeNameArr = { "1광", "1띠", "2열끗", "2띠", "3광", "3띠", "4열끗", "4띠", "5열끗", "5띠",
+            "6열끗", "6띠", "7열끗", "7띠", "8광", "8열끗", "9열끗", "9띠", "10열끗", "10띠" };
+
         public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
         {
             this.form = form;
@@ -48,17 +51,45 @@ namespace Seotta
 
         public void StartGame()
         {
-            gameProgress.AppendText("섰다 게임에 오신 여러분을 환영합니다!\r\n\r\n" +
-                "이 게임은 전통적인 한국 카드 게임인 '섰다'를 즐길 수 있는 프로그램입니다.\r\n" +
-                "여러분은 컴퓨터와 대결을 펼치게 됩니다.\r\n" +
-                "무작위로 섞인 화투 패로 상대를 이기고, 전략적인 베팅과 판단으로 승리를 거두세요.\r\n" +
-                "즐거운 시간을 보내고 운을 시험해보세요!");
+            DisplayTextFromFile("game_start.txt", gameProgress);
 
             ResetPae();
             SelectPae();
 
             // 타이머 시작
             timer1.Start();
+
+            ReadPaeFromFile("Pae_Name.txt");
+        }
+
+        public void ReadPaeFromFile(string filePath)
+        {
+            Pae[] pae = new Pae[20];
+
+            for (int i = 0; i < pae.Length; i++)
+            {
+                if (i == 0)
+                {
+                    pae[i] = new Pae((i + 1).ToString(), paeNameArr[i]);
+                }
+                else
+                {
+                    pae[i] = new Pae((i / 2 + 1).ToString(), paeNameArr[i]);
+                }
+            }
+
+            // 현재 ReadPaeFromFile() 잘 실행되고 있음
+            // PrintPaeArr(gameProgress, pae);
+        }
+
+        public void PrintPaeArr(TextBox gameProgress, Pae[] pae)
+        {
+            gameProgress.Text = "Pae 배열 출력\r\n";
+
+            for (int i = 0; i < pae.Length; i++)
+            {
+                gameProgress.AppendText($"{pae[i].PaeNum}, {pae[i].PaeName}\r\n");
+            }
         }
 
         // ASCII ART 텍스트 파일 불러오기
@@ -90,6 +121,25 @@ namespace Seotta
             DisplayLines(3, pae4);
         }
 
+        // 문자열 파일 읽어 출력
+        public void DisplayTextFromFile(string filePath, TextBox targetTextBox)
+        {
+            try
+            {
+                // 지정된 파일의 모든 텍스트를 읽는다.
+                string fileContent = File.ReadAllText(filePath);
+
+                // 읽어온 텍스트를 대상 텍스트 박스에 표시
+                targetTextBox.Text = fileContent;
+            }
+            catch (Exception ex)
+            {
+                // 오류 발생 시 처리
+                MessageBox.Show($"파일을 읽는 중 오류가 발생했습니다: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ASCII ART 출력
         private void DisplayLines(int index, TextBox textBox)
         {
             if (currentIndex[index] < lines[index].Length)

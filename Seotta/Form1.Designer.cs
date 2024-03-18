@@ -34,6 +34,7 @@ namespace Seotta
             this.betBtn0 = new System.Windows.Forms.Button();
             this.jokboHelpBtn = new System.Windows.Forms.Button();
             this.betHelpBtn = new System.Windows.Forms.Button();
+            this.jokboHelper = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -126,7 +127,7 @@ namespace Seotta
             // 
             // betBtn7
             // 
-            this.betBtn7.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn7.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn7.ForeColor = System.Drawing.Color.White;
             this.betBtn7.Location = new System.Drawing.Point(1850, 792);
             this.betBtn7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -138,7 +139,7 @@ namespace Seotta
             // 
             // betBtn8
             // 
-            this.betBtn8.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn8.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn8.ForeColor = System.Drawing.Color.White;
             this.betBtn8.Location = new System.Drawing.Point(2112, 792);
             this.betBtn8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -151,7 +152,7 @@ namespace Seotta
             // 
             // betBtn4
             // 
-            this.betBtn4.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn4.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn4.ForeColor = System.Drawing.Color.White;
             this.betBtn4.Location = new System.Drawing.Point(1850, 912);
             this.betBtn4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -163,7 +164,7 @@ namespace Seotta
             // 
             // betBtn5
             // 
-            this.betBtn5.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn5.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn5.ForeColor = System.Drawing.Color.White;
             this.betBtn5.Location = new System.Drawing.Point(2112, 912);
             this.betBtn5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -176,7 +177,7 @@ namespace Seotta
             // 
             // betBtn1
             // 
-            this.betBtn1.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn1.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn1.ForeColor = System.Drawing.Color.White;
             this.betBtn1.Location = new System.Drawing.Point(1850, 1032);
             this.betBtn1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -189,7 +190,7 @@ namespace Seotta
             // 
             // betBtn0
             // 
-            this.betBtn0.Font = new System.Drawing.Font("Consolas", 20F);
+            this.betBtn0.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn0.ForeColor = System.Drawing.Color.White;
             this.betBtn0.Location = new System.Drawing.Point(1850, 1152);
             this.betBtn0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -202,7 +203,7 @@ namespace Seotta
             // 
             // jokboHelpBtn
             // 
-            this.jokboHelpBtn.Font = new System.Drawing.Font("Consolas", 15F);
+            this.jokboHelpBtn.Font = new System.Drawing.Font("Consolas", 15F, FontStyle.Bold);
             this.jokboHelpBtn.ForeColor = System.Drawing.Color.White;
             this.jokboHelpBtn.Location = new System.Drawing.Point(2016, 24);
             this.jokboHelpBtn.Name = "jokboHelpBtn";
@@ -213,7 +214,7 @@ namespace Seotta
             this.jokboHelpBtn.Click += new System.EventHandler(this.JokboHelpBtn_BtnClick);
 
             // betHelpBtn
-            this.betHelpBtn.Font = new System.Drawing.Font("Consolas", 15F);
+            this.betHelpBtn.Font = new System.Drawing.Font("Consolas", 15F, FontStyle.Bold);
             this.betHelpBtn.ForeColor = System.Drawing.Color.White;
             this.betHelpBtn.Location = new System.Drawing.Point(2191, 24);
             this.betHelpBtn.Name = "betHelpBtn";
@@ -223,6 +224,19 @@ namespace Seotta
             this.betHelpBtn.TextAlign = ContentAlignment.MiddleCenter;
             this.betHelpBtn.Text = "베팅 도움말";
             this.betHelpBtn.Click += new System.EventHandler(this.BetHelpBtn_BtnClick);
+
+            // jokboHelper
+            this.jokboHelper.BackColor = System.Drawing.Color.Black;
+            this.jokboHelper.Font = new System.Drawing.Font("Consolas", 20F);
+            this.jokboHelper.ForeColor = System.Drawing.Color.White;
+            this.jokboHelper.Location = new System.Drawing.Point(1840, 470);
+            this.jokboHelper.Multiline = true;
+            this.jokboHelper.Name = "jokboHelper";
+            this.jokboHelper.ReadOnly = true;
+            this.jokboHelper.Size = new System.Drawing.Size(518, 120);
+            this.jokboHelper.TabIndex = 0;
+            this.jokboHelper.TabStop = false;
+
             // 
             // Form1
             // 
@@ -244,6 +258,7 @@ namespace Seotta
             this.Controls.Add(this.betBtn0);
             this.Controls.Add(this.jokboHelpBtn);
             this.Controls.Add(this.betHelpBtn);
+            this.Controls.Add(this.jokboHelper);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -273,8 +288,11 @@ namespace Seotta
         private System.Windows.Forms.Button betBtn1;
         private System.Windows.Forms.Button betBtn0;
 
-        // 도움말 버튼
+        // 족보, 베팅 도움말 버튼
         private System.Windows.Forms.Button jokboHelpBtn;
         private System.Windows.Forms.Button betHelpBtn;
+
+        // 족보 도우미
+        private System.Windows.Forms.TextBox jokboHelper;
     }
 }
