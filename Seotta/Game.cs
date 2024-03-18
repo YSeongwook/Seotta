@@ -29,9 +29,6 @@ namespace Seotta
 
         private int[] currentIndex = new int[4];
 
-        string[] paeNameArr = { "1광", "1띠", "2열끗", "2띠", "3광", "3띠", "4열끗", "4띠", "5열끗", "5띠",
-            "6열끗", "6띠", "7열끗", "7띠", "8광", "8열끗", "9열끗", "9띠", "10열끗", "10띠" };
-
         public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
         {
             this.form = form;
@@ -69,22 +66,17 @@ namespace Seotta
 
         public void ReadPaeFromFile(string filePath)
         {
-<<<<<<< HEAD
             List<string> paeName = new List<string>();
 
             foreach (string str in File.ReadLines(filePath))
             {
                 paeName.Add(str); // 리스트에 문자열 추가
             }
-=======
-            Pae[] pae = new Pae[20];
->>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
 
             for (int i = 0; i < pae.Length; i++)
             {
                 if (i == 0)
                 {
-<<<<<<< HEAD
                     pae[i] = new Pae((i + 1).ToString(), paeName[i]);
                 }
                 else
@@ -109,27 +101,6 @@ namespace Seotta
             {
                 // 오류 발생 시 처리
                 MessageBox.Show($"파일을 읽는 중 오류가 발생했습니다: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-=======
-                    pae[i] = new Pae((i + 1).ToString(), paeNameArr[i]);
-                }
-                else
-                {
-                    pae[i] = new Pae((i / 2 + 1).ToString(), paeNameArr[i]);
-                }
-            }
-
-            // 현재 ReadPaeFromFile() 잘 실행되고 있음
-            // PrintPaeArr(gameProgress, pae);
-        }
-
-        public void PrintPaeArr(TextBox gameProgress, Pae[] pae)
-        {
-            gameProgress.Text = "Pae 배열 출력\r\n";
-
-            for (int i = 0; i < pae.Length; i++)
-            {
-                gameProgress.AppendText($"{pae[i].PaeNum}, {pae[i].PaeName}\r\n");
->>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
             }
         }
 
@@ -148,64 +119,6 @@ namespace Seotta
             }
         }
 
-<<<<<<< HEAD
-=======
-        // ASCII ART 출력
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            DisplayLines(0, pae1);
-            DisplayLines(2, pae3);
-        }
-
-        // ASCII ART 출력
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
-            DisplayLines(1, pae2);
-            DisplayLines(3, pae4);
-        }
-
-        // 문자열 파일 읽어 출력
-        public void DisplayTextFromFile(string filePath, TextBox targetTextBox)
-        {
-            try
-            {
-                // 지정된 파일의 모든 텍스트를 읽는다.
-                string fileContent = File.ReadAllText(filePath);
-
-                // 읽어온 텍스트를 대상 텍스트 박스에 표시
-                targetTextBox.Text = fileContent;
-            }
-            catch (Exception ex)
-            {
-                // 오류 발생 시 처리
-                MessageBox.Show($"파일을 읽는 중 오류가 발생했습니다: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // ASCII ART 출력
-        private void DisplayLines(int index, TextBox textBox)
-        {
-            if (currentIndex[index] < lines[index].Length)
-            {
-                // ASCII ART를 한줄 씩 TextBox에 추가
-                textBox.AppendText(lines[index][currentIndex[index]] + Environment.NewLine);
-                currentIndex[index]++;
-            }
-            else
-            {
-                if (index == 0 || index == 2)
-                {
-                    timer1.Stop();
-                    timer2.Start();
-                }
-                else
-                {
-                    timer2.Stop();
-                }
-            }
-        }
-
->>>>>>> db50dc9473d8e28d4b68b37ad99c6d459d5a499d
         public void ResetPae()
         {
             // 각 패 텍스트 박스 초기화
