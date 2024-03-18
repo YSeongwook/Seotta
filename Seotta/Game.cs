@@ -22,7 +22,8 @@ namespace Seotta
         Pae[] pae;
 
         // ASCII ART를 담은 string 배열을 원소로 가지는 리스트
-        private List<string[]> lines = new List<string[]>();
+        private List<string[]> cpuLines = new List<string[]>();
+        private List<string[]> playerLines = new List<string[]>();
 
         // ASCII ART가 담은 텍스트 파일명 리스트
         private List<string> asciiText = new List<string>();
@@ -139,14 +140,49 @@ namespace Seotta
         // 패 선택
         public void SelectPae()
         {
+            // Pae 클래스 이용해서 패 2장을 선택하고
+            // cpu는 뒷면 출력, 플레이어는 1장 출력
 
+            Random rand = new Random();
+
+            // ASCII ART가 담겨진 텍스트 파일명 불러오기
+            asciiText.Clear();
+            for (int i = 1; i <= 20; i++) asciiText.Add($"{i}.txt");
+
+            for (int i = 0; i < 2; i++)
+            {
+                int randIndex;
+                do
+                {
+                    randIndex = rand.Next(0, asciiText.Count);
+                } while (asciiText[randIndex] == null);
+
+                if (i % 2 == 0)
+                {
+                    // cpu 패 선택
+                }
+                else
+                {
+                    // 플레이어 패 선택
+                }
+
+                asciiText.RemoveAt(randIndex); // 중복된 값 제거
+                currentIndex[i] = 0;
+            }
         }
 
-        // 패 출력, 패 선택 메소드에서 4장을 선택하면 그 4장이 담기고 출력만 하게 끔 메소드 만들어야함
+        // SelectPae()
+        // Betting()
+        // SelectPae()
+        // Betting()
+        // PrintPae()
+
+        // cpu 뒷면 출력, 플레이어 1장 출력
         public void PrintPae()
         {
             Random rand = new Random();
-            lines.Clear();
+            cpuLines.Clear();
+            playerLines.Clear();
 
             // ASCII ART가 담겨진 텍스트 파일명 불러오기
             asciiText.Clear();
@@ -160,47 +196,79 @@ namespace Seotta
                     randIndex = rand.Next(0, asciiText.Count);
                 } while (asciiText[randIndex] == null);
 
-                lines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
+                if(i % 2 == 0)
+                {
+                    cpuLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
+                } else
+                {
+                    playerLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
+                }
+
                 asciiText.RemoveAt(randIndex); // 중복된 값 제거
                 currentIndex[i] = 0;
             }
         }
 
-        // ASCII ART 출력
+        // PrintResult(), cpu 패도 모두 출력하고 비교해서 승
+
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            DisplayLines(0, pae1);
-            DisplayLines(2, pae3);
+            DisplayLines(0, pae1, cpuLines, playerLines, true);
+            DisplayLines(2, pae3, cpuLines, playerLines, true);
         }
 
-        // ASCII ART 출력
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            DisplayLines(1, pae2);
-            DisplayLines(3, pae4);
+            DisplayLines(1, pae2, cpuLines, playerLines, false);
+            DisplayLines(3, pae4, cpuLines, playerLines, false);
         }
 
-        // ASCII ART 출력
-        private void DisplayLines(int index, TextBox textBox)
+        /// ASCII ART 출력
+        private void DisplayLines(int index, TextBox textBox, List<string[]> cpuLines, List<string[]> playerLines, bool isCpu)
         {
-            if (currentIndex[index] < lines[index].Length)
+            if (isCpu)
             {
-                // ASCII ART를 한줄 씩 TextBox에 추가
-                textBox.AppendText(lines[index][currentIndex[index]] + Environment.NewLine);
-                currentIndex[index]++;
-            }
-            else
-            {
-                if (index == 0 || index == 2)
+                if (currentIndex[index] < cpuLines[index / 2].Length)
                 {
-                    timer1.Stop();
-                    timer2.Start();
+                    // ASCII ART를 한줄 씩 TextBox에 추가
+                    textBox.AppendText(cpuLines[index / 2][currentIndex[index]] + Environment.NewLine);
+                    currentIndex[index]++;
                 }
                 else
                 {
-                    timer2.Stop();
+                    if (index == 0 || index == 2)
+                    {
+                        timer1.Stop();
+                        timer2.Start();
+                    }
+                    else
+                    {
+                        timer2.Stop();
+                    }
+                }
+            }
+            else
+            {
+                if (currentIndex[index] < playerLines[index / 2].Length)
+                {
+                    // ASCII ART를 한줄 씩 TextBox에 추가
+                    textBox.AppendText(playerLines[index / 2][currentIndex[index]] + Environment.NewLine);
+                    currentIndex[index]++;
+                }
+                else
+                {
+                    if (index == 0 || index == 2)
+                    {
+                        timer1.Stop();
+                        timer2.Start();
+                    }
+                    else
+                    {
+                        timer2.Stop();
+                    }
                 }
             }
         }
+
     }
 }
