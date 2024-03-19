@@ -227,7 +227,7 @@ namespace Seotta
 
             // jokboHelper
             this.jokboHelper.BackColor = System.Drawing.Color.Black;
-            this.jokboHelper.Font = new System.Drawing.Font("Consolas", 20F);
+            this.jokboHelper.Font = new System.Drawing.Font("Consolas", 16F);
             this.jokboHelper.ForeColor = System.Drawing.Color.White;
             this.jokboHelper.Location = new System.Drawing.Point(1840, 470);
             this.jokboHelper.Multiline = true;
