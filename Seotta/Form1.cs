@@ -56,13 +56,15 @@ namespace Seotta
             if (e.KeyCode == Keys.Space)
             {
                 game.CheckEndBetting();
-                pae1.Clear();
-                pae2.Clear();
-                pae3.Clear();
-                pae4.Clear();
+                game.ResetPae();
                 game.InitIndex();
-                game.GetTimer(2).Stop();
-                game.GetTimer(1).Start();
+                game.PrintPae();
+            }
+
+            // Escape 키를 누르면 폼 종료
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
@@ -78,14 +80,18 @@ namespace Seotta
             // Spacebar 키를 눌렀을 때
             if (e.KeyCode == Keys.Space)
             {
+                // game.PrintPae()를 사용해서 timer 컨트롤
                 game.CheckEndBetting();
-                pae1.Clear();
-                pae2.Clear();
-                pae3.Clear();
-                pae4.Clear();
+                game.ResetPae();
                 game.InitIndex();
                 game.GetTimer(2).Stop();
                 game.GetTimer(1).Start();
+            }
+
+            // Escape 키를 누르면 폼 종료
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
@@ -125,7 +131,7 @@ namespace Seotta
             jokboLabel.TabStop = false;
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
             jokboLabel.Text = "족보";
-            jokboLabel.Font = new Font("Consolas", 22F);
+            jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
 
             for (int i = 1; i < panel.Controls.Count; i++)
             {

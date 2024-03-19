@@ -56,6 +56,7 @@ namespace Seotta
 
         public void StartGame()
         {
+            // 게임 안내 문구 출력
             DisplayTextFromFile("game_start.txt", gameProgress);
 
             // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
@@ -63,9 +64,7 @@ namespace Seotta
 
             ResetPae();
             SelectPae();
-
-            // 타이머 시작
-            timer1.Start();
+            PrintPae();
         }
 
         public Timer GetTimer(int i)
@@ -156,22 +155,13 @@ namespace Seotta
             }
         }
 
+        // 각 패 텍스트 박스 초기화
         public void ResetPae()
         {
-            // 각 패 텍스트 박스 초기화
             pae1.Clear();
             pae2.Clear();
             pae3.Clear();
             pae4.Clear();
-
-            cpuIndex = new int[2];
-            playerIndex = new int[2];
-
-            // 타이머2 정지
-            timer2.Stop();
-
-            // 타이머1 시작
-            timer1.Start();
         }
 
         // 패 선택
@@ -209,29 +199,14 @@ namespace Seotta
         // Betting()
         // PrintResult()
 
-        // cpu 뒷면 출력, 플레이어 1장 출력
         public void PrintPae()
         {
-            Random rand = new Random();
+            // Timer 조정
+            // 타이머2 정지
+            timer2.Stop();
 
-            for (int i = 0; i < 2; i++)
-            {
-                int randIndex;
-                do
-                {
-                    randIndex = rand.Next(0, pae.Count - 1);
-                } while (pae[randIndex] == null);
-
-                if (i % 2 == 0)
-                {
-                    cpuIndex[i] = 0;
-                }
-                else
-                {
-                    playerIndex[i - 1] = 0;
-                }
-                asciiText.RemoveAt(randIndex);
-            }
+            // 타이머1 시작
+            timer1.Start();
         }
 
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
@@ -245,13 +220,11 @@ namespace Seotta
             }
             else
             {
-
                 DisplayLines(0, pae1, cpuPae[0], true);
                 DisplayLines(0, pae3, playerPae[0], false);
                 DisplayLines(1, pae2, cpuPae[1], true);
                 DisplayLines(1, pae4, playerPae[1], false);
             }
-
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
@@ -277,7 +250,7 @@ namespace Seotta
                 }
                 else
                 {
-                    if (index == 0 || index == 2)
+                    if (index == 0)
                     {
                         timer1.Stop();
                         timer2.Start();
@@ -298,7 +271,7 @@ namespace Seotta
                 }
                 else
                 {
-                    if (index == 0 || index == 2)
+                    if (index == 0)
                     {
                         timer1.Stop();
                         timer2.Start();
@@ -324,7 +297,7 @@ namespace Seotta
                 }
                 else
                 {
-                    if (index == 0 || index == 2)
+                    if (index == 0)
                     {
                         timer1.Stop();
                     }
@@ -344,7 +317,7 @@ namespace Seotta
                 }
                 else
                 {
-                    if (index == 0 || index == 2)
+                    if (index == 0)
                     {
                         timer1.Stop();
                     }
@@ -354,6 +327,11 @@ namespace Seotta
                     }
                 }
             }
+        }
+
+        private void DisplayJokboHelper(TextBox textBox, List<Pae> pae)
+        {
+            textBox.Text = "";
         }
     }
 }

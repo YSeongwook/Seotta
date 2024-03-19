@@ -20,7 +20,8 @@ namespace Seotta
 
         private void InitializeComponent()
         {
-            this.labelTitle = new System.Windows.Forms.Label();
+            this.cpuLabel = new System.Windows.Forms.Label();
+            this.playerLabel = new System.Windows.Forms.Label();
             this.pae1 = new System.Windows.Forms.TextBox();
             this.pae2 = new System.Windows.Forms.TextBox();
             this.pae3 = new System.Windows.Forms.TextBox();
@@ -37,18 +38,31 @@ namespace Seotta
             this.jokboHelper = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // labelTitle
+            // cpuLabel
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(860, 24);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(140, 75);
-            this.labelTitle.TabIndex = 5;
-            this.labelTitle.Text = "섰다";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cpuLabel.AutoSize = true;
+            this.cpuLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cpuLabel.ForeColor = System.Drawing.Color.White;
+            this.cpuLabel.Location = new System.Drawing.Point(395, 24);
+            this.cpuLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.cpuLabel.Name = "cpuLabel";
+            this.cpuLabel.Size = new System.Drawing.Size(140, 75);
+            this.cpuLabel.TabIndex = 5;
+            this.cpuLabel.Text = "CPU";
+            this.cpuLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // playerLabel
+            // 
+            this.playerLabel.AutoSize = true;
+            this.playerLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerLabel.ForeColor = System.Drawing.Color.White;
+            this.playerLabel.Location = new System.Drawing.Point(1270, 24);
+            this.playerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.playerLabel.Name = "playerLabel";
+            this.playerLabel.Size = new System.Drawing.Size(140, 75);
+            this.playerLabel.TabIndex = 5;
+            this.playerLabel.Text = "플레이어";
+            this.playerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pae1
             // 
@@ -249,7 +263,8 @@ namespace Seotta
             this.Controls.Add(this.pae3);
             this.Controls.Add(this.pae2);
             this.Controls.Add(this.pae1);
-            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.playerLabel);
+            this.Controls.Add(this.cpuLabel);
             this.Controls.Add(this.betBtn7);
             this.Controls.Add(this.betBtn8);
             this.Controls.Add(this.betBtn4);
@@ -268,8 +283,9 @@ namespace Seotta
 
         }
 
-        // 게임 제목 레이블
-        private System.Windows.Forms.Label labelTitle;
+        // 진영 표시 레이블
+        private System.Windows.Forms.Label cpuLabel;
+        private System.Windows.Forms.Label playerLabel;
 
         // 패 텍스트 박스
         private System.Windows.Forms.TextBox pae1;
