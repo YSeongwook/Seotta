@@ -59,6 +59,7 @@ namespace Seotta
                 game.ResetPae();
                 game.InitIndex();
                 game.PrintPae();
+                game.DisplayJokboHelper(jokboHelper);
             }
 
             // Escape 키를 누르면 폼 종료

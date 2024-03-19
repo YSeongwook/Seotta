@@ -46,7 +46,8 @@ namespace Seotta
             }
         }
 
-        // 출력은 PaeNum으로 "{pae.PaeNum}.txt"을 이용해 출력
         // 족보 계산은 PaeNum, PaeName으로 계산
+
+
     }
 }

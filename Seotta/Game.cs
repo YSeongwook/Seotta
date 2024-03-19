@@ -284,7 +284,7 @@ namespace Seotta
             }
         }
 
-        // ASCII ART 출력
+        // ASCII ART 출력(cpu는 뒷면 출력)
         private void DisplayLinesBeforeBetting(int index, TextBox textBox, Pae pae, bool isCpu)
         {
             if (isCpu)
@@ -329,9 +329,78 @@ namespace Seotta
             }
         }
 
-        private void DisplayJokboHelper(TextBox textBox, List<Pae> pae)
+        // 족보 도우미를 출력하려면 족보 계산을 할 수 있어야함
+        public void DisplayJokboHelper(TextBox textBox)
         {
             textBox.Text = "";
+            string jokbo = "";
+
+            int playerLevel = 0;
+            int cpuLevel = 0;
+
+            // 첫번째 패가 두번째 패보다 낮은 월이라면
+            if (string.Compare(playerPae[0].PaeName, playerPae[1].PaeName) < 0)
+            {
+                jokbo = playerPae[0].PaeName + playerPae[1].PaeName;
+                textBox.Text = jokbo;
+            } else
+            {
+                jokbo = playerPae[1].PaeName + playerPae[0].PaeName;
+                textBox.Text = jokbo;
+            }
+
+            if (jokbo.Equals("3광8광"))
+            {
+                jokbo = "38광땡";
+                playerLevel = 15;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            } else if(jokbo.Equals("4열끗7열끗"))
+            {
+                jokbo = "7·4암행어사";
+                playerLevel = 14;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            } else if(CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
+            {
+                jokbo = jokbo[0] + jokbo[2] + "광땡";
+                playerLevel = 13;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            } else if(CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
+            {
+                jokbo = "장땡";
+                playerLevel = 12;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            } else if(jokbo.Equals("4열끗9열끗"))
+            {
+                jokbo = "멍텅구리구사";
+                playerLevel = 11;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            } else if(jokbo.Equals("3광7열끗"))
+            {
+                jokbo = "땡잡이";
+                playerLevel = 10;
+                textBox.Text = jokbo + " " + playerLevel + "level";
+            }
+        }
+
+        // 문자열에 어떤 문자가 몇개 들어있는지 반환
+        public bool CountOccurrences(string text, string pattern)
+        {
+            int count = 0;
+            int index = 0;
+            while ((index = text.IndexOf(pattern, index)) != -1)
+            {
+                index += pattern.Length;
+                count++;
+            }
+
+            // 같은 문자가 2개이상 들어있다면
+            if(count >= 2)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }
