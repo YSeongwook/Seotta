@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using static System.Console;
 using static System.Windows.Forms.LinkLabel;
+using System.Linq;
 
 namespace Seotta
 {
@@ -12,6 +13,7 @@ namespace Seotta
     {
         Game game;
         private Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
+        private Panel jokboPanel;
 
         string[] jokbo = {"1.38광땡", "2.광땡", "3.땡", "4.알리", "5.독사", "6.구삥", "7.장삥",
             "8.장사", "9.세륙", "10.갑오", "11.끗,망통","* 구사", "* 땡잡이", "* 암행어사"};
@@ -34,7 +36,7 @@ namespace Seotta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper);
+            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel);
             game.StartGame();
 
             this.Focus();
@@ -60,10 +62,10 @@ namespace Seotta
                 game.ResetPae();
                 game.InitIndex();
                 game.PrintPae();
-                jokboHelper.Clear();
-                game.DisplayJokboHelper(jokboHelper, game.GetCpuPae(), "컴퓨터");
-                jokboHelper.AppendText("\r\n");
-                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
+                gameProgress.Clear();
+                game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
+                gameProgress.AppendText("\r\n");
+                game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
             }
 
             // Escape 키를 누르면 폼 종료
@@ -116,10 +118,10 @@ namespace Seotta
         private void CreateJokboButton()
         {
             // 패널 생성
-            Panel panel = new Panel();
-            panel.Location = new Point(1278, 50);   // 좌상단 위치 설정
-            panel.Size = new Size(380, 250);        // 크기 설정
-            this.Controls.Add(panel);               // 폼에 패널 추가
+            jokboPanel = new Panel();
+            jokboPanel.Location = new Point(1278, 50);   // 좌상단 위치 설정
+            jokboPanel.Size = new Size(380, 250);        // 크기 설정
+            this.Controls.Add(jokboPanel);               // 폼에 패널 추가
 
             // 버튼 생성 및 패널에 추가
             int buttonWidth = 118;
@@ -131,18 +133,19 @@ namespace Seotta
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Button button = new Button();
+                    JokboButton button = new JokboButton();
                     button.ForeColor = Color.White;
                     button.TextAlign = ContentAlignment.MiddleLeft;
                     button.TabStop = false;
                     button.Padding = new Padding(8, 0, 0, 0);
                     button.Location = new Point(10 + j * (buttonWidth + gap), 30 + i * (buttonHeight + gap));
                     button.Size = new Size(buttonWidth, buttonHeight);  // 크기 설정
-                    panel.Controls.Add(button);                         // 패널에 버튼 추가
+                    button.Click += HightlightJokboButton;              // 강조 이벤트 핸들러 추가
+                    jokboPanel.Controls.Add(button);                    // 패널에 버튼 추가
                 }
             }
 
-            Button jokboLabel = (Button)panel.Controls[0];  // 형변환 해야 접근 가능
+            Button jokboLabel = (Button)jokboPanel.Controls[0];  // 형변환 해야 접근 가능
             jokboLabel.TextAlign = ContentAlignment.MiddleCenter;
             jokboLabel.FlatStyle = FlatStyle.Flat;
             jokboLabel.TabStop = false;
@@ -150,10 +153,10 @@ namespace Seotta
             jokboLabel.Text = "족보";
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
 
-            for (int i = 1; i < panel.Controls.Count; i++)
+            for (int i = 1; i < jokboPanel.Controls.Count; i++)
             {
-                panel.Controls[i].Font = new Font("Consolas", 14F);
-                panel.Controls[i].Text = jokbo[i - 1];
+                jokboPanel.Controls[i].Font = new Font("Consolas", 14F);
+                jokboPanel.Controls[i].Text = jokbo[i - 1];
             }
         }
 
@@ -214,6 +217,40 @@ namespace Seotta
             previousButton = currentButton;
         }
 
+        // 족보 버튼 강조 이벤트 핸들러
+        public void HightlightJokboButton(object sender, EventArgs e)
+        {
+            JokboButton clickedButton = (JokboButton)sender;
+            string jokbo = clickedButton.Text;  // 버튼의 텍스트(족보)를 가져옴
+
+            // 강조 효과를 위한 코드 추가
+            HighlightJokboButton(jokboPanel, clickedButton.Text);
+
+            // 이후 족보에 따른 다른 작업 수행
+        }
+
         // 족보 버튼 강조 이벤트
+        public void HighlightJokboButton(Panel panel, string jokbo)
+        {
+            foreach (Control control in panel.Controls)
+            {
+                if (control is JokboButton jokboBtn)
+                {
+                    // 패널에 있는 족보 버튼인 경우 배경색을 변경
+                    if (jokboBtn.Text.Equals(jokbo))
+                    {
+                        jokboBtn.BackColor = Color.Gray;
+                        jokboBtn.ForeColor = Color.Black;
+                    }    
+                    else
+                    {
+                        // 다른 족보 버튼의 배경색을 원래 상태로 변경
+                        jokboBtn.BackColor = Color.Black;
+                        jokboBtn.ForeColor = Color.White;
+                    }
+                }
+            }
+        }
+
     }
 }
