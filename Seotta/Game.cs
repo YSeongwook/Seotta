@@ -33,6 +33,10 @@ namespace Seotta
         // cpu, player 패2장씩 담을 리스트
         private Pae[] cpuPae;
         private Pae[] playerPae;
+        public int CpuLevel { get; set; }
+        public int PlayerLevel { get; set; }
+        public string CpuJokbo { get; set; }
+        public string PlayerJokbo { get; set; }
 
         private bool endBetting = false;
 
@@ -374,20 +378,17 @@ namespace Seotta
         public void DisplayJokboHelper(TextBox textBox, Pae[] pae, string name)
         {
             string jokbo = "";
-            int level = 0;
 
-            jokbo = ComparePaeName(pae);                // 첫번째 패가 두번째 패보다 낮은 월이라면
+            jokbo = ComparePaeName(pae);    // 첫번째 패가 두번째 패보다 낮은 월이라면
 
             if (jokbo.Equals("3광8광"))
             {
                 jokbo = "38광땡";
-                level = 15;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("4열끗7열끗"))
             {
                 jokbo = "7·4암행어사";
-                level = 14;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
@@ -395,31 +396,26 @@ namespace Seotta
                 jokbo = ComparePaeMonth(pae);
 
                 jokbo += "광땡";
-                level = 13;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
             {
                 jokbo = "장땡";
-                level = 12;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("4열끗9열끗"))   // 멍텅구리 구사
             {
                 jokbo = "멍텅구리구사";
-                level = 11;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("3광7열끗"))    // 땡잡이
             {
                 jokbo = "땡잡이";
-                level = 10;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo[0] == jokbo[2])    // 같은 월인 경우 ex) 1광1띠
             {
                 jokbo = jokbo[0] + "땡";
-                level = 9;
                 textBox.AppendText(name + ": " + jokbo);
             }
             else
@@ -430,71 +426,73 @@ namespace Seotta
                 {
                     case "49":
                         jokbo = "구사";
-                        level = 8;
                         break;
                     case "12":
                         jokbo = "알리";
-                        level = 7;
                         break;
                     case "14":
                         jokbo = "독사";
-                        level = 6;
                         break;
                     case "19":
                         jokbo = "구삥";
-                        level = 5;
                         break;
                     case "110":
                         jokbo = "장삥";
-                        level = 4;
                         break;
                     case "104":
                         jokbo = "장사";
-                        level = 3;
                         break;
                     case "46":
                         jokbo = "세륙";
-                        level = 2;
                         break;
                     default:
                         int kkut = (Int32.Parse(pae[0].PaeMonth) + Int32.Parse(pae[1].PaeMonth)) % 10;
                         switch (kkut)
                         {
                             case 9:
-                                jokbo = "갑오(아홉끗)";
+                                jokbo = "갑오(9끗)";
                                 break;
                             case 8:
-                                jokbo = "여덟끗";
+                                jokbo = "8끗";
                                 break;
                             case 7:
-                                jokbo = "일곱끗";
+                                jokbo = "7끗";
                                 break;
                             case 6:
-                                jokbo = "여섯끗";
+                                jokbo = "6끗";
                                 break;
                             case 5:
-                                jokbo = "다섯끗";
+                                jokbo = "5끗";
                                 break;
                             case 4:
-                                jokbo = "네끗";
+                                jokbo = "4끗";
                                 break;
                             case 3:
-                                jokbo = "세끗";
+                                jokbo = "3끗";
                                 break;
                             case 2:
-                                jokbo = "두끗";
+                                jokbo = "2끗";
                                 break;
                             case 1:
-                                jokbo = "한끗";
+                                jokbo = "1끗";
                                 break;
                             case 0:
                                 jokbo = "망통(0끗)";
                                 break;
                         }
-                        level = 1;
                         break;
                 }
                 textBox.AppendText(name + ": " + jokbo);
+            }
+
+            // 만약 둘이 비교해야한다면 아래 조건문 만나기 전에 값 넘겨줘서 비교해야함
+
+            if(name == "컴퓨터")
+            {
+                CpuJokbo = jokbo;
+            } else
+            {
+                PlayerJokbo = jokbo;
             }
 
             // 이부분에서 jokbo에 패종류만 들어가게 해야함
@@ -603,6 +601,223 @@ namespace Seotta
             else
             {
                 return false;
+            }
+        }
+
+        public void CompareJokbo(string cpuJokbo, string playerJokbo)
+        {
+            Dictionary<string, int> jokbo = new Dictionary<string, int>
+            {
+                { "38광땡", 15 },
+
+                { "7·4암행어사", 14},
+
+                { "18광땡", 13}, { "13광땡", 13},
+
+                { "장땡", 12},
+
+                { "멍텅구리구사", 11 },
+
+                { "땡잡이", 10},
+
+                { "9땡", 9 }, { "8땡", 9 }, { "7땡", 9 }, { "6땡", 9 }, { "5땡", 9 }, { "4땡", 9 }, { "3땡", 9 }, { "2땡", 9 }, { "1땡", 9 },
+
+                { "구사", 8 }, { "알리", 7 }, { "독사", 6 }, { "구삥", 5 }, { "장삥", 4 }, { "장사", 3 }, { "세륙", 2 },
+
+                { "갑오(9끗)", 1 }, { "8끗", 1 }, { "7끗", 1 }, { "6끗", 1 }, { "5끗", 1 },
+                { "4끗", 1 }, { "3끗", 1 }, { "2끗", 1 }, { "1끗", 1 }, { "망통(0끗)", 1 }
+            };
+
+            // CPU와 플레이어의 족보 등급 계산
+            int cpuLevel = jokbo[cpuJokbo];
+            int playerLevel = jokbo[playerJokbo];
+
+            // 특수패인 경우에 대한 예외 처리
+            if (cpuJokbo.Equals("7·4암행어사"))
+            {
+                // 암행어사가 하나라도 있다면 땡잡이는 있을 수 없다.
+                if (playerJokbo.Contains("광땡"))
+                {
+                    // cpu win
+                }
+                else
+                {
+                    cpuJokbo = "1끗";
+                    cpuLevel = 1;
+                }
+
+            }
+            else if (playerJokbo.Equals("7·4암행어사"))
+            {
+                // 암행어사가 하나라도 있다면 땡잡이는 있을 수 없다.
+                if (cpuJokbo.Contains("광땡"))
+                {
+                    // player win
+                }
+                else
+                {
+                    playerJokbo = "1끗";
+                    playerLevel = 1;
+                }
+            }
+
+            // 땡잡이가 나온 경우 광땡은 18광땡만 나올 수 있다.
+            if (cpuJokbo.Equals("땡잡이"))
+            {
+                if(playerJokbo.Equals("18광땡"))     // 땡잡이는 광땡을 잡을 수 없다.
+                {
+                    // player win
+                }
+                else if (playerJokbo.Equals("장땡")) // 땡잡이는 장땡을 잡을 수 없다.
+                {
+                    // player win
+                }
+                else if (playerJokbo.Contains("땡")) // 땡잡이는 9땡 ~ 1땡을 잡을 수 있다.
+                {
+                    // cpu win
+                }
+                else                                 // 상대가 땡이 아닌 경우
+                {
+                    cpuJokbo = "망통(0끗)";
+                    cpuLevel = 1;
+                }
+            }
+            else if(playerJokbo.Equals("땡잡이"))
+            {
+                if (cpuJokbo.Equals("18광땡"))     // 땡잡이는 광땡을 잡을 수 없다.
+                {
+                    // cpu win
+                }
+                else if (cpuJokbo.Equals("장땡")) // 땡잡이는 장땡을 잡을 수 없다.
+                {
+                    // cpu win
+                }
+                else if (playerJokbo.Contains("땡")) // 땡잡이는 9땡 ~ 1땡을 잡을 수 있다.
+                {
+                    // player win
+                }
+                else                                 // 상대가 땡이 아닌 경우
+                {
+                    playerJokbo = "망통(0끗)";
+                    playerLevel = 1;
+                }
+            }
+
+            // 멍구사 ~ 구사 재경기가 이상하게 되고 있음, 조건이 잘못된듯
+            if (cpuJokbo.Equals("멍텅구리구사"))
+            {
+                if(playerLevel > jokbo["9땡"])
+                {
+                    cpuJokbo = "3끗";
+                    cpuLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
+                }
+                else
+                {
+                    // 재경기
+                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    RestartGame();
+                }
+            } 
+
+            if (playerJokbo.Equals("멍텅구리구사"))
+            {
+                if(cpuLevel > jokbo["9땡"])
+                {
+                    playerJokbo = "3끗";
+                    playerLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
+                }
+                else
+                {
+                    // 재경기
+                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    RestartGame();
+                }
+            }
+
+            if (cpuJokbo.Equals("구사"))
+            {
+                if(playerLevel > jokbo["알리"])
+                {
+                    cpuJokbo = "3끗";
+                    cpuLevel = 1; // 구사의 상대가 알리보다 높은 경우 3끗으로 처리
+                }
+                else
+                {
+                    // 재경기
+                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    RestartGame();
+                }
+            } 
+
+            if (playerJokbo.Equals("구사"))
+            {
+                if(cpuLevel > jokbo["알리"])
+                {
+                    playerJokbo = "3끗";
+                    playerLevel = 1; // 구사의 상대가 알리보다 높은 경우 3끗으로 처리
+                }
+                else
+                {
+                    // 재경기
+                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    RestartGame();
+                }
+            }
+            
+            // CPU와 플레이어의 족보 등급을 비교하여 승패 결정
+            if (playerLevel > cpuLevel)
+            {
+                // player win
+                gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
+            }
+            else if (playerLevel < cpuLevel)
+            {
+                // cpu win
+                gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
+            }
+            else
+            {
+                // 족보 레벨이 같은 경우, 족보의 앞자리 월 수를 비교
+                int playerMonth = GetMonth(playerJokbo);
+                int cpuMonth = GetMonth(cpuJokbo);
+
+                gameProgress.Text = ($"컴퓨터({cpuJokbo}) 플레이어({playerJokbo})");
+
+                if (playerMonth > cpuMonth)
+                {
+                    // player win
+                    gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                    gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
+                }
+                else if (playerMonth < cpuMonth)
+                {
+                    // cpu win
+                    gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                    gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
+                }
+                else
+                {
+                    // 둘 다 월 수가 같은 경우에는 재경기
+                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    //RestartGame();
+                }
+            }
+        }
+
+        // 족보의 앞자리 월 수를 가져오는 메서드
+        private int GetMonth(string jokbo)
+        {
+            if(jokbo.Equals("갑오(9끗)"))
+            {
+                return 9;
+            } else if(jokbo.Equals("망통(0끗)"))
+            {
+                return 0;
+            } else
+            {
+                return int.Parse(jokbo.Substring(0, 1));
             }
         }
     }

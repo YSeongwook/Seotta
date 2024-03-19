@@ -67,6 +67,7 @@ namespace Seotta
                 game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
                 gameProgress.AppendText("\r\n");
                 game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
+                game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
             }
 
             // Escape 키를 누르면 폼 종료
@@ -102,6 +103,10 @@ namespace Seotta
                 game.InitIndex();
                 game.GetTimer(2).Stop();
                 game.GetTimer(1).Start();
+                game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
+                gameProgress.AppendText("\r\n");
+                game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
+                game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
             }
 
             // Escape 키를 누르면 폼 종료
