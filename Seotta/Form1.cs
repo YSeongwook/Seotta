@@ -80,6 +80,7 @@ namespace Seotta
             if (e.KeyCode == Keys.Tab)
             {
                 game.RestartGame();
+                HighlightJokboButton(jokboPanel, "");
             }
         }
 
@@ -119,6 +120,7 @@ namespace Seotta
             if (e.KeyCode == Keys.Tab)
             {
                 game.RestartGame();
+                HighlightJokboButton(jokboPanel, "");
             }
         }
 

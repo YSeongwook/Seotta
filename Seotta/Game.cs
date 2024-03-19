@@ -388,7 +388,7 @@ namespace Seotta
             }
             else if (jokbo.Equals("4열끗7열끗"))
             {
-                jokbo = "7·4암행어사";
+                jokbo = "암행어사";
                 textBox.AppendText(name + ": " + jokbo);
             }
             else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
@@ -610,7 +610,7 @@ namespace Seotta
             {
                 { "38광땡", 15 },
 
-                { "7·4암행어사", 14},
+                { "암행어사", 14},
 
                 { "18광땡", 13}, { "13광땡", 13},
 
@@ -633,7 +633,7 @@ namespace Seotta
             int playerLevel = jokbo[playerJokbo];
 
             // 특수패인 경우에 대한 예외 처리
-            if (cpuJokbo.Equals("7·4암행어사"))
+            if (cpuJokbo.Equals("암행어사"))
             {
                 // 암행어사가 하나라도 있다면 땡잡이는 있을 수 없다.
                 if (playerJokbo.Contains("광땡"))
@@ -647,7 +647,7 @@ namespace Seotta
                 }
 
             }
-            else if (playerJokbo.Equals("7·4암행어사"))
+            else if (playerJokbo.Equals("암행어사"))
             {
                 // 암행어사가 하나라도 있다면 땡잡이는 있을 수 없다.
                 if (cpuJokbo.Contains("광땡"))
