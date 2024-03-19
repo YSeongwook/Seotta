@@ -14,6 +14,7 @@ namespace Seotta
         TextBox pae3;
         TextBox pae4;
         TextBox gameProgress;
+        TextBox jokboHelper;
 
         Timer timer1;
         Timer timer2;
@@ -29,12 +30,12 @@ namespace Seotta
         private List<Pae> pae = new List<Pae>();
 
         // cpu, player 패2장씩 담을 리스트
-        private Pae[] cpuPae = new Pae[2];
-        private Pae[] playerPae = new Pae[2];
+        private Pae[] cpuPae;
+        private Pae[] playerPae;
 
         private bool endBetting = false;
 
-        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
+        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress, TextBox jokboHelper)
         {
             this.form = form;
             this.pae1 = pae1;
@@ -42,6 +43,7 @@ namespace Seotta
             this.pae3 = pae3;
             this.pae4 = pae4;
             this.gameProgress = gameProgress;
+            this.jokboHelper = jokboHelper;
 
             // 타이머1 설정
             timer1 = new System.Windows.Forms.Timer();
@@ -61,6 +63,9 @@ namespace Seotta
 
             // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
             ReadPaeFromFile("Pae_Name.txt");
+
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
 
             ResetPae();
             SelectPae();
@@ -91,6 +96,16 @@ namespace Seotta
                 cpuIndex[i] = 0;
                 playerIndex[i] = 0;
             }
+        }
+
+        public Pae[] GetCpuPae()
+        {
+            return cpuPae;
+        }
+
+        public Pae[] GetPlayerPae()
+        {
+            return playerPae;
         }
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
@@ -329,56 +344,143 @@ namespace Seotta
             }
         }
 
-        // 족보 도우미를 출력하려면 족보 계산을 할 수 있어야함
-        public void DisplayJokboHelper(TextBox textBox)
+        // 족보 도우미를 출력하려면 족보 계산을 할 수 있어야함, 출력 자체는 잘된다. 이제 특수 족보의 예외처리를 해주고 계산 처리도해야함
+        public void DisplayJokboHelper(TextBox textBox, Pae[] pae, string name)
         {
-            textBox.Text = "";
             string jokbo = "";
 
-            int playerLevel = 0;
-            int cpuLevel = 0;
+            int level = 0;
 
             // 첫번째 패가 두번째 패보다 낮은 월이라면
-            if (string.Compare(playerPae[0].PaeName, playerPae[1].PaeName) < 0)
+            if (string.Compare(pae[0].PaeName, pae[1].PaeName) < 0)
             {
-                jokbo = playerPae[0].PaeName + playerPae[1].PaeName;
-                textBox.Text = jokbo;
-            } else
+                jokbo = pae[0].PaeName + pae[1].PaeName;
+            }
+            else
             {
-                jokbo = playerPae[1].PaeName + playerPae[0].PaeName;
-                textBox.Text = jokbo;
+                jokbo = pae[1].PaeName + pae[0].PaeName;
             }
 
             if (jokbo.Equals("3광8광"))
             {
                 jokbo = "38광땡";
-                playerLevel = 15;
-                textBox.Text = jokbo + " " + playerLevel + "level";
-            } else if(jokbo.Equals("4열끗7열끗"))
+                level = 15;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (jokbo.Equals("4열끗7열끗"))
             {
                 jokbo = "7·4암행어사";
-                playerLevel = 14;
-                textBox.Text = jokbo + " " + playerLevel + "level";
-            } else if(CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
+                level = 14;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
             {
-                jokbo = jokbo[0] + jokbo[2] + "광땡";
-                playerLevel = 13;
-                textBox.Text = jokbo + " " + playerLevel + "level";
-            } else if(CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
+                if (string.Compare(pae[0].PaeMonth, pae[1].PaeMonth) < 0)
+                {
+                    jokbo = pae[0].PaeMonth + pae[1].PaeMonth;
+                }
+                else
+                {
+                    jokbo = pae[1].PaeMonth + pae[0].PaeMonth;
+                }
+
+                jokbo += "광땡";
+                level = 13;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
             {
                 jokbo = "장땡";
-                playerLevel = 12;
-                textBox.Text = jokbo + " " + playerLevel + "level";
-            } else if(jokbo.Equals("4열끗9열끗"))
+                level = 12;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (jokbo.Equals("4열끗9열끗"))   // 멍텅구리 구사
             {
                 jokbo = "멍텅구리구사";
-                playerLevel = 11;
-                textBox.Text = jokbo + " " + playerLevel + "level";
-            } else if(jokbo.Equals("3광7열끗"))
+                level = 11;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (jokbo.Equals("3광7열끗"))    // 땡잡이
             {
                 jokbo = "땡잡이";
-                playerLevel = 10;
-                textBox.Text = jokbo + " " + playerLevel + "level";
+                level = 10;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else if (jokbo[0] == jokbo[2])    // 같은 월인 경우 ex) 1광1띠
+            {
+                jokbo = jokbo[0] + "땡";
+                level = 9;
+                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+            }
+            else
+            {
+                if (string.Compare(pae[0].PaeMonth, pae[1].PaeMonth) < 0)
+                {
+                    jokbo = pae[0].PaeMonth + pae[1].PaeMonth;
+                } else
+                {
+                    jokbo = pae[1].PaeMonth + pae[0].PaeMonth;
+                }
+
+                if (jokbo[0].Equals("4") && jokbo[2].Equals("9")) // 구사
+                {
+                    jokbo = "구사";
+                    level = 8;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("12"))  // 알리
+                {
+                    jokbo = "알리";
+                    level = 7;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("14"))  // 독사
+                {
+                    jokbo = "독사";
+                    level = 6;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("19"))  // 구삥
+                {
+                    jokbo = "구삥";
+                    level = 5;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("110"))  // 장삥
+                {
+                    jokbo = "장삥";
+                    level = 4;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("410"))  // 장사
+                {
+                    jokbo = "장사";
+                    level = 3;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else if (jokbo.Equals("46"))  // 세륙
+                {
+                    jokbo = "세륙";
+                    level = 2;
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
+                else
+                {
+                    int kkut = (Int32.Parse(pae[0].PaeMonth) + Int32.Parse(pae[1].PaeMonth)) % 10;
+                    if(kkut == 9)
+                    {
+                        jokbo = "갑오(9끗)";
+                    } else if(kkut == 0)
+                    {
+                        jokbo = "망통(0끗)";
+                    } else
+                    {
+                        jokbo = (Int32.Parse(pae[0].PaeMonth) + Int32.Parse(pae[1].PaeMonth)) % 10 + "끗";
+                    }
+                    level = 1;
+
+                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                }
             }
         }
 
@@ -394,13 +496,34 @@ namespace Seotta
             }
 
             // 같은 문자가 2개이상 들어있다면
-            if(count >= 2)
+            if (count >= 2)
             {
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
+        }
+
+        // 게임 재시작
+        public void RestartGame()
+        {
+            // cpuPae 및 playerPae 배열 초기화
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // endBetting 변수 초기화
+            endBetting = false;
+
+            // cpuIndex 및 playerIndex 배열 초기화
+            InitIndex();
+
+            gameProgress.Clear();
+            jokboHelper.Clear();
+
+            // 게임을 다시 시작
+            StartGame();
         }
     }
 }

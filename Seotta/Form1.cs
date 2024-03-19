@@ -34,7 +34,7 @@ namespace Seotta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress);
+            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper);
             game.StartGame();
 
             this.Focus();
@@ -50,6 +50,7 @@ namespace Seotta
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.GetTimer(2).Start();
+                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
             }
 
             // Spacebar 키를 눌렀을 때
@@ -59,13 +60,23 @@ namespace Seotta
                 game.ResetPae();
                 game.InitIndex();
                 game.PrintPae();
-                game.DisplayJokboHelper(jokboHelper);
+                jokboHelper.Clear();
+                game.DisplayJokboHelper(jokboHelper, game.GetCpuPae(), "Cpu");
+                jokboHelper.AppendText("\r\n");
+                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
+
             }
 
             // Escape 키를 누르면 폼 종료
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+
+            // Tab 키를 누르면 재시작
+            if (e.KeyCode == Keys.Tab)
+            {
+                game.RestartGame();
             }
         }
 
@@ -93,6 +104,12 @@ namespace Seotta
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+
+            // Tab 키를 누르면 재시작
+            if (e.KeyCode == Keys.Tab)
+            {
+                game.RestartGame();
             }
         }
 
