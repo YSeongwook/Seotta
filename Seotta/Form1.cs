@@ -49,8 +49,8 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.ResetPae();            // 패 초기화
-                game.PrintPae();            // 패 선택
+                // game.PrintPae();            // 패 선택
+                game.GetTimer(2).Start();
             }
         }
 
@@ -60,8 +60,8 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.ResetPae();            // 패 초기화
-                game.PrintPae();            // 패 선택
+                // game.PrintPae();            // 패 선택
+                game.GetTimer(2).Start();
             }
         }
 

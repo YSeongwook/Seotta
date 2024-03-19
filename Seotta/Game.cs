@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using static System.Console;
 
@@ -16,21 +15,20 @@ namespace Seotta
         TextBox pae4;
         TextBox gameProgress;
 
-        System.Windows.Forms.Timer timer1;
-        System.Windows.Forms.Timer timer2;
-
-        Pae[] pae;
-
-        // ASCII ART를 담은 string 배열을 원소로 가지는 리스트
-        private List<string[]> cpuLines = new List<string[]>();
-        private List<string[]> playerLines = new List<string[]>();
+        Timer timer1;
+        Timer timer2;
 
         // ASCII ART가 담겨있는 텍스트 파일명 리스트
         private List<string> asciiText = new List<string>();
 
+        // ASCII ART 출력에 사용할 인덱스 변수
         private int[] cpuIndex = new int[2];
         private int[] playerIndex = new int[2];
 
+        // 패 객체 20개가 담길 리스트
+        private List<Pae> pae = new List<Pae>();
+
+        // cpu, player 패2장씩 담을 리스트
         private Pae[] cpuPae = new Pae[2];
         private Pae[] playerPae = new Pae[2];
 
@@ -42,8 +40,6 @@ namespace Seotta
             this.pae3 = pae3;
             this.pae4 = pae4;
             this.gameProgress = gameProgress;
-
-            pae = new Pae[20];
 
             // 타이머1 설정
             timer1 = new System.Windows.Forms.Timer();
@@ -60,14 +56,25 @@ namespace Seotta
         {
             DisplayTextFromFile("game_start.txt", gameProgress);
 
+            // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
+            ReadPaeFromFile("Pae_Name.txt");
+
             ResetPae();
-            PrintPae();
+            SelectPae();
 
             // 타이머 시작
             timer1.Start();
+        }
 
-            // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
-            ReadPaeFromFile("Pae_Name.txt");
+        public Timer GetTimer(int i)
+        {
+            if(i == 1)
+            {
+                return timer1;
+            } else
+            {
+                return timer2;
+            }
         }
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
@@ -85,17 +92,16 @@ namespace Seotta
             }
 
             // PaeMonth, PaeName을 필드로 가지는 객체 생성
-            // pae[0] => ("1", "1광", "아스키 아트 텍스트 파일 이름")
-            // pae[1] => ("1", "1띠", "아스키 아트 텍스트 파일 이름") 
-            for (int i = 0; i < pae.Length; i++)
+            // pae[0] => ("1", "1광", "아스키 아트 텍스트 파일 이름" , "아스키 아트 전체 텍스트")
+            for (int i = 0; i < asciiText.Count; i++)
             {
                 if (i == 0)
                 {
-                    pae[i] = new Pae((i + 1).ToString(), paeName[i], asciiText[i]);
+                    pae.Add(new Pae((i + 1).ToString(), paeName[i], asciiText[i]));
                 }
                 else
                 {
-                    pae[i] = new Pae((i / 2 + 1).ToString(), paeName[i], asciiText[i]);
+                    pae.Add(new Pae((i / 2 + 1).ToString(), paeName[i], asciiText[i]));
                 }
             }
         }
@@ -119,7 +125,7 @@ namespace Seotta
         }
 
         // ASCII ART 텍스트 파일 불러오기
-        private string[] ReadAllLinesFromFile(string fileName)
+        public string[] ReadAllLinesFromFile(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -156,26 +162,26 @@ namespace Seotta
         {
             Random rand = new Random();
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 int randIndex;
                 do
                 {
-                    randIndex = rand.Next(0, asciiText.Count);
-                } while (asciiText[randIndex] == null);
+                    randIndex = rand.Next(0, pae.Count);
+                } while (pae[randIndex] == null);
 
-                if (i % 2 == 0)
+                if (i < 2)
                 {
                     // cpu 패 선택
+                    cpuPae[i] = pae[randIndex];
                 }
                 else
                 {
                     // 플레이어 패 선택
+                    playerPae[i - 2] = pae[randIndex];
                 }
 
-                asciiText.RemoveAt(randIndex); // 중복된 값 제거
-                cpuIndex[i] = 0;
-                playerIndex[i] = 0;
+                pae.RemoveAt(randIndex); // 중복된 값 제거
             }
         }
 
@@ -190,44 +196,22 @@ namespace Seotta
         public void PrintPae()
         {
             Random rand = new Random();
-            cpuLines.Clear();
-            playerLines.Clear();
 
-            // ASCII ART가 담겨진 텍스트 파일명 불러오기
-            asciiText.Clear();
-            for (int i = 1; i <= 20; i++) asciiText.Add($"{i}.txt");
-
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 int randIndex;
                 do
                 {
-                    randIndex = rand.Next(0, asciiText.Count - 1);
-                } while (asciiText[randIndex] == null);
+                    randIndex = rand.Next(0, pae.Count - 1);
+                } while (pae[randIndex] == null);
 
                 if (i % 2 == 0)
                 {
-                    cpuLines.Add(ReadAllLinesFromFile("back_of_pae.txt"));
-                    if(i>1)
-                    {
-                        cpuIndex[i - 1] = 0;
-                    } else
-                    {
-                        cpuIndex[i] = 0;
-                    }
-
+                    cpuIndex[i] = 0;
                 }
                 else
                 {
-                    playerLines.Add(ReadAllLinesFromFile(asciiText[randIndex]));
-                    if (i > 1)
-                    {
-                        playerIndex[i - 2] = 0;
-                    }
-                    else
-                    {
-                        playerIndex[i - 1] = 0;
-                    }
+                    playerIndex[i - 1] = 0;
                 }
                 asciiText.RemoveAt(randIndex);
             }
@@ -236,25 +220,25 @@ namespace Seotta
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            DisplayLines(0, pae1, cpuLines, true);
-            DisplayLines(0, pae3, playerLines, false);
+            DisplayLinesBeforeBetting(0, pae1, cpuPae[0], true);
+            DisplayLinesBeforeBetting(0, pae3, playerPae[0], false);
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            DisplayLines(1, pae2, cpuLines, true);
-            DisplayLines(1, pae4, playerLines, false);
+            DisplayLinesBeforeBetting(1, pae2, cpuPae[1], true);
+            DisplayLinesBeforeBetting(1, pae4, playerPae[1], false);
         }
 
         // ASCII ART 출력
-        private void DisplayLines(int index, TextBox textBox, List<string[]> lines, bool isCpu)
+        private void DisplayLines(int index, TextBox textBox, Pae pae, bool isCpu)
         {
             if (isCpu)
             {
-                if (cpuIndex[index] < lines[index].Length)
+                if (cpuIndex[index] < pae.AsciiArt.Length)
                 {
                     // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(lines[index][cpuIndex[index]] + Environment.NewLine);
+                    textBox.AppendText(pae.AsciiArt[cpuIndex[index]] + Environment.NewLine);
                     cpuIndex[index]++;
                 }
                 else
@@ -272,10 +256,10 @@ namespace Seotta
             }
             else
             {
-                if (playerIndex[index] < lines[index].Length)
+                if (playerIndex[index] < pae.AsciiArt.Length)
                 {
                     // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(lines[index][playerIndex[index]] + Environment.NewLine);
+                    textBox.AppendText(pae.AsciiArt[playerIndex[index]] + Environment.NewLine);
                     playerIndex[index]++;
                 }
                 else
@@ -293,5 +277,49 @@ namespace Seotta
             }
         }
 
+        // ASCII ART 출력
+        private void DisplayLinesBeforeBetting(int index, TextBox textBox, Pae pae, bool isCpu)
+        {
+            if (isCpu)
+            {
+                if (cpuIndex[index] < pae.AsciiArt.Length)
+                {
+                    // ASCII ART를 한줄 씩 TextBox에 추가
+                    textBox.AppendText(pae.BackAsciiArt[cpuIndex[index]] + Environment.NewLine);
+                    cpuIndex[index]++;
+                }
+                else
+                {
+                    if (index == 0 || index == 2)
+                    {
+                        timer1.Stop();
+                    }
+                    else
+                    {
+                        timer2.Stop();
+                    }
+                }
+            }
+            else
+            {
+                if (playerIndex[index] < pae.AsciiArt.Length)
+                {
+                    // ASCII ART를 한줄 씩 TextBox에 추가
+                    textBox.AppendText(pae.AsciiArt[playerIndex[index]] + Environment.NewLine);
+                    playerIndex[index]++;
+                }
+                else
+                {
+                    if (index == 0 || index == 2)
+                    {
+                        timer1.Stop();
+                    }
+                    else
+                    {
+                        timer2.Stop();
+                    }
+                }
+            }
+        }
     }
 }
