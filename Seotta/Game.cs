@@ -346,22 +346,37 @@ namespace Seotta
             }
         }
 
+        // 게임 재시작
+        public void RestartGame()
+        {
+            // Pae 배열 초기화
+            pae.Clear();
+
+            // cpuPae 및 playerPae 배열 초기화
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // endBetting 변수 초기화
+            endBetting = false;
+
+            // cpuIndex 및 playerIndex 배열 초기화
+            InitIndex();
+
+            // TextBox 초기화
+            gameProgress.Clear();
+            jokboHelper.Clear();
+
+            // 게임을 다시 시작
+            StartGame();
+        }
+
         // 족보 도우미를 출력하려면 족보 계산을 할 수 있어야함, 출력 자체는 잘된다. 이제 특수 족보의 예외처리를 해주고 계산 처리도해야함
         public void DisplayJokboHelper(TextBox textBox, Pae[] pae, string name)
         {
             string jokbo = "";
-
             int level = 0;
 
-            // 첫번째 패가 두번째 패보다 낮은 월이라면
-            if (string.Compare(pae[0].PaeName, pae[1].PaeName) < 0)
-            {
-                jokbo = pae[0].PaeName + pae[1].PaeName;
-            }
-            else
-            {
-                jokbo = pae[1].PaeName + pae[0].PaeName;
-            }
+            jokbo = ComparePaeName(pae);                // 첫번째 패가 두번째 패보다 낮은 월이라면
 
             if (jokbo.Equals("3광8광"))
             {
@@ -377,14 +392,7 @@ namespace Seotta
             }
             else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
             {
-                if (string.Compare(pae[0].PaeMonth, pae[1].PaeMonth) < 0)
-                {
-                    jokbo = pae[0].PaeMonth + pae[1].PaeMonth;
-                }
-                else
-                {
-                    jokbo = pae[1].PaeMonth + pae[0].PaeMonth;
-                }
+                jokbo = ComparePaeMonth(pae);
 
                 jokbo += "광땡";
                 level = 13;
@@ -416,13 +424,7 @@ namespace Seotta
             }
             else
             {
-                if (string.Compare(pae[0].PaeMonth, pae[1].PaeMonth) < 0)
-                {
-                    jokbo = pae[0].PaeMonth + pae[1].PaeMonth;
-                } else
-                {
-                    jokbo = pae[1].PaeMonth + pae[0].PaeMonth;
-                }
+                jokbo = ComparePaeMonth(pae);
 
                 switch (jokbo)
                 {
@@ -496,73 +498,89 @@ namespace Seotta
             }
 
             // 이부분에서 jokbo에 패종류만 들어가게 해야함
-             if(jokbo.Contains("38광땡"))
+            if (jokbo.Contains("38광땡"))
             {
                 jokbo = "1.38광땡";
-                form.HighlightJokboButton(jokboPanel, jokbo);
-            } else if(jokbo.Contains("광땡"))
+            }
+            else if (jokbo.Contains("광땡"))
             {
                 jokbo = "2.광땡";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("암행어사"))
             {
                 jokbo = "* 암행어사";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
-            else if(jokbo.Contains("땡잡이"))
+            else if (jokbo.Contains("땡잡이"))
             {
                 jokbo = "* 땡잡이";
-                form.HighlightJokboButton(jokboPanel, jokbo);
-            } else if(jokbo.Contains("땡"))
+            }
+            else if (jokbo.Contains("땡"))
             {
                 jokbo = "3.땡";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("구사"))
             {
                 jokbo = "* 구사";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
-            else if(jokbo.Contains("알리"))
+            else if (jokbo.Contains("알리"))
             {
                 jokbo = "4.알리";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("독사"))
             {
                 jokbo = "5.독사";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("구삥"))
             {
                 jokbo = "6.구삥";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("장삥"))
             {
                 jokbo = "7.장삥";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("장사"))
             {
                 jokbo = "8.장사";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("세륙"))
             {
                 jokbo = "9.세륙";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("갑오"))
             {
                 jokbo = "10.갑오";
-                form.HighlightJokboButton(jokboPanel, jokbo);
             }
             else if (jokbo.Contains("끗"))
             {
                 jokbo = "11.끗,망통";
-                form.HighlightJokboButton(jokboPanel, jokbo);
+            }
+
+            form.HighlightJokboButton(jokboPanel, jokbo);
+        }
+
+        // 첫번째 패가 두번째 패보다 낮은 월이라면
+        public string ComparePaeName(Pae[] pae)
+        {
+            if (string.Compare(pae[0].PaeName, pae[1].PaeName) < 0)
+            {
+                return pae[0].PaeName + pae[1].PaeName;
+            }
+            else
+            {
+                return pae[1].PaeName + pae[0].PaeName;
+            }
+        }
+
+        // 첫번째 패가 두번째 패보다 낮은 월이라면
+        public string ComparePaeMonth(Pae[] pae)
+        {
+            if (string.Compare(pae[0].PaeMonth, pae[1].PaeMonth) < 0)
+            {
+                return pae[0].PaeMonth + pae[1].PaeMonth;
+            }
+            else
+            {
+                return pae[1].PaeMonth + pae[0].PaeMonth;
             }
         }
 
@@ -586,30 +604,6 @@ namespace Seotta
             {
                 return false;
             }
-        }
-
-        // 게임 재시작
-        public void RestartGame()
-        {
-            // Pae 배열 초기화
-            pae.Clear();
-
-            // cpuPae 및 playerPae 배열 초기화
-            cpuPae = new Pae[2];
-            playerPae = new Pae[2];
-
-            // endBetting 변수 초기화
-            endBetting = false;
-
-            // cpuIndex 및 playerIndex 배열 초기화
-            InitIndex();
-
-            // TextBox 초기화
-            gameProgress.Clear();
-            jokboHelper.Clear();
-
-            // 게임을 다시 시작
-            StartGame();
         }
     }
 }

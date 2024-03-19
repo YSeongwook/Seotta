@@ -47,7 +47,5 @@ namespace Seotta
         }
 
         // 족보 계산은 PaeNum, PaeName으로 계산
-
-
     }
 }

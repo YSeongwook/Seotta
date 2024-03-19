@@ -52,6 +52,7 @@ namespace Seotta
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.GetTimer(2).Start();
+                jokboHelper.Clear();
                 game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
             }
 
@@ -88,6 +89,8 @@ namespace Seotta
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.GetTimer(2).Start();
+                jokboHelper.Clear();
+                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
             }
 
             // Spacebar 키를 눌렀을 때
