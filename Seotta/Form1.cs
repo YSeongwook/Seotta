@@ -49,8 +49,20 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                // game.PrintPae();            // 패 선택
                 game.GetTimer(2).Start();
+            }
+
+            // Spacebar 키를 눌렀을 때
+            if (e.KeyCode == Keys.Space)
+            {
+                game.CheckEndBetting();
+                pae1.Clear();
+                pae2.Clear();
+                pae3.Clear();
+                pae4.Clear();
+                game.InitIndex();
+                game.GetTimer(2).Stop();
+                game.GetTimer(1).Start();
             }
         }
 
@@ -60,8 +72,20 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                // game.PrintPae();            // 패 선택
                 game.GetTimer(2).Start();
+            }
+
+            // Spacebar 키를 눌렀을 때
+            if (e.KeyCode == Keys.Space)
+            {
+                game.CheckEndBetting();
+                pae1.Clear();
+                pae2.Clear();
+                pae3.Clear();
+                pae4.Clear();
+                game.InitIndex();
+                game.GetTimer(2).Stop();
+                game.GetTimer(1).Start();
             }
         }
 

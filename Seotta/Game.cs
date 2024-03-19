@@ -32,6 +32,8 @@ namespace Seotta
         private Pae[] cpuPae = new Pae[2];
         private Pae[] playerPae = new Pae[2];
 
+        private bool endBetting = false;
+
         public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress)
         {
             this.form = form;
@@ -68,12 +70,27 @@ namespace Seotta
 
         public Timer GetTimer(int i)
         {
-            if(i == 1)
+            if (i == 1)
             {
                 return timer1;
-            } else
+            }
+            else
             {
                 return timer2;
+            }
+        }
+
+        public void CheckEndBetting()
+        {
+            endBetting = true;
+        }
+
+        public void InitIndex()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                cpuIndex[i] = 0;
+                playerIndex[i] = 0;
             }
         }
 
@@ -220,14 +237,31 @@ namespace Seotta
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            DisplayLinesBeforeBetting(0, pae1, cpuPae[0], true);
-            DisplayLinesBeforeBetting(0, pae3, playerPae[0], false);
+            // 베팅이 끝나지 않았다면
+            if (!endBetting)
+            {
+                DisplayLinesBeforeBetting(0, pae1, cpuPae[0], true);
+                DisplayLinesBeforeBetting(0, pae3, playerPae[0], false);
+            }
+            else
+            {
+
+                DisplayLines(0, pae1, cpuPae[0], true);
+                DisplayLines(0, pae3, playerPae[0], false);
+                DisplayLines(1, pae2, cpuPae[1], true);
+                DisplayLines(1, pae4, playerPae[1], false);
+            }
+
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            DisplayLinesBeforeBetting(1, pae2, cpuPae[1], true);
-            DisplayLinesBeforeBetting(1, pae4, playerPae[1], false);
+            // 베팅이 끝나지 않았다면
+            if (!endBetting)
+            {
+                DisplayLinesBeforeBetting(1, pae2, cpuPae[1], true);
+                DisplayLinesBeforeBetting(1, pae4, playerPae[1], false);
+            }
         }
 
         // ASCII ART 출력
