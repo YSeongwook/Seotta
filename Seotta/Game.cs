@@ -365,13 +365,13 @@ namespace Seotta
             {
                 jokbo = "38광땡";
                 level = 15;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (jokbo.Equals("4열끗7열끗"))
             {
                 jokbo = "7·4암행어사";
                 level = 14;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
             {
@@ -386,31 +386,31 @@ namespace Seotta
 
                 jokbo += "광땡";
                 level = 13;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
             {
                 jokbo = "장땡";
                 level = 12;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (jokbo.Equals("4열끗9열끗"))   // 멍텅구리 구사
             {
                 jokbo = "멍텅구리구사";
                 level = 11;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (jokbo.Equals("3광7열끗"))    // 땡잡이
             {
                 jokbo = "땡잡이";
                 level = 10;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else if (jokbo[0] == jokbo[2])    // 같은 월인 경우 ex) 1광1띠
             {
                 jokbo = jokbo[0] + "땡";
                 level = 9;
-                textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
             }
             else
             {
@@ -422,64 +422,87 @@ namespace Seotta
                     jokbo = pae[1].PaeMonth + pae[0].PaeMonth;
                 }
 
-                if (jokbo[0].Equals("4") && jokbo[2].Equals("9")) // 구사
+                if (jokbo.Equals("49")) // 구사
                 {
                     jokbo = "구사";
                     level = 8;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else if (jokbo.Equals("12"))  // 알리
                 {
                     jokbo = "알리";
                     level = 7;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else if (jokbo.Equals("14"))  // 독사
                 {
                     jokbo = "독사";
                     level = 6;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else if (jokbo.Equals("19"))  // 구삥
                 {
                     jokbo = "구삥";
                     level = 5;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else if (jokbo.Equals("110"))  // 장삥
                 {
                     jokbo = "장삥";
                     level = 4;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
-                else if (jokbo.Equals("410"))  // 장사
+                else if (jokbo.Equals("104"))  // 장사
                 {
                     jokbo = "장사";
                     level = 3;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else if (jokbo.Equals("46"))  // 세륙
                 {
                     jokbo = "세륙";
                     level = 2;
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
                 else
                 {
                     int kkut = (Int32.Parse(pae[0].PaeMonth) + Int32.Parse(pae[1].PaeMonth)) % 10;
-                    if(kkut == 9)
+
+                    switch(kkut)
                     {
-                        jokbo = "갑오(9끗)";
-                    } else if(kkut == 0)
-                    {
-                        jokbo = "망통(0끗)";
-                    } else
-                    {
-                        jokbo = (Int32.Parse(pae[0].PaeMonth) + Int32.Parse(pae[1].PaeMonth)) % 10 + "끗";
+                        case 9:
+                            jokbo = "갑오(아홉끗)";
+                            break;
+                        case 8:
+                            jokbo = "여덟끗";
+                            break;
+                        case 7:
+                            jokbo = "일곱끗";
+                            break;
+                        case 6:
+                            jokbo = "여섯끗";
+                            break;
+                        case 5:
+                            jokbo = "다섯끗";
+                            break;
+                        case 4:
+                            jokbo = "네끗";
+                            break;
+                        case 3:
+                            jokbo = "세끗";
+                            break;
+                        case 2:
+                            jokbo = "두끗";
+                            break;
+                        case 1:
+                            jokbo = "한끗";
+                            break;
+                        case 0:
+                            jokbo = "망통(0끗)";
+                            break;
                     }
                     level = 1;
-
-                    textBox.AppendText(name + ": " + jokbo + " " + level + "Lv");
+                    textBox.AppendText(name + ": " + jokbo + "(" + level + "Lv)");
                 }
             }
         }
@@ -509,6 +532,9 @@ namespace Seotta
         // 게임 재시작
         public void RestartGame()
         {
+            // Pae 배열 초기화
+            pae.Clear();
+
             // cpuPae 및 playerPae 배열 초기화
             cpuPae = new Pae[2];
             playerPae = new Pae[2];
@@ -519,6 +545,7 @@ namespace Seotta
             // cpuIndex 및 playerIndex 배열 초기화
             InitIndex();
 
+            // TextBox 초기화
             gameProgress.Clear();
             jokboHelper.Clear();
 

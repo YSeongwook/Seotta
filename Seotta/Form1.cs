@@ -61,10 +61,9 @@ namespace Seotta
                 game.InitIndex();
                 game.PrintPae();
                 jokboHelper.Clear();
-                game.DisplayJokboHelper(jokboHelper, game.GetCpuPae(), "Cpu");
+                game.DisplayJokboHelper(jokboHelper, game.GetCpuPae(), "컴퓨터");
                 jokboHelper.AppendText("\r\n");
                 game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
-
             }
 
             // Escape 키를 누르면 폼 종료
@@ -184,7 +183,7 @@ namespace Seotta
             foreach (Control control in parent.Controls)
             {
                 // 현재 컨트롤이 버튼인 경우
-                if (control is Button button)
+                if (control is Button button && (control.Name.Contains("betBtn") || control.Name.Contains("HelpBtn")))
                 {
                     // 버튼의 Click 이벤트 핸들러에 AttachButtonClick 메서드를 연결
                     button.Click += AttachButtonClick;
@@ -214,5 +213,7 @@ namespace Seotta
             // 현재 버튼을 이전 버튼으로 저장
             previousButton = currentButton;
         }
+
+        // 족보 버튼 강조 이벤트
     }
 }

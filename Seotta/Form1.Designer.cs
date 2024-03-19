@@ -43,12 +43,12 @@ namespace Seotta
             this.cpuLabel.AutoSize = true;
             this.cpuLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuLabel.ForeColor = System.Drawing.Color.White;
-            this.cpuLabel.Location = new System.Drawing.Point(395, 24);
+            this.cpuLabel.Location = new System.Drawing.Point(370, 24);
             this.cpuLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cpuLabel.Name = "cpuLabel";
             this.cpuLabel.Size = new System.Drawing.Size(140, 75);
             this.cpuLabel.TabIndex = 5;
-            this.cpuLabel.Text = "CPU";
+            this.cpuLabel.Text = "컴퓨터";
             this.cpuLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // playerLabel
