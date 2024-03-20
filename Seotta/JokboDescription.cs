@@ -48,16 +48,20 @@ public class JokboDescription
 
     public static string GetDescription(string name)
     {
+        bool isKkut = name.Contains("끗") && !name.Equals("갑오(9끗)") && !name.Equals("망통(0끗)");
+        bool isGwangTaeng = name.Equals("13광땡") || name.Equals("18광땡");
+        bool isTaeng = name.Contains("땡") && !name.Equals("38광땡") && !name.Equals("13광땡") && !name.Equals("18광땡") && !name.Equals("장땡") && !name.Equals("땡잡이");
+
         // 갑오, 망통이 아닌 끗인 경우
-        if (name.Contains("끗") && !name.Equals("갑오(9끗)") && !name.Equals("망통(0끗)"))
+        if (isKkut)
         {
             name = "끗";
         } // 광땡인 경우
-        else if(name.Equals("13광땡") || name.Equals("18광땡"))
+        else if(isGwangTaeng)
         {
             name = "광땡";
         } // 땡인 경우 
-        else if(name.Contains("땡") && !name.Equals("38광땡") && !name.Equals("13광땡") && !name.Equals("18광땡") && !name.Equals("장땡"))
+        else if(isTaeng)
         {
             name = "땡";
         }

@@ -39,13 +39,16 @@ public class JokboComparer
     };
 
     public JokboComparer(Game game, TextBox gameProgress)
-    {
+    { 
         this.game = game;
         this.gameProgress = gameProgress;
     }
 
     public void GetWinner(string cpuJokbo, string playerJokbo)
     {
+        string cpuFail = "";
+        string playerFail = "";
+
         // CPU와 플레이어의 족보 등급 계산
         int cpuLevel = jokboLevels[cpuJokbo];
         int playerLevel = jokboLevels[playerJokbo];
@@ -60,6 +63,7 @@ public class JokboComparer
             }
             else
             {
+                cpuFail = "암행어사 => ";
                 cpuJokbo = "1끗";
                 cpuLevel = 1;
             }
@@ -74,6 +78,7 @@ public class JokboComparer
             }
             else
             {
+                playerFail = "암행어사 => ";
                 playerJokbo = "1끗";
                 playerLevel = 1;
             }
@@ -96,6 +101,7 @@ public class JokboComparer
             }
             else                                 // 상대가 땡이 아닌 경우
             {
+                cpuFail = "땡잡이 => ";
                 cpuJokbo = "망통(0끗)";
                 cpuLevel = 1;
             }
@@ -110,12 +116,13 @@ public class JokboComparer
             {
                 // cpu win
             }
-            else if (playerJokbo.Contains("땡")) // 땡잡이는 9땡 ~ 1땡을 잡을 수 있다.
+            else if (cpuJokbo.Contains("땡")) // 땡잡이는 9땡 ~ 1땡을 잡을 수 있다.
             {
                 // player win
             }
             else                                 // 상대가 땡이 아닌 경우
             {
+                playerFail = "땡잡이 => ";
                 playerJokbo = "망통(0끗)";
                 playerLevel = 1;
             }
@@ -126,6 +133,7 @@ public class JokboComparer
         {
             if (playerLevel > jokboLevels["9땡"])
             {
+                cpuFail = "멍텅구리구사 => ";
                 cpuJokbo = "3끗";
                 cpuLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
             }
@@ -141,6 +149,7 @@ public class JokboComparer
         {
             if (cpuLevel > jokboLevels["9땡"])
             {
+                playerFail = "멍텅구리구사 => ";
                 playerJokbo = "3끗";
                 playerLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
             }
@@ -156,6 +165,7 @@ public class JokboComparer
         {
             if (playerLevel > jokboLevels["알리"])
             {
+                cpuFail = "구사 => ";
                 cpuJokbo = "3끗";
                 cpuLevel = 1; // 구사의 상대가 알리보다 높은 경우 3끗으로 처리
             }
@@ -171,6 +181,7 @@ public class JokboComparer
         {
             if (cpuLevel > jokboLevels["알리"])
             {
+                playerFail = "구사 => ";
                 playerJokbo = "3끗";
                 playerLevel = 1; // 구사의 상대가 알리보다 높은 경우 3끗으로 처리
             }
@@ -186,13 +197,13 @@ public class JokboComparer
         if (playerLevel > cpuLevel)
         {
             // player win
-            gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
             gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
         }
         else if (playerLevel < cpuLevel)
         {
             // cpu win
-            gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
             gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
         }
         else
@@ -201,25 +212,25 @@ public class JokboComparer
             int playerMonth = GetMonth(playerJokbo);
             int cpuMonth = GetMonth(cpuJokbo);
 
-            gameProgress.Text = ($"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})");
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
 
             if (playerMonth > cpuMonth)
             {
                 // player win
-                gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
                 gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
             }
             else if (playerMonth < cpuMonth)
             {
                 // cpu win
-                gameProgress.Text = $"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})";
+                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
                 gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
             }
             else
             {
                 // 둘 다 월 수가 같은 경우에는 재경기
                 gameProgress.AppendText("\r\n재경기 합니다.");
-                //RestartGame();
+                game.RestartGame();
             }
         }
     }
