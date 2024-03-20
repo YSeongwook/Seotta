@@ -113,9 +113,8 @@ namespace Seotta
                         break;
                 }
             }
+            // 족보 도우미 텍스트 박스에 족보 설명 출력
             textBox.Text = jokbo + "\r\n" + JokboDescription.GetDescription(jokbo);
-
-            // 만약 둘이 비교해야한다면 아래 조건문 만나기 전에 값 넘겨줘서 비교해야함
 
             if (name == "컴퓨터")
             {
@@ -126,65 +125,29 @@ namespace Seotta
                 game.PlayerJokbo = jokbo;
             }
 
-            // 이부분에서 jokbo에 패종류만 들어가게 해야함
-            if (jokbo.Contains("38광땡"))
-            {
-                jokbo = "1.38광땡";
-            }
-            else if (jokbo.Contains("광땡"))
-            {
-                jokbo = "2.광땡";
-            }
-            else if (jokbo.Contains("암행어사"))
-            {
-                jokbo = "* 암행어사";
-            }
-            else if (jokbo.Contains("땡잡이"))
-            {
-                jokbo = "* 땡잡이";
-            }
-            else if (jokbo.Contains("땡"))
-            {
-                jokbo = "3.땡";
-            }
-            else if (jokbo.Contains("구사"))
-            {
-                jokbo = "* 구사";
-            }
-            else if (jokbo.Contains("알리"))
-            {
-                jokbo = "4.알리";
-            }
-            else if (jokbo.Contains("독사"))
-            {
-                jokbo = "5.독사";
-            }
-            else if (jokbo.Contains("구삥"))
-            {
-                jokbo = "6.구삥";
-            }
-            else if (jokbo.Contains("장삥"))
-            {
-                jokbo = "7.장삥";
-            }
-            else if (jokbo.Contains("장사"))
-            {
-                jokbo = "8.장사";
-            }
-            else if (jokbo.Contains("세륙"))
-            {
-                jokbo = "9.세륙";
-            }
-            else if (jokbo.Contains("갑오"))
-            {
-                jokbo = "10.갑오";
-            }
-            else if (jokbo.Contains("끗"))
-            {
-                jokbo = "11.끗,망통";
-            }
-
+            jokbo = GroupingJokbo(jokbo);
             form.HighlightJokboButton(game.GetJokboPanel(), jokbo);
+        }
+
+        // 족보 그룹화
+        public string GroupingJokbo(string jokbo)
+        {
+            if (jokbo.Contains("38광땡")) return "1.38광땡";
+            if (jokbo.Contains("광땡")) return "2.광땡";
+            if (jokbo.Contains("암행어사")) return "* 암행어사";
+            if (jokbo.Contains("땡잡이")) return "* 땡잡이";
+            if (jokbo.Contains("땡")) return "3.땡";
+            if (jokbo.Contains("구사")) return "* 구사";
+            if (jokbo.Contains("알리")) return "4.알리";
+            if (jokbo.Contains("독사")) return "5.독사";
+            if (jokbo.Contains("구삥")) return "6.구삥";
+            if (jokbo.Contains("장삥")) return "7.장삥";
+            if (jokbo.Contains("장사")) return "8.장사";
+            if (jokbo.Contains("세륙")) return "9.세륙";
+            if (jokbo.Contains("갑오")) return "10.갑오";
+            if (jokbo.Contains("끗")) return "11.끗,망통";
+
+            return jokbo; // 만약 해당하는 문자열이 없으면 원래 jokbo 반환
         }
 
         // 첫번째 패가 두번째 패보다 낮은 월이라면
