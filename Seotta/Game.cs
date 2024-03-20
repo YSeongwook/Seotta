@@ -62,6 +62,7 @@ namespace Seotta
             timer2.Tick += Timer2_Tick;
         }
 
+        // 게임 시작
         public void StartGame()
         {
             // 게임 안내 문구 출력
@@ -77,6 +78,33 @@ namespace Seotta
             SelectPae();
             PrintPae();
         }
+
+        // 게임 재시작
+        public void RestartGame()
+        {
+            // Pae 배열 초기화
+            pae.Clear();
+
+            // cpuPae 및 playerPae 배열 초기화
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // endBetting 변수 초기화
+            endBetting = false;
+
+            // cpuIndex 및 playerIndex 배열 초기화
+            InitIndex();
+
+            // TextBox 초기화
+            gameProgress.Clear();
+            jokboHelper.Clear();
+            form.HighlightJokboButton(jokboPanel, "");
+
+            // 게임을 다시 시작
+            StartGame();
+        }
+
+        #region Getter
 
         public Timer GetTimer(int i)
         {
@@ -118,6 +146,8 @@ namespace Seotta
         {
             return jokboPanel;
         }
+
+        #endregion
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
         public void ReadPaeFromFile(string filePath)
@@ -218,13 +248,6 @@ namespace Seotta
             }
         }
 
-        // SelectPae()
-        // PrintPae()
-        // Betting()
-        // PrintPae()
-        // Betting()
-        // PrintResult()
-
         public void PrintPae()
         {
             // Timer 조정
@@ -263,7 +286,9 @@ namespace Seotta
             }
         }
 
-        // ASCII ART 출력
+        #region Print Ascii Art
+
+        // Ascii Art 출력
         private void DisplayLines(int index, TextBox textBox, Pae pae, bool isCpu)
         {
             if (isCpu)
@@ -291,7 +316,7 @@ namespace Seotta
             {
                 if (playerIndex[index] < pae.AsciiArt.Length)
                 {
-                    // ASCII ART를 한줄 씩 TextBox에 추가
+                    // Ascii Art를 한줄 씩 TextBox에 추가
                     textBox.AppendText(pae.AsciiArt[playerIndex[index]] + Environment.NewLine);
                     playerIndex[index]++;
                 }
@@ -310,7 +335,7 @@ namespace Seotta
             }
         }
 
-        // ASCII ART 출력(cpu는 뒷면 출력)
+        // Ascii Art 출력(cpu는 뒷면 출력)
         private void DisplayLinesBeforeBetting(int index, TextBox textBox, Pae pae, bool isCpu)
         {
             if (isCpu)
@@ -355,30 +380,7 @@ namespace Seotta
             }
         }
 
-        // 게임 재시작
-        public void RestartGame()
-        {
-            // Pae 배열 초기화
-            pae.Clear();
-
-            // cpuPae 및 playerPae 배열 초기화
-            cpuPae = new Pae[2];
-            playerPae = new Pae[2];
-
-            // endBetting 변수 초기화
-            endBetting = false;
-
-            // cpuIndex 및 playerIndex 배열 초기화
-            InitIndex();
-
-            // TextBox 초기화
-            gameProgress.Clear();
-            jokboHelper.Clear();
-            form.HighlightJokboButton(jokboPanel, "");
-
-            // 게임을 다시 시작
-            StartGame();
-        }
+        #endregion
 
         // 족보 도우미에 족보 설명 출력
         public void DisplayJokboHelper(TextBox textBox, Pae[] pae, string name)

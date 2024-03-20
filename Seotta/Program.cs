@@ -27,6 +27,13 @@ namespace Seotta
             // 우측 족보 도우미에 족보 설명 출력
             // 베팅 버튼에 이벤트 연결
             // 베팅 버튼 클릭 시 game.GetTimer(2).Start();
+
+            // SelectPae()
+            // PrintPae()
+            // Betting()
+            // PrintPae()
+            // Betting()
+            // PrintResult()
         }
     }
 }
