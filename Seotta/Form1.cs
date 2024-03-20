@@ -18,7 +18,7 @@ namespace Seotta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel);
+            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel, cpuLabel, playerLabel);
             game.StartGame();
 
             this.Focus();

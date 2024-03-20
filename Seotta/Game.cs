@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Console;
 
@@ -18,6 +19,8 @@ namespace Seotta
         TextBox gameProgress;
         TextBox jokboHelper;
         Panel jokboPanel;
+        Label cpuLabel;
+        Label playerLabel;
 
         Timer timer1;
         Timer timer2;
@@ -44,14 +47,20 @@ namespace Seotta
 
         #endregion
 
-        private string seon = "cpu";    // 선을 결정하는 변수
+        private string seon = "컴퓨터";    // 선을 결정하는 변수
+        private bool reGame = false;
         private int cpuMoney;           // cpu 소지금
         private int playerMoney;        // 플레이어 소지금
         private int currentPot;         // 현재 판돈
         private int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
         private int playerBettingMoney; // cpu가 직전에 베팅한 금액
+        public bool ReGame
+        {
+            get { return reGame; }
+            set { reGame = value; }
+        }
 
-        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress, TextBox jokboHelper, Panel jokboPanel)
+        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress, TextBox jokboHelper, Panel jokboPanel, Label cpuLabel, Label playerLabel)
         {
             this.form = form;
             this.pae1 = pae1;
@@ -61,16 +70,20 @@ namespace Seotta
             this.gameProgress = gameProgress;
             this.jokboHelper = jokboHelper;
             this.jokboPanel = jokboPanel;
+            this.cpuLabel = cpuLabel;
+            this.playerLabel = playerLabel;
 
             // 타이머1 설정
-            timer1 = new System.Windows.Forms.Timer();
+            timer1 = new Timer();
             timer1.Interval = 1; // 1밀리초마다 변경
             timer1.Tick += Timer1_Tick;
 
             // 타이머2 설정
-            timer2 = new System.Windows.Forms.Timer();
+            timer2 = new Timer();
             timer2.Interval = 1; // 1밀리초마다 변경
             timer2.Tick += Timer2_Tick;
+
+            InitMoney();
         }
 
         #region Getter
@@ -118,26 +131,14 @@ namespace Seotta
 
         #endregion
 
-
-
         // 게임 시작
         public void StartGame()
         {
             cpuPae = new Pae[2];
             playerPae = new Pae[2];
 
-            // 게임 안내 문구 출력
-            DisplayTextFromFile("game_start.txt", gameProgress);
-
             // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
             ReadPaeFromFile("Pae_Name.txt");
-
-            // 아래 메서드들 GameLoop() 메서드 만들어서 넣어주기
-
-            InitMoney();
-            ResetPae();
-            SelectPae();
-            PrintPae();
 
             GameLoop();
         }
@@ -150,6 +151,35 @@ namespace Seotta
             currentPot = 0;
             cpuBettingMoney = 0;
             playerBettingMoney = 0;
+        }
+
+        public async void GameLoop()
+        {
+            ResetPae();
+            SelectPae();
+
+            if (reGame)
+            {
+                gameProgress.Text = "재경기합니다.";
+            }
+            else
+            {
+                // 게임 안내 문구 출력
+                DisplayTextFromFile("game_start.txt", gameProgress);
+
+                await Task.Delay(5000);
+                gameProgress.Text = $"{seon}가 선입니다.";
+            }
+
+            PrintPae(); // 현재 패 1장씩 출력
+            cpuLabel.Visible = true;
+            playerLabel.Visible = true;
+
+            //Betting("cpu");
+            // cpu나 player 둘중 하나라도 다이 한다면 RestartGame()
+            // 엔터키 이벤트에 있는 메서드
+            // betting
+            // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
         }
 
         // 게임 재시작
@@ -173,21 +203,10 @@ namespace Seotta
             jokboHelper.Clear();
             form.HighlightJokboButton(jokboPanel, "");
 
+            reGame = true;
+
             // 게임을 다시 시작
             StartGame();
-        }
-
-        public void GameLoop()
-        {
-            ResetPae();
-            SelectPae();
-            PrintPae(); // 현재 패 1장씩 출력
-
-            Betting("cpu");
-            // cpu나 player 둘중 하나라도 다이 한다면 RestartGame()
-            // 엔터키 이벤트에 있는 메서드
-            // betting
-            // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
         }
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
@@ -442,7 +461,7 @@ namespace Seotta
         public void Betting(string seon)
         {
             // 누가 선인지 판별해서 먼저 베팅
-            if(seon.Equals("cpu"))
+            if (seon.Equals("cpu"))
             {
                 CpuBetting(cpuPae, 1);
                 // playerBetting();
@@ -559,7 +578,7 @@ namespace Seotta
         }
 
         // 하프 베팅 메서드
-        private void CpuHalfBetting()
+        private async void CpuHalfBetting()
         {
             // 선이면 첫 베팅 시 playerBettingMoney는 0
             int betAmount = playerBettingMoney + (currentPot / 2);
@@ -567,16 +586,19 @@ namespace Seotta
             cpuMoney -= betAmount;
             // 베팅금 저장
             cpuBettingMoney = betAmount;
+
+            await Task.Delay(3000);
+            gameProgress.Text = "컴퓨터가 하프 했습니다.";
         }
 
         // 콜 베팅 메서드
-        private void CpuCallBetting(int probability)
+        private async void CpuCallBetting(int probability)
         {
             Random random = new Random();
             int bettingProbability = random.Next(0, 100);
 
             // 매개변수로 넣은 수보다 작으면, 80을 넣으면 80%로 실행
-            if(bettingProbability <= probability)
+            if (bettingProbability <= probability)
             {
                 // 앞서 베팅한 플레이어의 베팅금만큼 베팅
                 int betAmount = playerBettingMoney;
@@ -584,14 +606,18 @@ namespace Seotta
                 cpuMoney -= betAmount;
                 // 베팅금 저장
                 cpuBettingMoney = betAmount;
-            } else
+
+                await Task.Delay(3000);
+                gameProgress.Text = "컴퓨터가 콜 했습니다.";
+            }
+            else
             {
                 CpuDie();
             }
         }
 
         // 체크 베팅 메서드
-        private void CpuCheckBetting()
+        private async void CpuCheckBetting()
         {
             // 선이면 첫 베팅 시 playerBettingMoney는 0
             int betAmount = 0;
@@ -599,12 +625,18 @@ namespace Seotta
             cpuMoney -= betAmount;
             // 베팅금 저장
             cpuBettingMoney = betAmount;
+
+            await Task.Delay(3000);
+            gameProgress.Text = "컴퓨터가 체크 했습니다.";
         }
 
         // 다이 베팅 메서드
-        private void CpuDie()
+        private async void CpuDie()
         {
-            // 다이해서 게임 재시작한다고 안내
+            await Task.Delay(3000);
+            gameProgress.Text = "컴퓨터가 다이 했습니다.";
+
+            await Task.Delay(3000);
             RestartGame();
         }
 

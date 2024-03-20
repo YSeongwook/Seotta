@@ -40,6 +40,7 @@ namespace Seotta
 
             // cpuLabel
             this.cpuLabel.AutoSize = true;
+            this.cpuLabel.Visible = false;
             this.cpuLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuLabel.ForeColor = System.Drawing.Color.White;
             this.cpuLabel.Location = new System.Drawing.Point(370, 24);
@@ -52,6 +53,7 @@ namespace Seotta
 
             // playerLabel
             this.playerLabel.AutoSize = true;
+            this.playerLabel.Visible = false;
             this.playerLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerLabel.ForeColor = System.Drawing.Color.White;
             this.playerLabel.Location = new System.Drawing.Point(1270, 24);
