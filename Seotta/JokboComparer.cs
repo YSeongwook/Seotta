@@ -201,7 +201,7 @@ public class JokboComparer
             int playerMonth = GetMonth(playerJokbo);
             int cpuMonth = GetMonth(cpuJokbo);
 
-            gameProgress.Text = ($"컴퓨터({cpuJokbo}) 플레이어({playerJokbo})");
+            gameProgress.Text = ($"컴퓨터({cpuJokbo}) vs 플레이어({playerJokbo})");
 
             if (playerMonth > cpuMonth)
             {

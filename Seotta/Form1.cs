@@ -15,7 +15,7 @@ namespace Seotta
         private Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
         private Panel jokboPanel;
 
-        string[] jokbo = {"1.38광땡", "2.광땡", "3.땡", "4.알리", "5.독사", "6.구삥", "7.장삥",
+        string[] jokbo = {"족보", "1.38광땡", "2.광땡", "3.땡", "4.알리", "5.독사", "6.구삥", "7.장삥",
             "8.장사", "9.세륙", "10.갑오", "11.끗,망통","* 구사", "* 땡잡이", "* 암행어사"};
 
         public Form1()
@@ -67,6 +67,7 @@ namespace Seotta
                 game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
                 gameProgress.AppendText("\r\n");
                 game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
+                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
                 game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
             }
 
@@ -106,6 +107,7 @@ namespace Seotta
                 game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
                 gameProgress.AppendText("\r\n");
                 game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
+                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
                 game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
             }
 
@@ -154,18 +156,18 @@ namespace Seotta
             }
 
             Button jokboLabel = (Button)jokboPanel.Controls[0];  // 형변환 해야 접근 가능
+           
+            for (int i = 0; i < jokboPanel.Controls.Count; i++)
+            {
+                jokboPanel.Controls[i].Font = new Font("Consolas", 14F);
+                jokboPanel.Controls[i].Text = jokbo[i];
+            }
+
             jokboLabel.TextAlign = ContentAlignment.MiddleCenter;
             jokboLabel.FlatStyle = FlatStyle.Flat;
             jokboLabel.TabStop = false;
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
-            jokboLabel.Text = "족보";
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
-
-            for (int i = 1; i < jokboPanel.Controls.Count; i++)
-            {
-                jokboPanel.Controls[i].Font = new Font("Consolas", 14F);
-                jokboPanel.Controls[i].Text = jokbo[i - 1];
-            }
         }
 
         // 족보 도움말 버튼 클릭 시 도움말 출력

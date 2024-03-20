@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="JokboComparer.cs" />
     <Compile Include="JokboDescription.cs" />
+    <Compile Include="JokboHelper.cs" />
     <Compile Include="Pae.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
