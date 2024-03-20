@@ -84,8 +84,7 @@ namespace Seotta
                 game.CheckEndBetting();
                 game.ResetPae();
                 game.InitIndex();
-                game.GetTimer(2).Stop();
-                game.GetTimer(1).Start();
+                game.PrintPae();
                 game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
                 gameProgress.AppendText("\r\n");
                 game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
@@ -151,6 +150,7 @@ namespace Seotta
             jokboLabel.TextAlign = ContentAlignment.MiddleCenter;
             jokboLabel.FlatStyle = FlatStyle.Flat;
             jokboLabel.TabStop = false;
+            jokboLabel.Name = "족보 레이블";
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
         }
@@ -232,7 +232,7 @@ namespace Seotta
                 if (control is JokboButton jokboBtn)
                 {
                     // 패널에 있는 족보 버튼인 경우 배경색을 변경
-                    if (jokboBtn.Text.Equals(jokbo))
+                    if (jokboBtn.Text.Equals(jokbo) && !(jokboBtn.Name.Equals("족보 레이블")))
                     {
                         jokboBtn.BackColor = Color.Gray;
                         jokboBtn.ForeColor = Color.Black;
@@ -246,5 +246,7 @@ namespace Seotta
                 }
             }
         }
+
+        // 베팅 버튼 클릭 이벤트
     }
 }

@@ -8,6 +8,8 @@ namespace Seotta
 {
     public class Game
     {
+        #region Variable
+
         Form1 form;
         TextBox pae1;
         TextBox pae2;
@@ -40,6 +42,15 @@ namespace Seotta
 
         private bool endBetting = false;
 
+        #endregion
+
+        private string seon = "cpu";    // 선을 결정하는 변수
+        private int cpuMoney;           // cpu 소지금
+        private int playerMoney;        // 플레이어 소지금
+        private int currentPot;         // 현재 판돈
+        private int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
+        private int playerBettingMoney; // cpu가 직전에 베팅한 금액
+
         public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress, TextBox jokboHelper, Panel jokboPanel)
         {
             this.form = form;
@@ -60,48 +71,6 @@ namespace Seotta
             timer2 = new System.Windows.Forms.Timer();
             timer2.Interval = 1; // 1밀리초마다 변경
             timer2.Tick += Timer2_Tick;
-        }
-
-        // 게임 시작
-        public void StartGame()
-        {
-            // 게임 안내 문구 출력
-            DisplayTextFromFile("game_start.txt", gameProgress);
-
-            // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
-            ReadPaeFromFile("Pae_Name.txt");
-
-            cpuPae = new Pae[2];
-            playerPae = new Pae[2];
-
-            ResetPae();
-            SelectPae();
-            PrintPae();
-        }
-
-        // 게임 재시작
-        public void RestartGame()
-        {
-            // Pae 배열 초기화
-            pae.Clear();
-
-            // cpuPae 및 playerPae 배열 초기화
-            cpuPae = new Pae[2];
-            playerPae = new Pae[2];
-
-            // endBetting 변수 초기화
-            endBetting = false;
-
-            // cpuIndex 및 playerIndex 배열 초기화
-            InitIndex();
-
-            // TextBox 초기화
-            gameProgress.Clear();
-            jokboHelper.Clear();
-            form.HighlightJokboButton(jokboPanel, "");
-
-            // 게임을 다시 시작
-            StartGame();
         }
 
         #region Getter
@@ -148,6 +117,78 @@ namespace Seotta
         }
 
         #endregion
+
+
+
+        // 게임 시작
+        public void StartGame()
+        {
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // 게임 안내 문구 출력
+            DisplayTextFromFile("game_start.txt", gameProgress);
+
+            // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
+            ReadPaeFromFile("Pae_Name.txt");
+
+            // 아래 메서드들 GameLoop() 메서드 만들어서 넣어주기
+
+            InitMoney();
+            ResetPae();
+            SelectPae();
+            PrintPae();
+
+            GameLoop();
+        }
+
+        // 소지금, 베팅금, 판돈 초기화
+        public void InitMoney()
+        {
+            cpuMoney = 0;
+            playerMoney = 0;
+            currentPot = 0;
+            cpuBettingMoney = 0;
+            playerBettingMoney = 0;
+        }
+
+        // 게임 재시작
+        public void RestartGame()
+        {
+            // Pae 배열 초기화
+            pae.Clear();
+
+            // cpuPae 및 playerPae 배열 초기화
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // endBetting 변수 초기화
+            endBetting = false;
+
+            // cpuIndex 및 playerIndex 배열 초기화
+            InitIndex();
+
+            // TextBox 초기화
+            gameProgress.Clear();
+            jokboHelper.Clear();
+            form.HighlightJokboButton(jokboPanel, "");
+
+            // 게임을 다시 시작
+            StartGame();
+        }
+
+        public void GameLoop()
+        {
+            ResetPae();
+            SelectPae();
+            PrintPae(); // 현재 패 1장씩 출력
+
+            Betting("cpu");
+            // cpu나 player 둘중 하나라도 다이 한다면 RestartGame()
+            // 엔터키 이벤트에 있는 메서드
+            // betting
+            // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
+        }
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
         public void ReadPaeFromFile(string filePath)
@@ -395,5 +436,179 @@ namespace Seotta
             JokboComparer jokboComparer = new JokboComparer(this, gameProgress);
             jokboComparer.GetWinner(cpuJokbo, playerJokbo);
         }
+
+        // Betting 메서드 안에 CpuBetting, PlayerBetting
+
+        public void Betting(string seon)
+        {
+            // 누가 선인지 판별해서 먼저 베팅
+            if(seon.Equals("cpu"))
+            {
+                CpuBetting(cpuPae, 1);
+                // playerBetting();
+                CpuBetting(cpuPae, 2);
+                // playerBetting();
+            }
+        }
+
+        // CPU 베팅 메서드
+        public void CpuBetting(Pae[] pae, int turn)
+        {
+            // 첫번째 베팅
+            if (turn == 1)
+            {
+                switch (pae[0].PaeName)
+                {
+                    // 첫 패에 따라 다른 베팅 진행
+                    case "1광":
+                    case "4열끗":
+                    case "1띠":
+                    case "4띠":
+                    case "9열끗":
+                    case "10열끗":
+                    case "10띠":
+                    case "9띠":
+                        // 하프
+                        CpuHalfBetting();
+                        break;
+                    case "3광":
+                    case "8광":
+                        CpuCallBetting(80); // 80% 확률로 콜
+                        break;
+                    case "2열끗":
+                    case "2띠":
+                    case "6열끗":
+                    case "6띠":
+                        CpuCallBetting(60); // 60% 확률로 콜
+                        break;
+                    case "7열끗":
+                    case "8띠":
+                    case "7띠":
+                    case "5열끗":
+                    case "5띠":
+                    case "3띠":
+                        CpuCallBetting(40); // 40% 확률로 콜
+                        break;
+                }
+            }
+            // 2번째 베팅
+            else
+            {
+                // 현재 CPU의 족보에 따라 다른 베팅 진행
+                switch (CpuJokbo)
+                {
+                    case "38광땡":
+                    case "13광땡":
+                    case "18광땡":
+                    case "장땡":
+                    case "멍텅구리구사":
+                    case "9땡":
+                    case "8땡":
+                    case "7땡":
+                    case "6땡":
+                    case "5땡":
+                    case "4땡":
+                    case "3땡":
+                    case "2땡":
+                    case "1땡":
+                    case "구사":
+                    case "알리":
+                    case "독사":
+                        // 하프
+                        CpuHalfBetting();
+                        break;
+                    case "구삥":
+                    case "장삥":
+                    case "장사":
+                    case "세륙":
+                    case "갑오(9끗)":
+                        // 콜
+                        CpuCallBetting(100);
+                        break;
+                    case "땡잡이":
+                        // 상황에 따라 콜 또는 다이
+                        if (cpuMoney > playerMoney)
+                            CpuCallBetting(100);
+                        else
+                            CpuDie();
+                        break;
+                    case "8끗":
+                    case "7끗":
+                    case "6끗":
+                    case "5끗":
+                        // 체크
+                        CpuCheckBetting();
+                        break;
+                    case "4끗":
+                    case "3끗":
+                    case "2끗":
+                    case "1끗":
+                    case "망통(0끗)":
+                        // 다이
+                        CpuDie();
+                        break;
+                    case "암행어사":
+                        // 상황에 따라 체크 또는 다이
+                        if (cpuMoney > playerMoney)
+                            CpuCheckBetting();
+                        else
+                            CpuDie();
+                        break;
+                }
+            }
+        }
+
+        // 하프 베팅 메서드
+        private void CpuHalfBetting()
+        {
+            // 선이면 첫 베팅 시 playerBettingMoney는 0
+            int betAmount = playerBettingMoney + (currentPot / 2);
+            // 소지금에서 베팅만큼 제출
+            cpuMoney -= betAmount;
+            // 베팅금 저장
+            cpuBettingMoney = betAmount;
+        }
+
+        // 콜 베팅 메서드
+        private void CpuCallBetting(int probability)
+        {
+            Random random = new Random();
+            int bettingProbability = random.Next(0, 100);
+
+            // 매개변수로 넣은 수보다 작으면, 80을 넣으면 80%로 실행
+            if(bettingProbability <= probability)
+            {
+                // 앞서 베팅한 플레이어의 베팅금만큼 베팅
+                int betAmount = playerBettingMoney;
+                // 소지금에서 베팅만큼 제출
+                cpuMoney -= betAmount;
+                // 베팅금 저장
+                cpuBettingMoney = betAmount;
+            } else
+            {
+                CpuDie();
+            }
+        }
+
+        // 체크 베팅 메서드
+        private void CpuCheckBetting()
+        {
+            // 선이면 첫 베팅 시 playerBettingMoney는 0
+            int betAmount = 0;
+            // 소지금에서 베팅만큼 제출
+            cpuMoney -= betAmount;
+            // 베팅금 저장
+            cpuBettingMoney = betAmount;
+        }
+
+        // 다이 베팅 메서드
+        private void CpuDie()
+        {
+            // 다이해서 게임 재시작한다고 안내
+            RestartGame();
+        }
+
+        // playerBetting() 만들어야하는데 위의 CpuBetting들이랑 겹치는걸 매개변수를 잘 넘겨서 구분하면 메소드를 줄일 수 있을 것 같다.
+        // 베팅하고 베팅한 내용을 출력도 해줘야함
     }
 }
