@@ -20,17 +20,17 @@ namespace Seotta
         Timer timer1;
         Timer timer2;
 
-        // ASCII ART가 담겨있는 텍스트 파일명 리스트
+        // Ascii Art가 담겨있는 텍스트 파일명 리스트
         private List<string> asciiText = new List<string>();
 
-        // ASCII ART 출력에 사용할 인덱스 변수
+        // Ascii Art 출력에 사용할 인덱스 변수
         private int[] cpuIndex = new int[2];
         private int[] playerIndex = new int[2];
 
-        // 패 객체 20개가 담길 리스트
+        // 패 객체 20개 리스트
         private List<Pae> pae = new List<Pae>();
 
-        // cpu, player 패2장씩 담을 리스트
+        // cpu, player 패 리스트
         private Pae[] cpuPae;
         private Pae[] playerPae;
         public int CpuLevel { get; set; }
@@ -154,7 +154,7 @@ namespace Seotta
         {
             List<string> paeName = new List<string>();
 
-            // ASCII ART가 담겨진 텍스트 파일명 불러오기
+            // Ascii Art가 담겨진 텍스트 파일명 불러오기
             asciiText.Clear();
             for (int i = 1; i <= 20; i++) asciiText.Add($"{i}.txt");
 
@@ -196,7 +196,7 @@ namespace Seotta
             }
         }
 
-        // ASCII ART 텍스트 파일 불러오기
+        // Ascii Art 텍스트 파일 읽기
         public string[] ReadAllLinesFromFile(string fileName)
         {
             if (File.Exists(fileName))
@@ -258,7 +258,7 @@ namespace Seotta
             timer1.Start();
         }
 
-        // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출
+        // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출, 1밀리초마다 이벤트 발생
         private void Timer1_Tick(object sender, EventArgs e)
         {
             // 베팅이 끝나지 않았다면
