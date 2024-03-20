@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Seotta
@@ -117,7 +113,7 @@ namespace Seotta
                         break;
                 }
             }
-            textBox.Text = JokboDescription.GetDescription(jokbo);
+            textBox.Text = jokbo + "\r\n" + JokboDescription.GetDescription(jokbo);
 
             // 만약 둘이 비교해야한다면 아래 조건문 만나기 전에 값 넘겨줘서 비교해야함
 

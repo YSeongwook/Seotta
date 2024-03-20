@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
-using System.Collections.Generic;
-using static System.Console;
-using static System.Windows.Forms.LinkLabel;
-using System.Linq;
 
 namespace Seotta
 {
@@ -15,22 +10,9 @@ namespace Seotta
         private Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
         private Panel jokboPanel;
 
-        string[] jokbo = {"족보", "1.38광땡", "2.광땡", "3.땡", "4.알리", "5.독사", "6.구삥", "7.장삥",
-            "8.장사", "9.세륙", "10.갑오", "11.끗,망통","* 구사", "* 땡잡이", "* 암행어사"};
-
         public Form1()
         {
             InitializeComponent();
-
-            // 폼을 화면에 가운데에 생성
-            this.StartPosition = FormStartPosition.CenterScreen;
-
-            // 폼의 배경색을 검정색으로 설정
-            this.BackColor = Color.Black;
-
-            // KeyPreview를 true로 설정하여 폼이 키 이벤트를 먼저 받도록 함
-            this.KeyPreview = true;
-
             CreateJokboButton();
         }
 
@@ -127,6 +109,9 @@ namespace Seotta
         // 족보 버튼 동적 생성
         private void CreateJokboButton()
         {
+            string[] jokbo = {"족보", "1.38광땡", "2.광땡", "3.땡", "4.알리", "5.독사", "6.구삥", "7.장삥",
+                            "8.장사", "9.세륙", "10.갑오", "11.끗,망통","* 구사", "* 땡잡이", "* 암행어사"};
+
             // 패널 생성
             jokboPanel = new Panel();
             jokboPanel.Location = new Point(1278, 50);   // 좌상단 위치 설정
@@ -261,6 +246,5 @@ namespace Seotta
                 }
             }
         }
-
     }
 }

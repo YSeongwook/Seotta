@@ -37,9 +37,8 @@ namespace Seotta
             this.betHelpBtn = new System.Windows.Forms.Button();
             this.jokboHelper = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+
             // cpuLabel
-            // 
             this.cpuLabel.AutoSize = true;
             this.cpuLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuLabel.ForeColor = System.Drawing.Color.White;
@@ -50,9 +49,8 @@ namespace Seotta
             this.cpuLabel.TabIndex = 5;
             this.cpuLabel.Text = "컴퓨터";
             this.cpuLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+
             // playerLabel
-            // 
             this.playerLabel.AutoSize = true;
             this.playerLabel.Font = new System.Drawing.Font("Consolas", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerLabel.ForeColor = System.Drawing.Color.White;
@@ -63,9 +61,8 @@ namespace Seotta
             this.playerLabel.TabIndex = 5;
             this.playerLabel.Text = "플레이어";
             this.playerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+
             // pae1
-            // 
             this.pae1.BackColor = System.Drawing.Color.Black;
             this.pae1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.pae1.Font = new System.Drawing.Font("Consolas", 4F);
@@ -78,9 +75,8 @@ namespace Seotta
             this.pae1.Size = new System.Drawing.Size(442, 665);
             this.pae1.TabIndex = 5;
             this.pae1.TabStop = false;
-            // 
+
             // pae2
-            // 
             this.pae2.BackColor = System.Drawing.Color.Black;
             this.pae2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.pae2.Font = new System.Drawing.Font("Consolas", 4F);
@@ -93,9 +89,8 @@ namespace Seotta
             this.pae2.Size = new System.Drawing.Size(442, 665);
             this.pae2.TabIndex = 2;
             this.pae2.TabStop = false;
-            // 
+
             // pae3
-            // 
             this.pae3.BackColor = System.Drawing.Color.Black;
             this.pae3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.pae3.Font = new System.Drawing.Font("Consolas", 4F);
@@ -108,9 +103,8 @@ namespace Seotta
             this.pae3.Size = new System.Drawing.Size(442, 665);
             this.pae3.TabIndex = 3;
             this.pae3.TabStop = false;
-            // 
+
             // pae4
-            // 
             this.pae4.BackColor = System.Drawing.Color.Black;
             this.pae4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.pae4.Font = new System.Drawing.Font("Consolas", 4F);
@@ -123,9 +117,8 @@ namespace Seotta
             this.pae4.Size = new System.Drawing.Size(442, 665);
             this.pae4.TabIndex = 4;
             this.pae4.TabStop = false;
-            // 
+
             // gameProgress
-            // 
             this.gameProgress.BackColor = System.Drawing.Color.Black;
             this.gameProgress.Font = new System.Drawing.Font("Consolas", 24F);
             this.gameProgress.ForeColor = System.Drawing.Color.White;
@@ -138,9 +131,8 @@ namespace Seotta
             this.gameProgress.Size = new System.Drawing.Size(1816, 452);
             this.gameProgress.TabIndex = 0;
             this.gameProgress.TabStop = false;
-            // 
+
             // betBtn7
-            // 
             this.betBtn7.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn7.ForeColor = System.Drawing.Color.White;
             this.betBtn7.Location = new System.Drawing.Point(1850, 792);
@@ -150,9 +142,8 @@ namespace Seotta
             this.betBtn7.TabIndex = 5;
             this.betBtn7.TabStop = false;
             this.betBtn7.Text = "7|   콜  ";
-            // 
+
             // betBtn8
-            // 
             this.betBtn8.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn8.ForeColor = System.Drawing.Color.White;
             this.betBtn8.Location = new System.Drawing.Point(2112, 792);
@@ -163,9 +154,8 @@ namespace Seotta
             this.betBtn8.TabIndex = 6;
             this.betBtn8.TabStop = false;
             this.betBtn8.Text = "8|  다이 ";
-            // 
+
             // betBtn4
-            // 
             this.betBtn4.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn4.ForeColor = System.Drawing.Color.White;
             this.betBtn4.Location = new System.Drawing.Point(1850, 912);
@@ -175,9 +165,8 @@ namespace Seotta
             this.betBtn4.TabIndex = 7;
             this.betBtn4.TabStop = false;
             this.betBtn4.Text = "4|   삥  ";
-            // 
+
             // betBtn5
-            // 
             this.betBtn5.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn5.ForeColor = System.Drawing.Color.White;
             this.betBtn5.Location = new System.Drawing.Point(2112, 912);
@@ -201,9 +190,8 @@ namespace Seotta
             this.betBtn1.TabIndex = 9;
             this.betBtn1.TabStop = false;
             this.betBtn1.Text = "1|  따당 ";
-            // 
+
             // betBtn0
-            // 
             this.betBtn0.Font = new System.Drawing.Font("Consolas", 20F, FontStyle.Bold);
             this.betBtn0.ForeColor = System.Drawing.Color.White;
             this.betBtn0.Location = new System.Drawing.Point(1850, 1152);
@@ -214,9 +202,8 @@ namespace Seotta
             this.betBtn0.TabIndex = 10;
             this.betBtn0.TabStop = false;
             this.betBtn0.Text = "0|  하프 ";
-            // 
+
             // jokboHelpBtn
-            // 
             this.jokboHelpBtn.Font = new System.Drawing.Font("Consolas", 15F, FontStyle.Bold);
             this.jokboHelpBtn.ForeColor = System.Drawing.Color.White;
             this.jokboHelpBtn.Location = new System.Drawing.Point(2016, 24);
@@ -251,9 +238,7 @@ namespace Seotta
             this.jokboHelper.TabIndex = 0;
             this.jokboHelper.TabStop = false;
 
-            // 
             // Form1
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
@@ -277,13 +262,16 @@ namespace Seotta
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.StartPosition = FormStartPosition.CenterScreen;    // 폼을 화면에 가운데에 생성
+            this.BackColor = Color.Black;                           // 폼의 배경색을 검정색으로 설정
+            this.KeyPreview = true;                                 // KeyPreview를 true로 설정하여 폼이 키 이벤트를 먼저 받도록 함
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        // 진영 표시 레이블
+        // 패 위치 구분 레이블
         private System.Windows.Forms.Label cpuLabel;
         private System.Windows.Forms.Label playerLabel;
 
@@ -308,7 +296,7 @@ namespace Seotta
         private System.Windows.Forms.Button jokboHelpBtn;
         private System.Windows.Forms.Button betHelpBtn;
 
-        // 족보 도우미
+        // 족보 도우미 텍스트 박스
         private System.Windows.Forms.TextBox jokboHelper;
     }
 }
