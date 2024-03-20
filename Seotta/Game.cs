@@ -369,6 +369,7 @@ namespace Seotta
             // TextBox 초기화
             gameProgress.Clear();
             jokboHelper.Clear();
+            form.HighlightJokboButton(jokboPanel, "");
 
             // 게임을 다시 시작
             StartGame();
@@ -384,39 +385,32 @@ namespace Seotta
             if (jokbo.Equals("3광8광"))
             {
                 jokbo = "38광땡";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("4열끗7열끗"))
             {
                 jokbo = "암행어사";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (CountOccurrences(jokbo, "광")) // jokbo가 38광땡이 아니고, 광이 2개 이상 들어있다면(광땡이라면)
             {
                 jokbo = ComparePaeMonth(pae);
 
                 jokbo += "광땡";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (CountOccurrences(jokbo, "10")) // jokbo에 10이 2개 이상 들어있다면(장땡이라면)
             {
                 jokbo = "장땡";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("4열끗9열끗"))   // 멍텅구리 구사
             {
                 jokbo = "멍텅구리구사";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo.Equals("3광7열끗"))    // 땡잡이
             {
                 jokbo = "땡잡이";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else if (jokbo[0] == jokbo[2])    // 같은 월인 경우 ex) 1광1띠
             {
                 jokbo = jokbo[0] + "땡";
-                textBox.AppendText(name + ": " + jokbo);
             }
             else
             {
@@ -482,12 +476,12 @@ namespace Seotta
                         }
                         break;
                 }
-                textBox.AppendText(name + ": " + jokbo);
             }
+            textBox.Text = JokboDescription.GetDescription(jokbo);
 
             // 만약 둘이 비교해야한다면 아래 조건문 만나기 전에 값 넘겨줘서 비교해야함
 
-            if(name == "컴퓨터")
+            if (name == "컴퓨터")
             {
                 CpuJokbo = jokbo;
             } else
@@ -622,7 +616,9 @@ namespace Seotta
 
                 { "9땡", 9 }, { "8땡", 9 }, { "7땡", 9 }, { "6땡", 9 }, { "5땡", 9 }, { "4땡", 9 }, { "3땡", 9 }, { "2땡", 9 }, { "1땡", 9 },
 
-                { "구사", 8 }, { "알리", 7 }, { "독사", 6 }, { "구삥", 5 }, { "장삥", 4 }, { "장사", 3 }, { "세륙", 2 },
+                { "구사", 8 },
+                
+                { "알리", 7 }, { "독사", 6 }, { "구삥", 5 }, { "장삥", 4 }, { "장사", 3 }, { "세륙", 2 },
 
                 { "갑오(9끗)", 1 }, { "8끗", 1 }, { "7끗", 1 }, { "6끗", 1 }, { "5끗", 1 },
                 { "4끗", 1 }, { "3끗", 1 }, { "2끗", 1 }, { "1끗", 1 }, { "망통(0끗)", 1 }
@@ -714,7 +710,7 @@ namespace Seotta
                 else
                 {
                     // 재경기
-                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    gameProgress.AppendText("\r\n구사 재경기");
                     RestartGame();
                 }
             } 
@@ -729,7 +725,7 @@ namespace Seotta
                 else
                 {
                     // 재경기
-                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    gameProgress.AppendText("\r\n구사 재경기");
                     RestartGame();
                 }
             }
@@ -744,7 +740,7 @@ namespace Seotta
                 else
                 {
                     // 재경기
-                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    gameProgress.AppendText("\r\n구사 재경기");
                     RestartGame();
                 }
             } 
@@ -759,7 +755,7 @@ namespace Seotta
                 else
                 {
                     // 재경기
-                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    gameProgress.AppendText("\r\n구사 재경기");
                     RestartGame();
                 }
             }
@@ -800,7 +796,7 @@ namespace Seotta
                 else
                 {
                     // 둘 다 월 수가 같은 경우에는 재경기
-                    gameProgress.AppendText("\r\n재경기 해야합니다.");
+                    gameProgress.AppendText("\r\n재경기 합니다.");
                     //RestartGame();
                 }
             }

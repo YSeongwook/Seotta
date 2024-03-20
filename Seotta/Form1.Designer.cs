@@ -241,13 +241,13 @@ namespace Seotta
 
             // jokboHelper
             this.jokboHelper.BackColor = System.Drawing.Color.Black;
-            this.jokboHelper.Font = new System.Drawing.Font("Consolas", 16F);
+            this.jokboHelper.Font = new System.Drawing.Font("Consolas", 14F);
             this.jokboHelper.ForeColor = System.Drawing.Color.White;
             this.jokboHelper.Location = new System.Drawing.Point(1840, 470);
             this.jokboHelper.Multiline = true;
             this.jokboHelper.Name = "jokboHelper";
             this.jokboHelper.ReadOnly = true;
-            this.jokboHelper.Size = new System.Drawing.Size(518, 120);
+            this.jokboHelper.Size = new System.Drawing.Size(518, 220);
             this.jokboHelper.TabIndex = 0;
             this.jokboHelper.TabStop = false;
 
