@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -37,12 +38,20 @@ namespace Seotta
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             // Enter 키를 눌렀을 때
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
                 game.SecondDraw();
             }
+
+            // Tab 키를 누르면 재시작
+            if (e.KeyCode == Keys.Tab)
+            {
+                game.RestartGame();
+            }
+            */
 
             // Spacebar 키를 눌렀을 때
             if (e.KeyCode == Keys.Space)
@@ -54,12 +63,6 @@ namespace Seotta
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            }
-
-            // Tab 키를 누르면 재시작
-            if (e.KeyCode == Keys.Tab)
-            {
-                game.RestartGame();
             }
 
             // 숫자 키패드를 눌러 베팅 가능
@@ -91,6 +94,7 @@ namespace Seotta
 
         private void GameProgress_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             // Enter 키를 눌렀을 때
             if (e.KeyCode == Keys.Enter)
             {
@@ -98,16 +102,17 @@ namespace Seotta
                 game.SecondDraw();
             }
 
-            // Spacebar 키를 눌렀을 때
-            if (e.KeyCode == Keys.Space)
-            {
-                game.ShowDown();
-            }
-
             // Escape 키를 누르면 폼 종료
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+             */
+
+            // Spacebar 키를 눌렀을 때
+            if (e.KeyCode == Keys.Space)
+            {
+                game.ShowDown();
             }
 
             // Tab 키를 누르면 재시작
@@ -166,24 +171,42 @@ namespace Seotta
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
         }
 
+        // 도움말 내용 파일에서 내용을 로드하는 메서드
+        private string LoadHelpContent(string filePath)
+        {
+            string content = "";
+            try
+            {
+                content = File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("도움말 파일을 읽는 도중 오류가 발생했습니다: " + ex.Message);
+            }
+            return content;
+        }
+
+        // 새로운 폼에 도움말을 표시하는 메서드
+        private void OpenHelpForm(string title, string content)
+        {
+            HelpForm helpForm = new HelpForm(title, content);
+            helpForm.ShowDialog();
+        }
+
         // 족보 도움말 버튼 클릭 시 도움말 출력
         private void JokboHelpBtn_BtnClick(object sender, EventArgs e)
         {
-            // 파일 경로 지정
-            string filePath = "jokbo_help.txt";
-
-            // 함수 호출로 파일 내용을 텍스트 박스에 표시
-            game.DisplayTextFromFile(filePath, gameProgress);
+            string jokboTitle = "족보 도움말";
+            string jokboContent = LoadHelpContent("jokbo_help.txt");
+            OpenHelpForm(jokboTitle, jokboContent);
         }
 
         // 베팅 도움말 버튼 클릭 시 도움말 출력
         private void BetHelpBtn_BtnClick(object sender, EventArgs e)
         {
-            // 파일 경로 지정
-            string filePath = "betting_help.txt";
-
-            // 함수 호출로 파일 내용을 텍스트 박스에 표시
-            game.DisplayTextFromFile(filePath, gameProgress);
+            string betTitle = "베팅 도움말";
+            string betContent = LoadHelpContent("betting_help.txt");
+            OpenHelpForm(betTitle, betContent);
         }
 
         // 버튼 클릭 이벤트 핸들러

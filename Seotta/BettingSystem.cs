@@ -94,8 +94,8 @@ namespace Seotta
                         CpuCallBetting(40); // 40% 확률로 콜
                         break;
                 }
-                gameProgress.AppendText($"\r\nseon: {seon}");
-                gameProgress.AppendText($"\r\nturn: {turn}");
+                // gameProgress.AppendText($"\r\nseon: {seon}");
+                // gameProgress.AppendText($"\r\nturn: {turn}");
             }
             // 2번째 베팅
             else
@@ -327,8 +327,8 @@ namespace Seotta
                     break;
             }
 
-            gameProgress.AppendText($"\r\nturn: {turn}");
-            gameProgress.AppendText($"\r\nseon: {seon}");
+            // gameProgress.AppendText($"\r\nturn: {turn}");
+            // gameProgress.AppendText($"\r\nseon: {seon}");
 
             if (betBtn != 8)
             {

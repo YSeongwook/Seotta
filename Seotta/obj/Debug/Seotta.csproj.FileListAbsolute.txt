@@ -31,3 +31,4 @@ C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.GenerateResource.cache
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.CoreCompileInputs.cache
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.exe
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.pdb
+D:\Git\Seotta\Seotta\obj\Debug\Seotta.HelpForm.resources
