@@ -411,6 +411,9 @@ namespace Seotta
             DisplayJokboHelper(gameProgress, GetPlayerPae(), "플레이어");
             DisplayJokboHelper(jokboHelper, GetPlayerPae(), "플레이어");
             CompareJokbo(CpuJokbo, PlayerJokbo);
+
+            await Task.Delay(3000);
+            RestartGame();
         }
 
         #region Timer

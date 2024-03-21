@@ -38,13 +38,14 @@ namespace Seotta
             this.turn = 1;
         }
 
-        public async void Betting(string seon)
+        public async void Betting(string _seon)
         {
+            this.seon = _seon;
             // 누가 선인지 판별해서 먼저 베팅
             if (seon.Equals("컴퓨터"))
             {
                 await Task.Delay(1000);
-                CpuBetting(game.GetCpuPae(), game.GetTurn());
+                CpuBetting(game.GetCpuPae(), turn);
             }
             else
             {
@@ -55,7 +56,7 @@ namespace Seotta
 
         #region CpuBetting
         // CPU 베팅 메서드
-        public async void CpuBetting(Pae[] pae, int turn)
+        public void CpuBetting(Pae[] pae, int turn)
         {
             // 첫번째 베팅
             if (turn == 1)
@@ -93,6 +94,8 @@ namespace Seotta
                         CpuCallBetting(40); // 40% 확률로 콜
                         break;
                 }
+                gameProgress.AppendText($"\r\nseon: {seon}");
+                gameProgress.AppendText($"\r\nturn: {turn}");
             }
             // 2번째 베팅
             else
@@ -184,6 +187,7 @@ namespace Seotta
                 gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
 
+            // 출력은 제대로 되지만 실제로 seon이 변경이 안되는듯
             if (seon.Equals("플레이어"))
             {
                 if (turn == 1)
@@ -300,8 +304,6 @@ namespace Seotta
 
         public async void PlayerBetting(int betBtn)
         {
-            int betAmount;
-
             switch (betBtn)
             {
                 case 7: // 콜
@@ -320,9 +322,13 @@ namespace Seotta
                     // 따당
                     break;
                 case 0:
+                    // 하프 or 올인
                     PlayerHalfBetting();
                     break;
             }
+
+            gameProgress.AppendText($"\r\nturn: {turn}");
+            gameProgress.AppendText($"\r\nseon: {seon}");
 
             if (betBtn != 8)
             {
@@ -333,7 +339,6 @@ namespace Seotta
                         // 패 공개
                         await Task.Delay(2000);
                         game.ShowDown();
-                        this.seon = "플레이어";
                     }
                     else
                     {

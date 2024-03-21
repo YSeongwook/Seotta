@@ -8,10 +8,15 @@ namespace Seotta
     public partial class Form1 : Form
     {
         Game game;
-        private Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
-        private Panel jokboPanel;
+        Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
+        Panel jokboPanel;
 
-        private bool isButtonClickable = true;
+        bool isButtonClickable = true;
+
+        public Button GetPreviousButton()
+        {
+            return previousButton;
+        }
 
         public Form1()
         {
@@ -57,34 +62,29 @@ namespace Seotta
                 game.RestartGame();
             }
 
+            // 숫자 키패드를 눌러 베팅 가능
             if (e.KeyCode == Keys.NumPad7)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn7, EventArgs.Empty);
             }
             else if (e.KeyCode == Keys.NumPad8)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn8, EventArgs.Empty);
             }
             else if (e.KeyCode == Keys.NumPad4)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn4, EventArgs.Empty);
             }
             else if (e.KeyCode == Keys.NumPad5)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn5, EventArgs.Empty);
             }
             else if (e.KeyCode == Keys.NumPad1)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn1, EventArgs.Empty);
             }
             else if (e.KeyCode == Keys.NumPad0)
             {
-                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
                 BetButton_Click(betBtn0, EventArgs.Empty);
             }
         }
@@ -140,6 +140,7 @@ namespace Seotta
                 for (int j = 0; j < col; j++)
                 {
                     JokboButton button = new JokboButton();
+                    button.Font = new Font("Consolas", 14F);
                     button.ForeColor = Color.White;
                     button.TextAlign = ContentAlignment.MiddleLeft;
                     button.TabStop = false;
@@ -151,25 +152,18 @@ namespace Seotta
                 }
             }
 
-            Button jokboLabel = (Button)jokboPanel.Controls[0];  // 형변환 해야 접근 가능
-           
             for (int i = 0; i < jokboPanel.Controls.Count; i++)
             {
-                jokboPanel.Controls[i].Font = new Font("Consolas", 14F);
                 jokboPanel.Controls[i].Text = jokbo[i];
             }
 
+            Button jokboLabel = (Button)jokboPanel.Controls[0];  // 형변환 해야 접근 가능
             jokboLabel.TextAlign = ContentAlignment.MiddleCenter;
             jokboLabel.FlatStyle = FlatStyle.Flat;
             jokboLabel.TabStop = false;
             jokboLabel.Name = "족보 레이블";
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
-        }
-
-        public Button GetPreviousButton()
-        {
-            return previousButton;
         }
 
         // 족보 도움말 버튼 클릭 시 도움말 출력
