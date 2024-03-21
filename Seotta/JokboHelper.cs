@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Seotta
 {
@@ -113,8 +114,6 @@ namespace Seotta
                         break;
                 }
             }
-            // 족보 도우미 텍스트 박스에 족보 설명 출력
-            textBox.Text = jokbo + "\r\n" + JokboDescription.GetDescription(jokbo);
 
             if (name == "컴퓨터")
             {
@@ -122,11 +121,13 @@ namespace Seotta
             }
             else
             {
-                game.PlayerJokbo = jokbo;
-            }
+                // 족보 도우미 텍스트 박스에 족보 설명 출력
+                textBox.Text = jokbo + "\r\n" + JokboDescription.GetDescription(jokbo);
 
-            jokbo = GroupingJokbo(jokbo);
-            form.HighlightJokboButton(game.GetJokboPanel(), jokbo);
+                game.PlayerJokbo = jokbo;
+                jokbo = GroupingJokbo(jokbo);
+                form.HighlightJokboButton(game.GetJokboPanel(), jokbo);
+            }
         }
 
         // 족보 그룹화

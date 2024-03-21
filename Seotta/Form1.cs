@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Seotta
@@ -10,6 +11,8 @@ namespace Seotta
         private Button previousButton = null; // 이전에 선택된 버튼을 저장할 변수
         private Panel jokboPanel;
 
+        private bool isButtonClickable = true;
+
         public Form1()
         {
             InitializeComponent();
@@ -18,7 +21,7 @@ namespace Seotta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel, cpuLabel, playerLabel);
+            game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel, cpuLabel, playerLabel, cpuMoneyLabel, playerMoneyLabel, currentPotBox);
             game.StartGame();
 
             this.Focus();
@@ -33,24 +36,13 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.GetTimer(2).Start();
-                jokboHelper.Clear();
-                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
+                game.SecondDraw();
             }
 
             // Spacebar 키를 눌렀을 때
             if (e.KeyCode == Keys.Space)
             {
-                game.CheckEndBetting();
-                game.ResetPae();
-                game.InitIndex();
-                game.PrintPae();
-                gameProgress.Clear();
-                game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
-                gameProgress.AppendText("\r\n");
-                game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
-                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
-                game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
+                game.ShowDown();
             }
 
             // Escape 키를 누르면 폼 종료
@@ -72,24 +64,13 @@ namespace Seotta
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.GetTimer(2).Start();
-                jokboHelper.Clear();
-                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
+                game.SecondDraw();
             }
 
             // Spacebar 키를 눌렀을 때
             if (e.KeyCode == Keys.Space)
             {
-                // game.PrintPae()를 사용해서 timer 컨트롤
-                game.CheckEndBetting();
-                game.ResetPae();
-                game.InitIndex();
-                game.PrintPae();
-                game.DisplayJokboHelper(gameProgress, game.GetCpuPae(), "컴퓨터");
-                gameProgress.AppendText("\r\n");
-                game.DisplayJokboHelper(gameProgress, game.GetPlayerPae(), "플레이어");
-                game.DisplayJokboHelper(jokboHelper, game.GetPlayerPae(), "플레이어");
-                game.CompareJokbo(game.CpuJokbo, game.PlayerJokbo);
+                game.ShowDown();
             }
 
             // Escape 키를 누르면 폼 종료
@@ -153,6 +134,11 @@ namespace Seotta
             jokboLabel.Name = "족보 레이블";
             jokboLabel.FlatAppearance.BorderSize = 0;       // 테두리 크기를 0으로 설정하여 테두리를 없앰
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
+        }
+
+        public Button GetPreviousButton()
+        {
+            return previousButton;
         }
 
         // 족보 도움말 버튼 클릭 시 도움말 출력
@@ -247,6 +233,46 @@ namespace Seotta
             }
         }
 
-        // 베팅 버튼 클릭 이벤트
+        // 베팅 버튼 클릭 이벤트 핸들러
+        private async void BetButton_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            int buttonNumber = Convert.ToInt32(clickedButton.Name.Substring(6, 1));
+
+            if (!isButtonClickable)
+                return; // 버튼이 이미 클릭 가능한 상태가 아니면 클릭 이벤트를 무시
+
+            switch (buttonNumber)
+            {
+                case 7:
+                    // 콜 처리
+                    game.PlayerBetting(7);
+                    break;
+                case 8:
+                    // 다이 처리
+                    game.PlayerBetting(8);
+                    break;
+                case 4:
+                    // 삥 처리
+                    break;
+                case 5:
+                    // 체크 처리
+                    break;
+                case 1:
+                    // 따당 처리
+                    break;
+                case 0:
+                    // 하프 or 올인 처리
+                    game.PlayerBetting(0);
+                    break;
+            }
+
+            // 클릭 후 버튼 비활성화
+            isButtonClickable = false;
+
+            // 일정 시간 대기 후 버튼 다시 활성화
+            await Task.Delay(5000); // 5초 대기
+            isButtonClickable = true;
+        }
     }
 }

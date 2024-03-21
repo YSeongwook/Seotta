@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +21,11 @@ namespace Seotta
         TextBox jokboHelper;
         Panel jokboPanel;
         Label cpuLabel;
+        Label cpuMoneyLabel;
         Label playerLabel;
+        Label playerMoneyLabel;
+        TextBox currentPotBox;
+        Button previousButton;
 
         Timer timer1;
         Timer timer2;
@@ -59,8 +64,10 @@ namespace Seotta
             get { return reGame; }
             set { reGame = value; }
         }
+        private int turn;
 
-        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress, TextBox jokboHelper, Panel jokboPanel, Label cpuLabel, Label playerLabel)
+        public Game(Form1 form, TextBox pae1, TextBox pae2, TextBox pae3, TextBox pae4, TextBox gameProgress,
+            TextBox jokboHelper, Panel jokboPanel, Label cpuLabel, Label playerLabel, Label cpuMoneyLabel, Label playerMoneyLabel, TextBox currentPotBox)
         {
             this.form = form;
             this.pae1 = pae1;
@@ -71,7 +78,10 @@ namespace Seotta
             this.jokboHelper = jokboHelper;
             this.jokboPanel = jokboPanel;
             this.cpuLabel = cpuLabel;
+            this.cpuMoneyLabel = cpuMoneyLabel;
             this.playerLabel = playerLabel;
+            this.playerMoneyLabel = playerMoneyLabel;
+            this.currentPotBox = currentPotBox;
 
             // 타이머1 설정
             timer1 = new Timer();
@@ -137,6 +147,8 @@ namespace Seotta
             cpuPae = new Pae[2];
             playerPae = new Pae[2];
 
+            turn = 1;
+
             // 패의 이름(1광, 1띠, etc..)가 담겨 있는 파일을 매개변수로 Pae 클래스 객체 20개 생성(Pae 클래스 객체를 사용하여 족보 계산)
             ReadPaeFromFile("Pae_Name.txt");
 
@@ -146,8 +158,8 @@ namespace Seotta
         // 소지금, 베팅금, 판돈 초기화
         public void InitMoney()
         {
-            cpuMoney = 0;
-            playerMoney = 0;
+            cpuMoney = 10000;
+            playerMoney = 10000;
             currentPot = 0;
             cpuBettingMoney = 0;
             playerBettingMoney = 0;
@@ -161,21 +173,24 @@ namespace Seotta
             if (reGame)
             {
                 gameProgress.Text = "재경기합니다.";
+                gameProgress.AppendText ($"\r\n{seon}가 선입니다.");
             }
             else
             {
                 // 게임 안내 문구 출력
                 DisplayTextFromFile("game_start.txt", gameProgress);
 
-                await Task.Delay(5000);
+                await Task.Delay(2000);
                 gameProgress.Text = $"{seon}가 선입니다.";
             }
 
             PrintPae(); // 현재 패 1장씩 출력
             cpuLabel.Visible = true;
+            cpuMoneyLabel.Visible = true;
             playerLabel.Visible = true;
+            playerMoneyLabel.Visible = true;
 
-            //Betting("cpu");
+            Betting(seon);
             // cpu나 player 둘중 하나라도 다이 한다면 RestartGame()
             // 엔터키 이벤트에 있는 메서드
             // betting
@@ -204,6 +219,17 @@ namespace Seotta
             form.HighlightJokboButton(jokboPanel, "");
 
             reGame = true;
+
+            // 베팅 버튼 색 원래대로 돌리기
+            // 이전 버튼의 색상 원래대로 변경
+            
+            if(form.GetPreviousButton() != null)
+            {
+                previousButton = form.GetPreviousButton();
+                previousButton.BackColor = Color.Black;
+                previousButton.ForeColor = Color.White;
+            }
+            
 
             // 게임을 다시 시작
             StartGame();
@@ -310,12 +336,36 @@ namespace Seotta
 
         public void PrintPae()
         {
-            // Timer 조정
-            // 타이머2 정지
-            timer2.Stop();
+            if(!timer1.Enabled)
+            {
+                timer2.Stop();
+                timer1.Start();
+            } else
+            {
+                timer1.Stop();
+                timer2.Start();
+            }
+        }
 
-            // 타이머1 시작
-            timer1.Start();
+        public void SecondDraw()
+        {
+            timer2.Start();
+            jokboHelper.Clear();
+            DisplayJokboHelper(jokboHelper, playerPae, "플레이어");
+        }
+
+        // 결과 공개
+        public void ShowDown()
+        {
+            CheckEndBetting();
+            ResetPae();
+            InitIndex();
+            PrintPae();
+            DisplayJokboHelper(gameProgress, GetCpuPae(), "컴퓨터");
+            gameProgress.AppendText("\r\n");
+            DisplayJokboHelper(gameProgress, GetPlayerPae(), "플레이어");
+            DisplayJokboHelper(jokboHelper, GetPlayerPae(), "플레이어");
+            CompareJokbo(CpuJokbo, PlayerJokbo);
         }
 
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출, 1밀리초마다 이벤트 발생
@@ -456,20 +506,21 @@ namespace Seotta
             jokboComparer.GetWinner(cpuJokbo, playerJokbo);
         }
 
-        // Betting 메서드 안에 CpuBetting, PlayerBetting
-
-        public void Betting(string seon)
+        public async void Betting(string seon)
         {
             // 누가 선인지 판별해서 먼저 베팅
-            if (seon.Equals("cpu"))
+            if (seon.Equals("컴퓨터"))
             {
-                CpuBetting(cpuPae, 1);
-                // playerBetting();
-                CpuBetting(cpuPae, 2);
-                // playerBetting();
+                CpuBetting(cpuPae, turn);
+            } 
+            else
+            {
+                await Task.Delay(3000);
+                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
         }
 
+        #region CpuBetting
         // CPU 베팅 메서드
         public void CpuBetting(Pae[] pae, int turn)
         {
@@ -574,6 +625,7 @@ namespace Seotta
                             CpuDie();
                         break;
                 }
+                if(seon.Equals("플레이어")) this.seon = "컴퓨터";
             }
         }
 
@@ -587,8 +639,10 @@ namespace Seotta
             // 베팅금 저장
             cpuBettingMoney = betAmount;
 
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             gameProgress.Text = "컴퓨터가 하프 했습니다.";
+            await Task.Delay(1000);
+            gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
         }
 
         // 콜 베팅 메서드
@@ -607,8 +661,10 @@ namespace Seotta
                 // 베팅금 저장
                 cpuBettingMoney = betAmount;
 
-                await Task.Delay(3000);
+                await Task.Delay(2000);
                 gameProgress.Text = "컴퓨터가 콜 했습니다.";
+                await Task.Delay(1000);
+                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
             else
             {
@@ -626,21 +682,136 @@ namespace Seotta
             // 베팅금 저장
             cpuBettingMoney = betAmount;
 
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             gameProgress.Text = "컴퓨터가 체크 했습니다.";
+            await Task.Delay(1000);
+            gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
         }
 
         // 다이 베팅 메서드
         private async void CpuDie()
         {
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             gameProgress.Text = "컴퓨터가 다이 했습니다.";
 
-            await Task.Delay(3000);
+            ChangeSeon();
+
+            await Task.Delay(2000);
             RestartGame();
         }
 
+        #endregion
+
         // playerBetting() 만들어야하는데 위의 CpuBetting들이랑 겹치는걸 매개변수를 잘 넘겨서 구분하면 메소드를 줄일 수 있을 것 같다.
-        // 베팅하고 베팅한 내용을 출력도 해줘야함
+
+        public async void PlayerBetting(int betBtn)
+        {
+            int betAmount;
+
+            switch (betBtn)
+            {
+                case 7: // 콜
+                    PlayerCallBetting();
+                    break;
+                case 8: // 다이
+                    PlayerDieBetting();
+                    break;
+                case 4:
+                    // 삥
+                    break;
+                case 5:
+                    // 체크
+                    break;
+                case 1:
+                    // 따당
+                    break;
+                case 0:
+                    PlayerHalfBetting();
+                    break;
+            }
+
+            if(betBtn != 8)
+            {
+                if (seon.Equals("컴퓨터"))
+                {
+                    if (turn == 2)
+                    {
+                        // 패 공개
+                        await Task.Delay(2000);
+                        gameProgress.Text = "각자의 패를 공개합니다.";
+                        await Task.Delay(1000);
+                        ShowDown();
+                        this.seon = "플레이어";
+                    }
+                    else
+                    {
+                        SecondDraw();
+                        turn++;
+                        await Task.Delay(1000);
+                        DisplayJokboHelper(gameProgress, GetCpuPae(), "컴퓨터");
+                        CpuBetting(cpuPae, turn);
+                    }
+                }
+                else
+                {
+                    if (turn == 2)
+                    {
+                        SecondDraw();
+                        await Task.Delay(1000);
+                        DisplayJokboHelper(gameProgress, GetCpuPae(), "컴퓨터");
+                        CpuBetting(cpuPae, turn);
+                    }
+                    else
+                    {
+                        SecondDraw();
+                        turn++;
+                        await Task.Delay(1000);
+                        DisplayJokboHelper(gameProgress, GetCpuPae(), "컴퓨터");
+                        CpuBetting(cpuPae, turn);
+                    }
+                }
+            }
+        }
+
+        public void PlayerCallBetting()
+        {
+            // 앞서 베팅한 플레이어의 베팅금만큼 베팅
+            int betAmount = cpuBettingMoney;
+            // 소지금에서 베팅만큼 제출
+            playerMoney -= betAmount;
+            // 베팅금 저장
+            playerBettingMoney = betAmount;
+
+            gameProgress.Text = "콜 했습니다.";
+            // gameProgress.AppendText($"\r\n{seon}, {turn}, cpu: {CpuJokbo}"); // 현재 테스트 결과 cpuJokbo 공백
+        }
+
+        public void PlayerHalfBetting()
+        {
+            // 하프 or 올인
+            // 선이면 첫 베팅 시 playerBettingMoney는 0
+            int betAmount = cpuBettingMoney + (currentPot / 2);
+            // 소지금에서 베팅만큼 제출
+            playerMoney -= betAmount;
+            // 베팅금 저장
+            playerBettingMoney = betAmount;
+
+            gameProgress.Text = "하프 했습니다.";
+        }
+
+        public async void PlayerDieBetting()
+        {
+            gameProgress.Text = "다이 했습니다.";
+            ChangeSeon();
+
+            await Task.Delay(2000);
+            RestartGame();
+        }
+
+        public void ChangeSeon()
+        {
+            if (this.seon.Equals("컴퓨터")) seon = "플레이어";
+            else seon = "컴퓨터";
+        }
     }
 }
