@@ -277,11 +277,11 @@ namespace Seotta
             {
                 case 7:
                     // 콜 처리
-                    game.PlayerBetting(7);
+                    game.GetBettingSystem().PlayerBetting(7);
                     break;
                 case 8:
                     // 다이 처리
-                    game.PlayerBetting(8);
+                    game.GetBettingSystem().PlayerBetting(8);
                     break;
                 case 4:
                     // 삥 처리
@@ -294,7 +294,7 @@ namespace Seotta
                     break;
                 case 0:
                     // 하프 or 올인 처리
-                    game.PlayerBetting(0);
+                    game.GetBettingSystem().PlayerBetting(0);
                     break;
             }
 
