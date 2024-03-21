@@ -56,6 +56,37 @@ namespace Seotta
             {
                 game.RestartGame();
             }
+
+            if (e.KeyCode == Keys.NumPad7)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn7, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.NumPad8)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn8, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.NumPad4)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn4, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.NumPad5)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn5, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.NumPad1)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn1, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.NumPad0)
+            {
+                // 해당 버튼을 찾아 클릭 이벤트 핸들러를 호출
+                BetButton_Click(betBtn0, EventArgs.Empty);
+            }
         }
 
         private void GameProgress_KeyDown(object sender, KeyEventArgs e)
@@ -82,7 +113,7 @@ namespace Seotta
             // Tab 키를 누르면 재시작
             if (e.KeyCode == Keys.Tab)
             {
-                game.RestartGame();
+                // game.RestartGame();
             }
         }
 

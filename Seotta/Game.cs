@@ -191,9 +191,6 @@ namespace Seotta
             playerMoneyLabel.Visible = true;
 
             Betting(seon);
-            // cpu나 player 둘중 하나라도 다이 한다면 RestartGame()
-            // 엔터키 이벤트에 있는 메서드
-            // betting
             // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
         }
 
@@ -220,20 +217,29 @@ namespace Seotta
 
             reGame = true;
 
-            // 베팅 버튼 색 원래대로 돌리기
-            // 이전 버튼의 색상 원래대로 변경
+            // 버튼 색 복구
+            ChangeAllButtonColors(Color.Black, Color.White);
 
-            if (form.GetPreviousButton() != null)
-            {
-                previousButton = form.GetPreviousButton();
-                previousButton.BackColor = Color.Black;
-                previousButton.ForeColor = Color.White;
-            }
-
+            // 턴 초기화
             turn = 1;
+
+            // 선 변경
+            ChangeSeon();
 
             // 게임을 다시 시작
             StartGame();
+        }
+
+        public void ChangeAllButtonColors(Color backColor, Color foreColor)
+        {
+            foreach (Control control in form.Controls)
+            {
+                if (control is Button button)
+                {
+                    button.BackColor = backColor;
+                    button.ForeColor = foreColor;
+                }
+            }
         }
 
         // Pae 객체 20개 생성(1광 ~ 10띠)
@@ -632,7 +638,6 @@ namespace Seotta
                             CpuDie();
                         break;
                 }
-                if (seon.Equals("플레이어")) this.seon = "컴퓨터";
             }
         }
 
@@ -662,11 +667,14 @@ namespace Seotta
                 ShowDown();
             }
 
-            if (seon.Equals("플레이어") && turn == 1)
+            if (seon.Equals("플레이어"))
             {
-                await Task.Delay(1000);
-                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
-                turn++;
+                if(turn == 1)
+                {
+                    await Task.Delay(1000);
+                    gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+                    turn++;
+                }
             }
         }
 
@@ -702,11 +710,14 @@ namespace Seotta
                     ShowDown();
                 }
 
-                if (seon.Equals("플레이어") && turn == 1)
+                if (seon.Equals("플레이어"))
                 {
-                    await Task.Delay(1000);
-                    gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
-                    turn++;
+                    if (turn == 1)
+                    {
+                        await Task.Delay(1000);
+                        gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+                        turn++;
+                    }
                 }
             }
             else
@@ -735,31 +746,33 @@ namespace Seotta
                 await Task.Delay(1000);
                 gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
-            else if (turn == 2)
+            
+            if (seon.Equals("플레이어") && turn == 2)
             {
                 await Task.Delay(2000);
                 ShowDown();
             }
 
-            if(seon.Equals("플레이어") && turn == 1)
+            if (seon.Equals("플레이어"))
             {
-                await Task.Delay(1000);
-                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
-                turn++;
+                if (turn == 1)
+                {
+                    await Task.Delay(1000);
+                    gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+                    turn++;
+                }
             }
         }
 
         // 다이 베팅 메서드
         private async void CpuDie()
         {
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             gameProgress.Text = "컴퓨터가 베팅합니다.";
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             gameProgress.Text = "컴퓨터가 다이 했습니다.";
 
-            ChangeSeon();
-
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             RestartGame();
         }
 
@@ -858,7 +871,6 @@ namespace Seotta
         public async void PlayerDieBetting()
         {
             gameProgress.Text = "다이 했습니다.";
-            ChangeSeon();
 
             await Task.Delay(2000);
             RestartGame();
@@ -866,7 +878,7 @@ namespace Seotta
 
         public void ChangeSeon()
         {
-            if (this.seon.Equals("컴퓨터")) seon = "플레이어";
+            if (seon.Equals("컴퓨터")) seon = "플레이어";
             else seon = "컴퓨터";
         }
     }
