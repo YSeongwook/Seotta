@@ -9,16 +9,20 @@ namespace Seotta
     {
         Game game;
         TextBox gameProgress;
+        TextBox currentPotBox;
+        Label cpuMoneyLabel;
+        Label playerMoneyLabel;
 
         string seon;
 
-        private int cpuMoney;           // cpu 소지금
-        private int playerMoney;        // 플레이어 소지금
-        private int currentPot;         // 현재 판돈
         private int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
         private int playerBettingMoney; // cpu가 직전에 베팅한 금액
 
         public int turn { get; set; }
+
+        public int CpuMoney { get; set; }// cpu 소지금
+        public int PlayerMoney { get; set; }// 플레이어 소지금
+        public int CurrentPot { get; set; }// 현재 판돈
 
         public BettingSystem GetBettingSystem()
         {
@@ -30,11 +34,14 @@ namespace Seotta
             this.game = game;
             this.gameProgress = gameProgess;
             this.seon = seon;
-            this.cpuMoney = cpuMoney;
-            this.playerMoney = playerMoney;
-            this.currentPot = currentPot;
+            this.CpuMoney = cpuMoney;
+            this.PlayerMoney = playerMoney;
+            this.CurrentPot = currentPot;
             this.cpuBettingMoney = cpuBettingMoney;
             this.playerBettingMoney = playerBettingMoney;
+            this.currentPotBox = game.GetCurrentPotBox();
+            this.cpuMoneyLabel = game.GetCpuMoneyLabel();
+            this.playerMoneyLabel = game.GetPlayerMoneyLabel();
             this.turn = 1;
         }
 
@@ -42,6 +49,13 @@ namespace Seotta
         {
             this.seon = _seon;
             // 누가 선인지 판별해서 먼저 베팅
+
+            await Task.Delay(1000);
+            CurrentPot = 2000000;   // 판돈 100만씩 지불
+            CpuMoney -= 1000000;
+            PlayerMoney -= 1000000;
+            CalculateMoney();
+
             if (seon.Equals("컴퓨터"))
             {
                 await Task.Delay(1000);
@@ -52,6 +66,13 @@ namespace Seotta
                 await Task.Delay(3000);
                 gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
+        }
+
+        public void CalculateMoney()
+        {
+            cpuMoneyLabel.Text = $"{ToKoreanCurrency(CpuMoney)}";
+            playerMoneyLabel.Text = $"{ToKoreanCurrency(PlayerMoney)}";
+            currentPotBox.Text = $"현재 판돈: {ToKoreanCurrency(CurrentPot)}";
         }
 
         #region CpuBetting
@@ -73,29 +94,27 @@ namespace Seotta
                     case "10띠":
                     case "9띠":
                         // 하프
-                        CpuHalfBetting();
+                        CpuHalfBetting(100);
                         break;
                     case "3광":
                     case "8광":
-                        CpuCallBetting(80); // 80% 확률로 콜
+                        CpuHalfBetting(80); // 80% 확률로 하프
                         break;
                     case "2열끗":
                     case "2띠":
                     case "6열끗":
                     case "6띠":
-                        CpuCallBetting(60); // 60% 확률로 콜
+                        CpuHalfBetting(60); // 60% 확률로 하프
                         break;
                     case "7열끗":
-                    case "8띠":
+                    case "8열끗":
                     case "7띠":
                     case "5열끗":
                     case "5띠":
                     case "3띠":
-                        CpuCallBetting(40); // 40% 확률로 콜
+                        CpuHalfBetting(40); // 40% 확률로 하프
                         break;
                 }
-                // gameProgress.AppendText($"\r\nseon: {seon}");
-                // gameProgress.AppendText($"\r\nturn: {turn}");
             }
             // 2번째 베팅
             else
@@ -117,11 +136,14 @@ namespace Seotta
                     case "3땡":
                     case "2땡":
                     case "1땡":
+                        // 하프
+                        CpuHalfBetting(100);
+                        break;
                     case "구사":
                     case "알리":
                     case "독사":
                         // 하프
-                        CpuHalfBetting();
+                        CpuHalfBetting(80);
                         break;
                     case "구삥":
                     case "장삥":
@@ -133,7 +155,7 @@ namespace Seotta
                         break;
                     case "땡잡이":
                         // 상황에 따라 콜 또는 다이
-                        if (cpuMoney > playerMoney)
+                        if (CpuMoney > PlayerMoney)
                         {
                             CpuCallBetting(100);
                         }
@@ -157,7 +179,7 @@ namespace Seotta
                         break;
                     case "암행어사":
                         // 상황에 따라 체크 또는 다이
-                        if (cpuMoney > playerMoney)
+                        if (CpuMoney > PlayerMoney)
                             CpuCheckBetting();
                         else
                             CpuDie();
@@ -167,40 +189,53 @@ namespace Seotta
         }
 
         // 하프 베팅 메서드
-        private async void CpuHalfBetting()
+        private async void CpuHalfBetting(int probability)
         {
-            // 선이면 첫 베팅 시 playerBettingMoney는 0
-            int betAmount = playerBettingMoney + (currentPot / 2);
-            // 소지금에서 베팅만큼 제출
-            cpuMoney -= betAmount;
-            // 베팅금 저장
-            cpuBettingMoney = betAmount;
+            Random random = new Random();
+            int bettingProbability = random.Next(0, 100);
 
-            await Task.Delay(1000);
-            gameProgress.Text = "컴퓨터가 베팅합니다.";
-            await Task.Delay(2000);
-            gameProgress.Text = "컴퓨터가 하프 했습니다.";
-
-            if (seon.Equals("컴퓨터"))
+            // 매개변수로 넣은 수보다 작으면, 80을 넣으면 80%로 실행
+            if (bettingProbability <= probability)
             {
+                // 선이면 첫 베팅 시 playerBettingMoney는 0
+                int betAmount = playerBettingMoney + (CurrentPot / 2);
+                // 소지금에서 베팅만큼 제출
+                CpuMoney -= betAmount;
+                // 베팅금 저장
+                cpuBettingMoney = betAmount;
+
                 await Task.Delay(1000);
-                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
-            }
+                gameProgress.Text = "컴퓨터가 베팅합니다.";
+                await Task.Delay(2000);
+                gameProgress.Text = "컴퓨터가 하프 했습니다.";
 
-            // 출력은 제대로 되지만 실제로 seon이 변경이 안되는듯
-            if (seon.Equals("플레이어"))
-            {
-                if (turn == 1)
+                // 현재 판돈에 저장
+                CurrentPot += betAmount;
+                CalculateMoney();
+
+                if (seon.Equals("컴퓨터"))
                 {
                     await Task.Delay(1000);
                     gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
-                    turn++;
                 }
-                else if (turn == 2)
+
+                if (seon.Equals("플레이어"))
                 {
-                    await Task.Delay(2000);
-                    game.ShowDown();
+                    if (turn == 1)
+                    {
+                        await Task.Delay(1000);
+                        gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+                        turn++;
+                    }
+                    else if (turn == 2)
+                    {
+                        await Task.Delay(2000);
+                        game.ShowDown();
+                    }
                 }
+            } else
+            {
+                CpuDie();
             }
         }
 
@@ -216,7 +251,8 @@ namespace Seotta
                 // 앞서 베팅한 플레이어의 베팅금만큼 베팅
                 int betAmount = playerBettingMoney;
                 // 소지금에서 베팅만큼 제출
-                cpuMoney -= betAmount;
+                CpuMoney -= betAmount;
+
                 // 베팅금 저장
                 cpuBettingMoney = betAmount;
 
@@ -224,6 +260,10 @@ namespace Seotta
                 gameProgress.Text = "컴퓨터가 베팅합니다.";
                 await Task.Delay(2000);
                 gameProgress.Text = "컴퓨터가 콜 했습니다.";
+
+                // 현재 판돈에 저장
+                CurrentPot += betAmount;
+                CalculateMoney();
 
                 if (seon.Equals("컴퓨터"))
                 {
@@ -258,7 +298,7 @@ namespace Seotta
             // 선이면 첫 베팅 시 playerBettingMoney는 0
             int betAmount = 0;
             // 소지금에서 베팅만큼 제출
-            cpuMoney -= betAmount;
+            CpuMoney -= betAmount;
             // 베팅금 저장
             cpuBettingMoney = betAmount;
 
@@ -266,6 +306,10 @@ namespace Seotta
             gameProgress.Text = "컴퓨터가 베팅합니다.";
             await Task.Delay(2000);
             gameProgress.Text = "컴퓨터가 체크 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
 
             if (seon.Equals("컴퓨터"))
             {
@@ -297,6 +341,7 @@ namespace Seotta
             gameProgress.Text = "컴퓨터가 다이 했습니다.";
 
             await Task.Delay(1000);
+            PlayerMoney += CurrentPot;
             game.RestartGame();
         }
 
@@ -326,9 +371,6 @@ namespace Seotta
                     PlayerHalfBetting();
                     break;
             }
-
-            // gameProgress.AppendText($"\r\nturn: {turn}");
-            // gameProgress.AppendText($"\r\nseon: {seon}");
 
             if (betBtn != 8)
             {
@@ -372,25 +414,33 @@ namespace Seotta
         {
             // 앞서 베팅한 플레이어의 베팅금만큼 베팅
             int betAmount = cpuBettingMoney;
-            // 소지금에서 베팅만큼 제출
-            playerMoney -= betAmount;
+            // 소지금에서 베팅금만큼 지출
+            PlayerMoney -= betAmount;
             // 베팅금 저장
             playerBettingMoney = betAmount;
 
             gameProgress.Text = "콜 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
         }
 
         public void PlayerHalfBetting()
         {
             // 하프 or 올인
             // 선이면 첫 베팅 시 playerBettingMoney는 0
-            int betAmount = cpuBettingMoney + (currentPot / 2);
-            // 소지금에서 베팅만큼 제출
-            playerMoney -= betAmount;
+            int betAmount = cpuBettingMoney + (CurrentPot / 2);
+            // 소지금에서 베팅금만큼 지출
+            PlayerMoney -= betAmount;
             // 베팅금 저장
             playerBettingMoney = betAmount;
 
             gameProgress.Text = "하프 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
         }
 
         public async void PlayerDieBetting()
@@ -398,7 +448,50 @@ namespace Seotta
             gameProgress.Text = "다이 했습니다.";
 
             await Task.Delay(2000);
+            CpuMoney += CurrentPot;
             game.RestartGame();
         }
+
+        public string ToKoreanCurrency(int amount)
+        {
+            if (amount < 10000)
+            {
+                return $"{amount}전"; // 만전 미만은 그대로 표현
+            }
+            else if (amount < 100000000)
+            {
+                int unit = amount / 10000; // 만단위 계산
+                int remainder = amount % 10000; // 만단위를 제외한 나머지 계산
+                if (remainder == 0)
+                {
+                    return $"{unit}만전"; // 만단위로 표현
+                }
+                else
+                {
+                    return $"{unit}만 {remainder}전"; // 만단위와 나머지를 함께 표현
+                }
+            }
+            else
+            {
+                int unit = amount / 100000000; // 억단위 계산
+                int manRemainder = amount % 100000000; // 억단위를 제외한 나머지 계산
+                int manUnit = manRemainder / 10000; // 만단위 계산
+                int manRemainderRemainder = manRemainder % 10000; // 만단위를 제외한 나머지 계산
+                if (manRemainderRemainder == 0)
+                {
+                    return $"{unit}억 {manUnit}만전"; // 억단위와 만단위 표현
+                }
+                else
+                {
+                    return $"{unit}억 {manUnit}만 {manRemainderRemainder}전"; // 억단위, 만단위, 나머지 표현
+                }
+            }
+        }
+        // 승패 확정 후 안내 문구 추가해야함
+
+        // 94 재경기, 재경기하면 판돈 그대로 유지
+
+        // 기존 재경기 메세지 문구 변경, 재경기 메서드가 아닌 재시작 메서드로 변경
+        // 재경기 메서드 만들어야함
     }
 }

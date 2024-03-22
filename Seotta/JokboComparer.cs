@@ -9,6 +9,7 @@ public class JokboComparer
 {
     Game game;
     TextBox gameProgress;
+    BettingSystem bettingSystem;
 
     Dictionary<string, int> jokboLevels = new Dictionary<string, int>
     {
@@ -42,6 +43,7 @@ public class JokboComparer
     { 
         this.game = game;
         this.gameProgress = gameProgress;
+        this.bettingSystem = game.GetBettingSystem();
     }
 
     public void GetWinner(string cpuJokbo, string playerJokbo)
@@ -128,7 +130,6 @@ public class JokboComparer
             }
         }
 
-        // 멍구사 ~ 구사 재경기가 이상하게 되고 있음, 조건이 잘못된듯
         if (cpuJokbo.Equals("멍텅구리구사"))
         {
             if (playerLevel > jokboLevels["9땡"])
@@ -142,6 +143,7 @@ public class JokboComparer
                 // 재경기
                 gameProgress.AppendText("\r\n구사 재경기");
                 game.RestartGame();
+                game.ReGame = true;
             }
         }
 
@@ -158,6 +160,7 @@ public class JokboComparer
                 // 재경기
                 gameProgress.AppendText("\r\n구사 재경기");
                 game.RestartGame();
+                game.ReGame = true;
             }
         }
 
@@ -174,6 +177,7 @@ public class JokboComparer
                 // 재경기
                 gameProgress.AppendText("\r\n구사 재경기");
                 game.RestartGame();
+                game.ReGame = true;
             }
         }
 
@@ -190,49 +194,11 @@ public class JokboComparer
                 // 재경기
                 gameProgress.AppendText("\r\n구사 재경기");
                 game.RestartGame();
+                game.ReGame = true;
             }
         }
 
-        // CPU와 플레이어의 족보 등급을 비교하여 승패 결정
-        if (playerLevel > cpuLevel)
-        {
-            // player win
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-            gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
-        }
-        else if (playerLevel < cpuLevel)
-        {
-            // cpu win
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-            gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
-        }
-        else
-        {
-            // 족보 레벨이 같은 경우, 족보의 앞자리 월 수를 비교
-            int playerMonth = GetMonth(playerJokbo);
-            int cpuMonth = GetMonth(cpuJokbo);
-
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-
-            if (playerMonth > cpuMonth)
-            {
-                // player win
-                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-                gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
-            }
-            else if (playerMonth < cpuMonth)
-            {
-                // cpu win
-                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-                gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
-            }
-            else
-            {
-                // 둘 다 월 수가 같은 경우에는 재경기
-                gameProgress.AppendText("\r\n재경기 합니다.");
-                game.RestartGame();
-            }
-        }
+        DisplayWinnder(cpuJokbo, playerJokbo, cpuFail, playerFail, cpuLevel, playerLevel);
     }
 
     // 족보의 앞자리 월 수를 가져오는 메서드
@@ -249,6 +215,63 @@ public class JokboComparer
         else
         {
             return int.Parse(jokbo.Substring(0, 1));
+        }
+    }
+
+    // CPU와 플레이어의 족보 등급을 비교하여 승패 결정
+    public void DisplayWinnder(string cpuJokbo, string playerJokbo, string cpuFail, string playerFail, int cpuLevel, int playerLevel)
+    {
+        // 플레이어 승리
+        if (playerLevel > cpuLevel)
+        {
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
+            gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
+            // 플레이어 판돈 획득
+            bettingSystem.PlayerMoney += bettingSystem.CurrentPot;
+        }
+        // 컴퓨터 승리
+        else if (playerLevel < cpuLevel)
+        {
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
+            gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
+
+            // 컴퓨터 판돈 획득
+            bettingSystem.CpuMoney += bettingSystem.CurrentPot;
+        }
+        else
+        {
+            // 족보 레벨이 같은 경우, 족보의 앞자리 월 수를 비교
+            int playerMonth = GetMonth(playerJokbo);
+            int cpuMonth = GetMonth(cpuJokbo);
+
+            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
+
+            // 플레이어 승리
+            if (playerMonth > cpuMonth)
+            {
+                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
+                gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
+
+                // 플레이어 판돈 획득
+                bettingSystem.PlayerMoney += bettingSystem.CurrentPot;
+            }
+            // 컴퓨터 승리
+            else if (playerMonth < cpuMonth)
+            {
+
+                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
+                gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
+
+                // 컴퓨터 판돈 획득
+                bettingSystem.CpuMoney += bettingSystem.CurrentPot;
+            }
+            else
+            {
+                // 둘 다 월 수가 같은 경우에는 재경기
+                gameProgress.AppendText("\r\n재경기 합니다.");
+                game.RestartGame();
+                game.ReGame = true;
+            }
         }
     }
 }

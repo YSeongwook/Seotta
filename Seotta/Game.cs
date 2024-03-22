@@ -25,7 +25,6 @@ namespace Seotta
         Label playerLabel;
         Label playerMoneyLabel;
         TextBox currentPotBox;
-        Button previousButton;
 
         Timer timer1;
         Timer timer2;
@@ -45,13 +44,10 @@ namespace Seotta
         // cpu, player 패 리스트
         private Pae[] cpuPae;
         private Pae[] playerPae;
-        public int CpuLevel { get; set; }
-        public int PlayerLevel { get; set; }
-        public string CpuJokbo { get; set; }
-        public string PlayerJokbo { get; set; }
 
-        private string seon = "컴퓨터";     // 선을 결정하는 변수
-        private bool reGame = false;
+        private string seon = "컴퓨터";     // 선을 결정
+        private bool isFirst = true;       // 초회차인지 확인
+        private bool reGame = false;        // 재경기 확인
         private int cpuMoney;               // cpu 소지금
         private int playerMoney;            // 플레이어 소지금
         private int currentPot;             // 현재 판돈
@@ -60,12 +56,6 @@ namespace Seotta
 
         private int turn;
         private bool endBetting = false;
-
-        public bool ReGame
-        {
-            get { return reGame; }
-            set { reGame = value; }
-        }
 
         #endregion
 
@@ -97,11 +87,30 @@ namespace Seotta
             timer2.Tick += Timer2_Tick;
 
             InitMoney();
+            cpuMoney = 1000000000;
+            playerMoney = 1000000000;
 
             bettingSystem = new BettingSystem(this, gameProgress, seon, cpuMoney, playerMoney, currentPot, cpuBettingMoney, playerBettingMoney);
         }
 
-        #region Getter
+        #region GetterSetter
+
+        public int CpuLevel { get; set; }
+        public int PlayerLevel { get; set; }
+        public string CpuJokbo { get; set; }
+        public string PlayerJokbo { get; set; }
+
+        public bool IsFirst
+        {
+            get { return IsFirst; }
+            set { IsFirst = value; }
+        }
+
+        public bool ReGame
+        {
+            get { return reGame; }
+            set { reGame = value; }
+        }
 
         public Timer GetTimer(int i)
         {
@@ -154,9 +163,29 @@ namespace Seotta
             return this.cpuMoney;
         }
 
+        public void SetCpuMoney(int money)
+        {
+            this.cpuMoney = money;
+        }
+
         public int GetPlayerMoney()
         {
             return this.playerMoney;
+        }
+
+        public void SetPlayerMoney(int money)
+        {
+            this.playerMoney = money;
+        }
+
+        public int GetCurrentPot()
+        {
+            return this.currentPot;
+        }
+
+        public void SetCurrentPot(int money)
+        {
+            this.currentPot = money;
         }
 
         public BettingSystem GetBettingSystem()
@@ -164,13 +193,28 @@ namespace Seotta
             return bettingSystem.GetBettingSystem();
         }
 
+        public TextBox GetCurrentPotBox()
+        {
+            return currentPotBox;
+        }
+
+        public Label GetCpuMoneyLabel()
+        {
+            return cpuMoneyLabel;
+        }
+
+        public Label GetPlayerMoneyLabel()
+        {
+            return playerMoneyLabel;
+        }
+
         #endregion
 
         // 소지금, 베팅금, 판돈 초기화
         public void InitMoney()
         {
-            cpuMoney = 10000;
-            playerMoney = 10000;
+            // cpuMoney = 10000;
+            // playerMoney = 10000;
             currentPot = 0;
             cpuBettingMoney = 0;
             playerBettingMoney = 0;
@@ -195,18 +239,27 @@ namespace Seotta
             ResetPae();
             SelectPae();
 
-            if (reGame)
-            {
-                gameProgress.Text = "재경기합니다.";
-                gameProgress.AppendText($"\r\n{seon}가 선입니다.");
-            }
-            else
+            if (isFirst)
             {
                 // 게임 안내 문구 출력
                 DisplayTextFromFile("game_start.txt", gameProgress);
 
                 await Task.Delay(2000);
-                gameProgress.Text = $"{seon}가 선입니다.";
+                gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                gameProgress.AppendText($"{seon}가 선입니다.");
+            }
+            
+            // 94재경기 또는 같은 월끗이라면 기본 판돈 제출 X
+            if(reGame)
+            {
+                gameProgress.Text = "재경기합니다.";
+                
+            }
+            else
+            {
+                InitMoney();
+                gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                gameProgress.AppendText($"{seon}가 선입니다.");
             }
 
             PrintPae(); // 현재 패 1장씩 출력
@@ -240,7 +293,8 @@ namespace Seotta
             jokboHelper.Clear();
             form.HighlightJokboButton(jokboPanel, "");
 
-            reGame = true;
+            isFirst = false;
+            reGame = false;
 
             // 버튼 색 복구
             ChangeAllButtonColors(Color.Black, Color.White);
@@ -412,6 +466,9 @@ namespace Seotta
             DisplayJokboHelper(jokboHelper, GetPlayerPae(), "플레이어");
             CompareJokbo(CpuJokbo, PlayerJokbo);
 
+
+            // 베팅금 회수
+
             await Task.Delay(3000);
             RestartGame();
         }
@@ -558,6 +615,7 @@ namespace Seotta
         {
             JokboComparer jokboComparer = new JokboComparer(this, gameProgress);
             jokboComparer.GetWinner(cpuJokbo, playerJokbo);
+            // 승자 구하고 돈 돌려주기?
         }
 
         #endregion

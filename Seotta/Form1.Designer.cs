@@ -72,12 +72,12 @@ namespace Seotta
             // 
             this.cpuMoneyLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuMoneyLabel.ForeColor = System.Drawing.Color.White;
-            this.cpuMoneyLabel.Location = new System.Drawing.Point(370, 104);
+            this.cpuMoneyLabel.Location = new System.Drawing.Point(350, 104);
             this.cpuMoneyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cpuMoneyLabel.Name = "cpuMoneyLabel";
-            this.cpuMoneyLabel.Size = new System.Drawing.Size(260, 50);
+            this.cpuMoneyLabel.Size = new System.Drawing.Size(300, 50);
             this.cpuMoneyLabel.TabIndex = 5;
-            this.cpuMoneyLabel.Text = "10억전";
+            this.cpuMoneyLabel.Text = "";
             this.cpuMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cpuMoneyLabel.Visible = false;
             // 
@@ -85,12 +85,12 @@ namespace Seotta
             // 
             this.playerMoneyLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerMoneyLabel.ForeColor = System.Drawing.Color.White;
-            this.playerMoneyLabel.Location = new System.Drawing.Point(1270, 104);
+            this.playerMoneyLabel.Location = new System.Drawing.Point(1250, 104);
             this.playerMoneyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.playerMoneyLabel.Name = "playerMoneyLabel";
-            this.playerMoneyLabel.Size = new System.Drawing.Size(260, 50);
+            this.playerMoneyLabel.Size = new System.Drawing.Size(300, 50);
             this.playerMoneyLabel.TabIndex = 5;
-            this.playerMoneyLabel.Text = "1000억전";
+            this.playerMoneyLabel.Text = "";
             this.playerMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playerMoneyLabel.Visible = false;
             // 
@@ -287,8 +287,9 @@ namespace Seotta
             this.jokboHelper.Size = new System.Drawing.Size(518, 240);
             this.jokboHelper.TabIndex = 0;
             this.jokboHelper.TabStop = false;
-
+            //
             // currentPotBox
+            //
             this.currentPotBox.BackColor = Color.Black;
             this.currentPotBox.Font = new System.Drawing.Font("Consolas", 18F, FontStyle.Bold);
             this.currentPotBox.ForeColor = System.Drawing.Color.White;
@@ -301,7 +302,6 @@ namespace Seotta
             this.currentPotBox.Text = "현재 판돈: ";
             this.currentPotBox.Visible = true;
             this.currentPotBox.TabStop = false;
-
             // 
             // Form1
             // 
