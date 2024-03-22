@@ -66,6 +66,12 @@
     <Compile Include="JokboComparer.cs" />
     <Compile Include="JokboDescription.cs" />
     <Compile Include="JokboHelper.cs" />
+    <Compile Include="Opening.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Opening.Designer.cs">
+      <DependentUpon>Opening.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pae.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +80,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Opening.resx">
+      <DependentUpon>Opening.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -339,6 +339,7 @@ namespace Seotta
             this.PerformLayout();
 
         }
+
         private System.Windows.Forms.Label playerLabel;
         private System.Windows.Forms.Label cpuLabel;
 

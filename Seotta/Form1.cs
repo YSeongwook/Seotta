@@ -30,10 +30,24 @@ namespace Seotta
             game = new Game(this, pae1, pae2, pae3, pae4, gameProgress, jokboHelper, jokboPanel, cpuLabel, playerLabel, cpuMoneyLabel, playerMoneyLabel, currentPotBox);
             game.StartGame();
 
+            // FormClosed 이벤트 핸들러 등록
+            this.FormClosed += Form1_FormClosing;
+
             this.Focus();
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             gameProgress.KeyDown += new KeyEventHandler(GameProgress_KeyDown);  // 이벤트 핸들러 만들어서 등록하니 엔터키 이벤트 성공
             AttachButtonClickHandlers(this);                                    // 버튼 클릭 시 색 변환 이벤트 등록
+        }
+
+        private void Form1_FormClosing(object sender, FormClosedEventArgs e)
+        {
+            // 타이머 중지
+            game.GetTimer(1).Stop();
+            game.GetTimer(2).Stop();
+
+            // Opening 폼을 보이도록 설정
+            Opening openingForm = new Opening();
+            openingForm.Show();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

@@ -479,6 +479,10 @@ namespace Seotta
                 int manRemainderRemainder = manRemainder % 10000; // 만단위를 제외한 나머지 계산
                 if (manRemainderRemainder == 0)
                 {
+                    if(manUnit == 0)
+                    {
+                        return $"{unit}억전"; // 억단위와 만단위 표현
+                    }
                     return $"{unit}억 {manUnit}만전"; // 억단위와 만단위 표현
                 }
                 else

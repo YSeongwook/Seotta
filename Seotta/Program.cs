@@ -15,7 +15,7 @@ namespace Seotta
             // Application에 대한 Text Rendering 방식 결정
             Application.SetCompatibleTextRenderingDefault(false);
             // 새로운 Form1객체 생성
-            Application.Run(new Form1());
+            Application.Run(new Opening());
         }
     }
 }

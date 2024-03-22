@@ -244,7 +244,7 @@ namespace Seotta
                 // 게임 안내 문구 출력
                 DisplayTextFromFile("game_start.txt", gameProgress);
 
-                await Task.Delay(2000);
+                await Task.Delay(5000);
                 gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
                 gameProgress.AppendText($"{seon}가 선입니다.");
             }
@@ -253,7 +253,6 @@ namespace Seotta
             if(reGame)
             {
                 gameProgress.Text = "재경기합니다.";
-                
             }
             else
             {
