@@ -13,13 +13,11 @@ namespace Seotta
         Label cpuMoneyLabel;
         Label playerMoneyLabel;
 
-        string seon;
-
-        private int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
-        private int playerBettingMoney; // cpu가 직전에 베팅한 금액
+        string seon;            // 누가 먼저 베팅할 지정하는 선 변수
+        int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
+        int playerBettingMoney; // cpu가 직전에 베팅한 금액
 
         public int turn { get; set; }
-
         public int CpuMoney { get; set; }// cpu 소지금
         public int PlayerMoney { get; set; }// 플레이어 소지금
         public int CurrentPot { get; set; }// 현재 판돈
@@ -47,11 +45,11 @@ namespace Seotta
 
         public async void Betting(string _seon)
         {
-            this.seon = _seon;
-            // 누가 선인지 판별해서 먼저 베팅
+            this.seon = _seon; // 누가 선인지 판별해서 먼저 베팅
 
+            // 판돈 100만씩 지불
             await Task.Delay(1000);
-            CurrentPot = 2000000;   // 판돈 100만씩 지불
+            CurrentPot = 2000000;
             CpuMoney -= 1000000;
             PlayerMoney -= 1000000;
             CalculateMoney();
@@ -63,7 +61,7 @@ namespace Seotta
             }
             else
             {
-                await Task.Delay(3000);
+                await Task.Delay(2000);
                 gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
             }
         }
@@ -491,11 +489,9 @@ namespace Seotta
                 }
             }
         }
-        // 승패 확정 후 안내 문구 추가해야함
 
         // 94 재경기, 재경기하면 판돈 그대로 유지
 
-        // 기존 재경기 메세지 문구 변경, 재경기 메서드가 아닌 재시작 메서드로 변경
         // 재경기 메서드 만들어야함
     }
 }

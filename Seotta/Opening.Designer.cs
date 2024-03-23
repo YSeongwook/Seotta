@@ -67,7 +67,8 @@ namespace Seotta
             this.KeyPreview = true;
             this.Name = "Opening";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Opening";
+            this.Text = "섰다";
+            this.Icon = new Icon("seotta1.ico");
             this.ResumeLayout(false);
             this.PerformLayout();
         }

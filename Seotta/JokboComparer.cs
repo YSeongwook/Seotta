@@ -73,7 +73,6 @@ public class JokboComparer
         }
         else if (playerJokbo.Equals("암행어사"))
         {
-            // 암행어사가 하나라도 있다면 땡잡이는 있을 수 없다.
             if (cpuJokbo.Contains("광땡"))
             {
                 // player win
@@ -101,7 +100,8 @@ public class JokboComparer
             {
                 // cpu win
             }
-            else                                 // 상대가 땡이 아닌 경우
+            // 상대가 땡이 아닌 경우
+            else
             {
                 cpuFail = "땡잡이 => ";
                 cpuJokbo = "망통(0끗)";
@@ -122,7 +122,8 @@ public class JokboComparer
             {
                 // player win
             }
-            else                                 // 상대가 땡이 아닌 경우
+            // 상대가 땡이 아닌 경우
+            else
             {
                 playerFail = "땡잡이 => ";
                 playerJokbo = "망통(0끗)";
@@ -132,11 +133,12 @@ public class JokboComparer
 
         if (cpuJokbo.Equals("멍텅구리구사"))
         {
+            // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
             if (playerLevel > jokboLevels["9땡"])
             {
                 cpuFail = "멍텅구리구사 => ";
                 cpuJokbo = "3끗";
-                cpuLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
+                cpuLevel = 1; 
             }
             else
             {
@@ -153,7 +155,7 @@ public class JokboComparer
             {
                 playerFail = "멍텅구리구사 => ";
                 playerJokbo = "3끗";
-                playerLevel = 1; // 멍텅구리 구사의 상대가 9땡보다 높은 경우 3끗으로 처리
+                playerLevel = 1;
             }
             else
             {
@@ -221,20 +223,19 @@ public class JokboComparer
     // CPU와 플레이어의 족보 등급을 비교하여 승패 결정
     public void DisplayWinnder(string cpuJokbo, string playerJokbo, string cpuFail, string playerFail, int cpuLevel, int playerLevel)
     {
+        string winnerMessage = "";
+
         // 플레이어 승리
         if (playerLevel > cpuLevel)
         {
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-            gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
+            winnerMessage = "\r\n플레이어가 승리했습니다.";
             // 플레이어 판돈 획득
             bettingSystem.PlayerMoney += bettingSystem.CurrentPot;
         }
         // 컴퓨터 승리
         else if (playerLevel < cpuLevel)
         {
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-            gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
-
+            winnerMessage = "\r\n컴퓨터가 승리했습니다.";
             // 컴퓨터 판돈 획득
             bettingSystem.CpuMoney += bettingSystem.CurrentPot;
         }
@@ -244,34 +245,27 @@ public class JokboComparer
             int playerMonth = GetMonth(playerJokbo);
             int cpuMonth = GetMonth(cpuJokbo);
 
-            gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-
-            // 플레이어 승리
             if (playerMonth > cpuMonth)
             {
-                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-                gameProgress.AppendText($"\r\n플레이어가 승리했습니다.");
-
-                // 플레이어 판돈 획득
+                winnerMessage = "\r\n플레이어가 승리했습니다.";
                 bettingSystem.PlayerMoney += bettingSystem.CurrentPot;
             }
             // 컴퓨터 승리
             else if (playerMonth < cpuMonth)
             {
 
-                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})";
-                gameProgress.AppendText($"\r\n컴퓨터가 승리했습니다.");
-
-                // 컴퓨터 판돈 획득
+                winnerMessage = "\r\n컴퓨터가 승리했습니다.";
                 bettingSystem.CpuMoney += bettingSystem.CurrentPot;
             }
             else
             {
                 // 둘 다 월 수가 같은 경우에는 재경기
-                gameProgress.AppendText("\r\n재경기 합니다.");
+                gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo}\r\n재경기 합니다.)";
                 game.RestartGame();
                 game.ReGame = true;
             }
         }
+
+        gameProgress.Text = $"컴퓨터({cpuFail}{cpuJokbo}) vs 플레이어({playerFail}{playerJokbo})\r\n{winnerMessage}";
     }
 }

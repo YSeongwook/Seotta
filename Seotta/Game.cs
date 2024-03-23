@@ -46,8 +46,6 @@ namespace Seotta
         private Pae[] playerPae;
 
         private string seon = "컴퓨터";     // 선을 결정
-        private bool isFirst = true;       // 초회차인지 확인
-        private bool reGame = false;        // 재경기 확인
         private int cpuMoney;               // cpu 소지금
         private int playerMoney;            // 플레이어 소지금
         private int currentPot;             // 현재 판돈
@@ -76,6 +74,9 @@ namespace Seotta
             this.playerMoneyLabel = playerMoneyLabel;
             this.currentPotBox = currentPotBox;
 
+            IsFirst = true;
+            ReGame = false;
+
             // 타이머1 설정
             timer1 = new Timer();
             timer1.Interval = 1; // 1밀리초마다 변경
@@ -93,24 +94,23 @@ namespace Seotta
             bettingSystem = new BettingSystem(this, gameProgress, seon, cpuMoney, playerMoney, currentPot, cpuBettingMoney, playerBettingMoney);
         }
 
+        public void InitIndex()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                cpuIndex[i] = 0;
+                playerIndex[i] = 0;
+            }
+        }
+
         #region GetterSetter
 
         public int CpuLevel { get; set; }
         public int PlayerLevel { get; set; }
         public string CpuJokbo { get; set; }
         public string PlayerJokbo { get; set; }
-
-        public bool IsFirst
-        {
-            get { return IsFirst; }
-            set { IsFirst = value; }
-        }
-
-        public bool ReGame
-        {
-            get { return reGame; }
-            set { reGame = value; }
-        }
+        public bool IsFirst { get; set; }
+        public bool ReGame { get; set; }
 
         public Timer GetTimer(int i)
         {
@@ -127,15 +127,6 @@ namespace Seotta
         public void CheckEndBetting()
         {
             endBetting = true;
-        }
-
-        public void InitIndex()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                cpuIndex[i] = 0;
-                playerIndex[i] = 0;
-            }
         }
 
         public Pae[] GetCpuPae()
@@ -239,7 +230,7 @@ namespace Seotta
             ResetPae();
             SelectPae();
 
-            if (isFirst)
+            if (IsFirst)
             {
                 // 게임 안내 문구 출력
                 DisplayTextFromFile("game_start.txt", gameProgress);
@@ -250,7 +241,7 @@ namespace Seotta
             }
             
             // 94재경기 또는 같은 월끗이라면 기본 판돈 제출 X
-            if(reGame)
+            if(ReGame)
             {
                 gameProgress.Text = "재경기합니다.";
             }
@@ -292,8 +283,8 @@ namespace Seotta
             jokboHelper.Clear();
             form.HighlightJokboButton(jokboPanel, "");
 
-            isFirst = false;
-            reGame = false;
+            IsFirst = false;
+            ReGame = false;
 
             // 버튼 색 복구
             ChangeAllButtonColors(Color.Black, Color.White);
@@ -431,15 +422,15 @@ namespace Seotta
 
         public void PrintPae()
         {
-            if (!timer1.Enabled)
-            {
-                timer2.Stop();
-                timer1.Start();
-            }
-            else
+            if (timer1.Enabled)
             {
                 timer1.Stop();
                 timer2.Start();
+            }
+            else
+            {
+                timer2.Stop();
+                timer1.Start();
             }
         }
 
@@ -464,7 +455,6 @@ namespace Seotta
             DisplayJokboHelper(gameProgress, GetPlayerPae(), "플레이어");
             DisplayJokboHelper(jokboHelper, GetPlayerPae(), "플레이어");
             CompareJokbo(CpuJokbo, PlayerJokbo);
-
 
             // 베팅금 회수
 

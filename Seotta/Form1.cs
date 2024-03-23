@@ -80,27 +80,27 @@ namespace Seotta
             }
 
             // 숫자 키패드를 눌러 베팅 가능
-            if (e.KeyCode == Keys.NumPad7)
+            if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7)
             {
                 BetButton_Click(betBtn7, EventArgs.Empty);
             }
-            else if (e.KeyCode == Keys.NumPad8)
+            else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8)
             {
                 BetButton_Click(betBtn8, EventArgs.Empty);
             }
-            else if (e.KeyCode == Keys.NumPad4)
+            else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4)
             {
                 BetButton_Click(betBtn4, EventArgs.Empty);
             }
-            else if (e.KeyCode == Keys.NumPad5)
+            else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5)
             {
                 BetButton_Click(betBtn5, EventArgs.Empty);
             }
-            else if (e.KeyCode == Keys.NumPad1)
+            else if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
             {
                 BetButton_Click(betBtn1, EventArgs.Empty);
             }
-            else if (e.KeyCode == Keys.NumPad0)
+            else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0)
             {
                 BetButton_Click(betBtn0, EventArgs.Empty);
             }
@@ -185,7 +185,7 @@ namespace Seotta
             jokboLabel.Font = new Font("Consolas", 22F, FontStyle.Italic);
         }
 
-        // 도움말 내용 파일에서 내용을 로드하는 메서드
+        // 도움말 내용 파일에서 내용을 로드
         private string LoadHelpContent(string filePath)
         {
             string content = "";
@@ -200,7 +200,7 @@ namespace Seotta
             return content;
         }
 
-        // 새로운 폼에 도움말을 표시하는 메서드
+        // 새로운 폼에 도움말을 출력
         private void OpenHelpForm(string title, string content)
         {
             HelpForm helpForm = new HelpForm(title, content);

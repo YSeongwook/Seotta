@@ -15,8 +15,8 @@ namespace Seotta
         {
             InitializeComponent();
 
-            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
-            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            this.startBtn.Click += new EventHandler(this.startBtn_Click);
+            this.exitBtn.Click += new EventHandler(this.exitBtn_Click);
             this.KeyDown += new KeyEventHandler(Opening_KeyDown);
 
             // FormClosed 이벤트 핸들러 등록
@@ -65,10 +65,9 @@ namespace Seotta
             }
         }
 
-        // Ascii Art 출력
+        // Ascii Art 한줄 씩 출력
         private void DisplayLines(TextBox textBox)
         {
-            /*
             if (index < asciiArt.Length)
             {
                 // ASCII ART를 한줄 씩 TextBox에 추가
@@ -82,11 +81,13 @@ namespace Seotta
                     timer1.Stop();
                 }
             }
-            */
+        }
 
+        // ASCII ART를 한 번에 출력
+        private void DisplayAllLines(TextBox textBox)
+        {
             if (index < asciiArt.Length)
             {
-                // ASCII ART를 전체 한 번에 TextBox에 추가
                 textBox.Text = string.Join(Environment.NewLine, asciiArt);
 
                 // 인덱스를 마지막으로 이동
@@ -113,12 +114,15 @@ namespace Seotta
         // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출, 1밀리초마다 이벤트 발생
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            DisplayLines(openingAsciiArt);
+            // DisplayLines(openingAsciiArt);
+            DisplayAllLines(openingAsciiArt);
         }
 
         // startBtn 클릭 이벤트 핸들러
         private void startBtn_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
+
             // Form1을 생성하고 보여줍니다.
             Form1 form1 = new Form1();
             form1.Show();

@@ -1,4 +1,6 @@
-﻿namespace Seotta
+﻿using System.Drawing;
+
+namespace Seotta
 {
     partial class HelpForm
     {
@@ -57,7 +59,8 @@
             this.KeyPreview = true;
             this.Name = "HelpForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "HelpForm";
+            this.Text = "도움말";
+            this.Icon = new Icon("seotta1.ico");
             this.ResumeLayout(false);
             this.PerformLayout();
         }
