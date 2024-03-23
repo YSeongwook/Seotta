@@ -224,9 +224,14 @@ namespace Seotta
 
             GameLoop(); // 게임 진행
         }
-
         public async void GameLoop()
         {
+            // 폼이 이미 종료되었는지 확인
+            if (form.IsDisposed)
+            {
+                return; // 폼이 이미 종료되었으면 메서드를 종료
+            }
+
             ResetPae();
             SelectPae();
 
@@ -236,8 +241,11 @@ namespace Seotta
                 DisplayTextFromFile("game_start.txt", gameProgress);
 
                 await Task.Delay(5000);
-                gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
-                gameProgress.AppendText($"{seon}가 선입니다.");
+                if(gameProgress != null)
+                {
+                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
+                }
             }
             
             // 94재경기 또는 같은 월끗이라면 기본 판돈 제출 X
@@ -248,8 +256,11 @@ namespace Seotta
             else
             {
                 InitMoney();
-                gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
-                gameProgress.AppendText($"{seon}가 선입니다.");
+                if (gameProgress != null)
+                {
+                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
+                }
             }
 
             PrintPae(); // 현재 패 1장씩 출력

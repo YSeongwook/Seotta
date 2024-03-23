@@ -155,7 +155,7 @@ namespace Seotta
                         // 상황에 따라 콜 또는 다이
                         if (CpuMoney > PlayerMoney)
                         {
-                            CpuCallBetting(100);
+                            CpuCallBetting(80);
                         }
                         else
                             CpuDie();
@@ -233,7 +233,51 @@ namespace Seotta
                 }
             } else
             {
-                CpuDie();
+                if (seon.Equals("플레이어"))
+                {
+                    CpuDdadangBetting();
+                }
+            }
+        }
+
+        private async void CpuDdadangBetting()
+        {
+            // 앞서 베팅한 플레이어의 베팅금만큼 베팅
+            int betAmount = playerBettingMoney * 2;
+            // 소지금에서 베팅만큼 제출
+            CpuMoney -= betAmount;
+
+            // 베팅금 저장
+            cpuBettingMoney = betAmount;
+
+            await Task.Delay(1000);
+            gameProgress.Text = "컴퓨터가 베팅합니다.";
+            await Task.Delay(2000);
+            gameProgress.Text = "컴퓨터가 따당 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
+
+            if (seon.Equals("컴퓨터"))
+            {
+                await Task.Delay(1000);
+                gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+            }
+
+            if (seon.Equals("플레이어"))
+            {
+                if (turn == 1)
+                {
+                    await Task.Delay(1000);
+                    gameProgress.Text = "플레이어의 차례입니다. 베팅해주세요.";
+                    turn++;
+                }
+                else if (turn == 2)
+                {
+                    await Task.Delay(2000);
+                    game.ShowDown();
+                }
             }
         }
 
@@ -357,12 +401,15 @@ namespace Seotta
                     break;
                 case 4:
                     // 삥
+                    PlayerBbingBetting();
                     break;
                 case 5:
                     // 체크
+                    PlayerCheckBetting();
                     break;
                 case 1:
                     // 따당
+                    PlayerDdadangBetting();
                     break;
                 case 0:
                     // 하프 or 올인
@@ -435,6 +482,54 @@ namespace Seotta
             playerBettingMoney = betAmount;
 
             gameProgress.Text = "하프 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
+        }
+
+        public void PlayerCheckBetting()
+        {
+            // 앞서 베팅한 플레이어의 베팅금의 2배 베팅
+            int betAmount = 0;
+            // 소지금에서 베팅금만큼 지출
+            PlayerMoney -= betAmount;
+            // 베팅금 저장
+            playerBettingMoney = betAmount;
+
+            gameProgress.Text = "체크 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
+        }
+
+        public  void PlayerDdadangBetting()
+        {
+            // 앞서 베팅한 플레이어의 베팅금의 2배 베팅
+            int betAmount = cpuBettingMoney * 2;
+            // 소지금에서 베팅금만큼 지출
+            PlayerMoney -= betAmount;
+            // 베팅금 저장
+            playerBettingMoney = betAmount;
+
+            gameProgress.Text = "따당 했습니다.";
+
+            // 현재 판돈에 저장
+            CurrentPot += betAmount;
+            CalculateMoney();
+        }
+
+        public void PlayerBbingBetting()
+        {
+            // 기본금 만큼 베팅
+            int betAmount = 1000000;
+            // 소지금에서 베팅금만큼 지출
+            PlayerMoney -= betAmount;
+            // 베팅금 저장
+            playerBettingMoney = betAmount;
+
+            gameProgress.Text = "삥 했습니다.";
 
             // 현재 판돈에 저장
             CurrentPot += betAmount;

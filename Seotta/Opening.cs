@@ -37,7 +37,7 @@ namespace Seotta
             // Escape 키를 누르면 폼 종료
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                Application.Exit();
             }
         }
 
@@ -45,6 +45,8 @@ namespace Seotta
         {
             // 타이머 중지
             timer1.Stop();
+
+            Application.Exit(); // 폼이 종료되도 백그라운드에서 돌아갈 수 있기에 this.Close() => Application.Exit()로 수정함
         }
 
         // 문자열 파일 읽어 출력
@@ -135,7 +137,7 @@ namespace Seotta
         private void exitBtn_Click(object sender, EventArgs e)
         {
             // 현재 폼을 종료
-            this.Close();
+            Application.Exit();
         }
     }
 }
