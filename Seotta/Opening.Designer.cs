@@ -38,7 +38,7 @@ namespace Seotta
             // startBtn
             this.startBtn.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold);
             this.startBtn.ForeColor = System.Drawing.Color.White;
-            this.startBtn.Location = new System.Drawing.Point(240, 590); // 시작 버튼 위치 조정
+            this.startBtn.Location = new System.Drawing.Point(260, 590); // 시작 버튼 위치 조정
             this.startBtn.Margin = new System.Windows.Forms.Padding(4);
             this.startBtn.Name = "게임 시작";
             this.startBtn.Size = new System.Drawing.Size(160, 60);
@@ -48,7 +48,7 @@ namespace Seotta
             // exitBtn
             this.exitBtn.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold);
             this.exitBtn.ForeColor = System.Drawing.Color.White;
-            this.exitBtn.Location = new System.Drawing.Point(600, 590); // 종료 버튼 위치 조정
+            this.exitBtn.Location = new System.Drawing.Point(580, 590); // 종료 버튼 위치 조정
             this.exitBtn.Margin = new System.Windows.Forms.Padding(4);
             this.exitBtn.Name = "게임 종료";
             this.exitBtn.Size = new System.Drawing.Size(160, 60);

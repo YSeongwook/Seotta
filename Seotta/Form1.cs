@@ -321,12 +321,15 @@ namespace Seotta
                     break;
                 case 4:
                     // 삥 처리
+                    game.GetBettingSystem().PlayerBetting(4);
                     break;
                 case 5:
                     // 체크 처리
+                    game.GetBettingSystem().PlayerBetting(5);
                     break;
                 case 1:
                     // 따당 처리
+                    game.GetBettingSystem().PlayerBetting(1);
                     break;
                 case 0:
                     // 하프 or 올인 처리

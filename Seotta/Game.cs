@@ -240,7 +240,7 @@ namespace Seotta
                 // 게임 안내 문구 출력
                 DisplayTextFromFile("game_start.txt", gameProgress);
 
-                await Task.Delay(5000);
+                await Task.Delay(3000);
                 if(gameProgress != null)
                 {
                     gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";

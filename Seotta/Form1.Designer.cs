@@ -72,10 +72,10 @@ namespace Seotta
             // 
             this.cpuMoneyLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuMoneyLabel.ForeColor = System.Drawing.Color.White;
-            this.cpuMoneyLabel.Location = new System.Drawing.Point(350, 104);
+            this.cpuMoneyLabel.Location = new System.Drawing.Point(320, 104);
             this.cpuMoneyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cpuMoneyLabel.Name = "cpuMoneyLabel";
-            this.cpuMoneyLabel.Size = new System.Drawing.Size(300, 50);
+            this.cpuMoneyLabel.Size = new System.Drawing.Size(360, 50);
             this.cpuMoneyLabel.TabIndex = 5;
             this.cpuMoneyLabel.Text = "";
             this.cpuMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -85,10 +85,10 @@ namespace Seotta
             // 
             this.playerMoneyLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerMoneyLabel.ForeColor = System.Drawing.Color.White;
-            this.playerMoneyLabel.Location = new System.Drawing.Point(1250, 104);
+            this.playerMoneyLabel.Location = new System.Drawing.Point(1220, 104);
             this.playerMoneyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.playerMoneyLabel.Name = "playerMoneyLabel";
-            this.playerMoneyLabel.Size = new System.Drawing.Size(300, 50);
+            this.playerMoneyLabel.Size = new System.Drawing.Size(360, 50);
             this.playerMoneyLabel.TabIndex = 5;
             this.playerMoneyLabel.Text = "";
             this.playerMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
