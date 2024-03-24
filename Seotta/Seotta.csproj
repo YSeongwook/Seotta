@@ -47,41 +47,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BettingSystem.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="HelpForm.cs">
+    <Compile Include="Forms\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HelpForm.Designer.cs">
+    <Compile Include="Forms\HelpForm.Designer.cs">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="JokboButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="JokboComparer.cs" />
-    <Compile Include="JokboDescription.cs" />
-    <Compile Include="JokboHelper.cs" />
-    <Compile Include="Opening.cs">
+    <Compile Include="Jokbo\JokboComparer.cs" />
+    <Compile Include="Jokbo\JokboDescription.cs" />
+    <Compile Include="Jokbo\JokboHelper.cs" />
+    <Compile Include="Forms\Opening.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Opening.Designer.cs">
+    <Compile Include="Forms\Opening.Designer.cs">
       <DependentUpon>Opening.cs</DependentUpon>
     </Compile>
     <Compile Include="Pae.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HelpForm.resx">
+    <EmbeddedResource Include="Forms\HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Opening.resx">
+    <EmbeddedResource Include="Forms\Opening.resx">
       <DependentUpon>Opening.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
