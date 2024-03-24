@@ -1,8 +1,5 @@
-﻿using System.Windows.Forms;
-using System;
-using static System.Console;
+﻿using static System.Console;
 using System.IO;
-using System.Collections.Generic;
 
 namespace Seotta
 {

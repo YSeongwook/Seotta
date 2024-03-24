@@ -32,7 +32,6 @@ namespace Seotta
 
             // FormClosed 이벤트 핸들러 등록
             this.FormClosing += Form1_FormClosing;
-            this.FormClosed += Form1_FormClosed;
 
             this.Focus();
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
@@ -48,30 +47,8 @@ namespace Seotta
             Application.Exit();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Opening 폼을 보이도록 설정
-            Opening openingForm = new Opening();
-            openingForm.Show();
-        }
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            // Enter 키를 눌렀을 때
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.SecondDraw();
-            }
-
-            // Tab 키를 누르면 재시작
-            if (e.KeyCode == Keys.Tab)
-            {
-                game.RestartGame();
-            }
-            */
-
             // Spacebar 키를 눌렀을 때
             if (e.KeyCode == Keys.Space)
             {
@@ -113,15 +90,6 @@ namespace Seotta
 
         private void GameProgress_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            // Enter 키를 눌렀을 때
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;  // 엔터 키의 기본 동작을 막음
-                game.SecondDraw();
-            }
-             */
-
             // Escape 키를 누르면 폼 종료
             if (e.KeyCode == Keys.Escape)
             {
