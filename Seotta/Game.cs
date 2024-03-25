@@ -467,8 +467,6 @@ namespace Seotta
             DisplayJokboHelper(jokboHelper, GetPlayerPae(), "플레이어");
             CompareJokbo(CpuJokbo, PlayerJokbo);
 
-            // 베팅금 회수
-
             await Task.Delay(3000);
             RestartGame();
         }

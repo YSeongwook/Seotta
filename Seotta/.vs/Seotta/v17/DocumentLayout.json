@@ -1,26 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Git\\Seotta\\Seotta\\",
+  "WorkspaceRootPath": "C:\\Git\\Seotta\\Seotta\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|D:\\Git\\Seotta\\Seotta\\forms\\opening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:forms\\opening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\jokbo\\jokbocomparer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:jokbo\\jokbocomparer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|D:\\Git\\Seotta\\Seotta\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\forms\\opening.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:forms\\opening.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|D:\\Git\\Seotta\\Seotta\\bettingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:bettingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\jokbo\\jokbohelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:jokbo\\jokbohelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|D:\\Git\\Seotta\\Seotta\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|C:\\Git\\Seotta\\Seotta\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|D:\\Git\\Seotta\\Seotta\\forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|C:\\Git\\Seotta\\Seotta\\bettingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:bettingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|C:\\Git\\Seotta\\Seotta\\forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\pae.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:pae.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\forms\\opening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:forms\\opening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|c:\\git\\seotta\\seotta\\jokbo\\jokbodescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A2CC489-B253-41D0-BC44-D787D1785FE7}|Seotta.csproj|solutionrelative:jokbo\\jokbodescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,68 +46,124 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Git\\Seotta\\Seotta\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Git\\Seotta\\Seotta\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAbAAAA",
+              "DocumentIndex": 8,
+              "Title": "JokboDescription.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboDescription.cs",
+              "RelativeDocumentMoniker": "Jokbo\\JokboDescription.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboDescription.cs",
+              "RelativeToolTip": "Jokbo\\JokboDescription.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T09:16:06.418Z"
+              "WhenOpened": "2024-03-25T01:09:22.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Pae.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Pae.cs",
+              "RelativeDocumentMoniker": "Pae.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Pae.cs",
+              "RelativeToolTip": "Pae.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T01:01:45.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Opening.Designer.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Forms\\Opening.Designer.cs",
+              "RelativeDocumentMoniker": "Forms\\Opening.Designer.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Forms\\Opening.Designer.cs",
+              "RelativeToolTip": "Forms\\Opening.Designer.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAUwCMAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T00:51:21.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "JokboHelper.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboHelper.cs",
+              "RelativeDocumentMoniker": "Jokbo\\JokboHelper.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboHelper.cs",
+              "RelativeToolTip": "Jokbo\\JokboHelper.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAuwLMAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T00:41:22.006Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "JokboComparer.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboComparer.cs",
+              "RelativeDocumentMoniker": "Jokbo\\JokboComparer.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Jokbo\\JokboComparer.cs",
+              "RelativeToolTip": "Jokbo\\JokboComparer.cs",
+              "ViewState": "AQIAAPsAAAAAAAAAAAAUwFcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T00:40:35.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Opening.cs",
-              "DocumentMoniker": "D:\\Git\\Seotta\\Seotta\\Forms\\Opening.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Forms\\Opening.cs",
               "RelativeDocumentMoniker": "Forms\\Opening.cs",
-              "ToolTip": "D:\\Git\\Seotta\\Seotta\\Forms\\Opening.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Forms\\Opening.cs",
               "RelativeToolTip": "Forms\\Opening.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAhAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAUwBEAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-23T08:52:08.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "BettingSystem.cs",
-              "DocumentMoniker": "D:\\Git\\Seotta\\Seotta\\BettingSystem.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\BettingSystem.cs",
               "RelativeDocumentMoniker": "BettingSystem.cs",
-              "ToolTip": "D:\\Git\\Seotta\\Seotta\\BettingSystem.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\BettingSystem.cs",
               "RelativeToolTip": "BettingSystem.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAAACUAAAAzAAAA",
+              "ViewState": "AQIAAAwCAAAAAAAAAAAuwOMBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T05:51:14.615Z"
+              "WhenOpened": "2024-03-23T05:51:14.615Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Game.cs",
-              "DocumentMoniker": "D:\\Git\\Seotta\\Seotta\\Game.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Game.cs",
               "RelativeDocumentMoniker": "Game.cs",
-              "ToolTip": "D:\\Git\\Seotta\\Seotta\\Game.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Game.cs",
               "RelativeToolTip": "Game.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwMIBAAAgAAAA",
+              "ViewState": "AQIAAEIBAAAAAAAAAAAQwBsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T05:51:14.745Z"
+              "WhenOpened": "2024-03-23T05:51:14.745Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
-              "DocumentMoniker": "D:\\Git\\Seotta\\Seotta\\Forms\\Form1.cs",
+              "DocumentMoniker": "C:\\Git\\Seotta\\Seotta\\Forms\\Form1.cs",
               "RelativeDocumentMoniker": "Forms\\Form1.cs",
-              "ToolTip": "D:\\Git\\Seotta\\Seotta\\Forms\\Form1.cs",
+              "ToolTip": "C:\\Git\\Seotta\\Seotta\\Forms\\Form1.cs",
               "RelativeToolTip": "Forms\\Form1.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAC8AAAAJAAAA",
+              "ViewState": "AQIAAOgAAAAAAAAAAAAkwBMBAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T05:51:14.807Z"
+              "WhenOpened": "2024-03-23T05:51:14.807Z",
+              "EditorCaption": ""
             }
           ]
         }

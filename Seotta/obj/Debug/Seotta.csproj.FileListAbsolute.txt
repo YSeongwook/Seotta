@@ -23,7 +23,6 @@ C:\Git\Seotta\Seotta\bin\Debug\Seotta.exe.config
 C:\Git\Seotta\Seotta\bin\Debug\Seotta.exe
 C:\Git\Seotta\Seotta\bin\Debug\Seotta.pdb
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.AssemblyReference.cache
-C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.SuggestedBindingRedirects.cache
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.Form1.resources
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.Properties.Resources.resources
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.GenerateResource.cache
