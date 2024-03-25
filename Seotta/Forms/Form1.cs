@@ -241,8 +241,6 @@ namespace Seotta
 
             // 강조 효과를 위한 코드 추가
             HighlightJokboButton(jokboPanel, clickedButton.Text);
-
-            // 이후 족보에 따른 다른 작업 수행
         }
 
         // 족보 버튼 강조 이벤트

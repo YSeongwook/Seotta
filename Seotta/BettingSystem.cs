@@ -16,6 +16,7 @@ namespace Seotta
         string seon;            // 누가 먼저 베팅할 지정하는 선 변수
         int cpuBettingMoney;    // cpu가 직전에 베팅한 금액
         int playerBettingMoney; // cpu가 직전에 베팅한 금액
+        const int Ante = 1000000;
 
         public int turn { get; set; }
         public int CpuMoney { get; set; }// cpu 소지금
@@ -49,9 +50,9 @@ namespace Seotta
 
             // 판돈 100만씩 지불
             await Task.Delay(1000);
-            CurrentPot = 2000000;
-            CpuMoney -= 1000000;
-            PlayerMoney -= 1000000;
+            CurrentPot = Ante * 2;
+            CpuMoney -= Ante;
+            PlayerMoney -= Ante;
             CalculateMoney();
 
             if (seon.Equals("컴퓨터"))
