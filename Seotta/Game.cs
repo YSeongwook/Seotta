@@ -224,97 +224,7 @@ namespace Seotta
 
             GameLoop(); // 게임 진행
         }
-        public async void GameLoop()
-        {
-            // 폼이 이미 종료되었는지 확인
-            if (form.IsDisposed)
-            {
-                return; // 폼이 이미 종료되었으면 메서드를 종료
-            }
 
-            ResetPae();
-            SelectPae();
-
-            if (IsFirst)
-            {
-                // 게임 안내 문구 출력
-                DisplayTextFromFile("game_start.txt", gameProgress);
-
-                await Task.Delay(3000);
-                if(gameProgress != null)
-                {
-                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
-                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
-                }
-            }
-            
-            // 94재경기 또는 같은 월끗이라면 기본 판돈 제출 X
-            if(ReGame)
-            {
-                gameProgress.Text = "재경기합니다.";
-            }
-            else
-            {
-                InitMoney();
-                if (gameProgress != null)
-                {
-                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
-                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
-                }
-            }
-
-            PrintPae(); // 현재 패 1장씩 출력
-            cpuLabel.Visible = true;
-            cpuMoneyLabel.Visible = true;
-            playerLabel.Visible = true;
-            playerMoneyLabel.Visible = true;
-
-            bettingSystem.Betting(seon);
-            // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
-        }
-
-        // 게임 재시작
-        public void RestartGame()
-        {
-            // Pae 배열 초기화
-            pae.Clear();
-
-            // cpuPae 및 playerPae 배열 초기화
-            cpuPae = new Pae[2];
-            playerPae = new Pae[2];
-
-            // endBetting 변수 초기화
-            endBetting = false;
-
-            // cpuIndex 및 playerIndex 배열 초기화
-            InitIndex();
-
-            // TextBox 초기화
-            gameProgress.Clear();
-            jokboHelper.Clear();
-            form.HighlightJokboButton(jokboPanel, "");
-
-            IsFirst = false;
-            ReGame = false;
-
-            // 버튼 색 복구
-            ChangeAllButtonColors(Color.Black, Color.White);
-
-            // 턴 초기화
-            bettingSystem.turn = 1;
-
-            // 선 변경
-            ChangeSeon();
-
-            // 게임을 다시 시작
-            StartGame();
-        }
-
-        public void ChangeSeon()
-        {
-            if (seon.Equals("컴퓨터")) seon = "플레이어";
-            else seon = "컴퓨터";
-        }
 
         public void ChangeAllButtonColors(Color backColor, Color foreColor)
         {
@@ -394,6 +304,94 @@ namespace Seotta
 
         #endregion
 
+        #region Game Play Logic
+
+        public async void GameLoop()
+        {
+            // 폼이 이미 종료되었는지 확인
+            if (form.IsDisposed)
+            {
+                return; // 폼이 이미 종료되었으면 메서드를 종료
+            }
+
+            ResetPae();
+            SelectPae();
+
+            if (IsFirst)
+            {
+                // 게임 안내 문구 출력
+                DisplayTextFromFile("game_start.txt", gameProgress);
+
+                await Task.Delay(3000);
+                if (gameProgress != null)
+                {
+                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
+                }
+            }
+
+            // 94재경기 또는 같은 월끗이라면 기본 판돈 제출 X
+            if (ReGame)
+            {
+                gameProgress.Text = "재경기합니다.";
+            }
+            else
+            {
+                InitMoney();
+                if (gameProgress != null)
+                {
+                    gameProgress.Text = "판돈으로 100만전씩 지불합니다.\r\n";
+                    gameProgress.AppendText($"{seon}가 선입니다.");  // 이 부분 출력하기 전에 나가면 없는 컴포넌트에 접근하려 하기에 문제가 생긴다.
+                }
+            }
+
+            PrintPae(); // 현재 패 1장씩 출력
+            cpuLabel.Visible = true;
+            cpuMoneyLabel.Visible = true;
+            playerLabel.Visible = true;
+            playerMoneyLabel.Visible = true;
+
+            bettingSystem.Betting(seon);
+            // 스페이스바 이벤트에 있는 메서드(패 공개, 족보 비교, 소지금 분배(만들어야함)
+        }
+
+        // 게임 재시작
+        public void RestartGame()
+        {
+            // Pae 배열 초기화
+            pae.Clear();
+
+            // cpuPae 및 playerPae 배열 초기화
+            cpuPae = new Pae[2];
+            playerPae = new Pae[2];
+
+            // endBetting 변수 초기화
+            endBetting = false;
+
+            // cpuIndex 및 playerIndex 배열 초기화
+            InitIndex();
+
+            // TextBox 초기화
+            gameProgress.Clear();
+            jokboHelper.Clear();
+            form.HighlightJokboButton(jokboPanel, "");
+
+            IsFirst = false;
+            ReGame = false;
+
+            // 버튼 색 복구
+            ChangeAllButtonColors(Color.Black, Color.White);
+
+            // 턴 초기화
+            bettingSystem.turn = 1;
+
+            // 선 변경
+            ChangeSeon();
+
+            // 게임을 다시 시작
+            StartGame();
+        }
+
         // 각 패 텍스트 박스 초기화
         public void ResetPae()
         {
@@ -470,6 +468,15 @@ namespace Seotta
             await Task.Delay(3000);
             RestartGame();
         }
+
+        // 선 변경
+        public void ChangeSeon()
+        {
+            if (seon.Equals("컴퓨터")) seon = "플레이어";
+            else seon = "컴퓨터";
+        }
+
+        #endregion
 
         #region Timer
 
@@ -613,7 +620,6 @@ namespace Seotta
         {
             JokboComparer jokboComparer = new JokboComparer(this, gameProgress, "jokbo_levels.json");
             jokboComparer.GetWinner(cpuJokbo, playerJokbo);
-            // 승자 구하고 돈 돌려주기?
         }
 
         #endregion
