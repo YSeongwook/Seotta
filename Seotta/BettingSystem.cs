@@ -47,6 +47,9 @@ namespace Seotta
         {
             this.seon = _seon; // 누가 선인지 판별해서 먼저 베팅
 
+            // 94재경기 또는 같은 월 재경기가 아니라면
+            if(!game.ReGame) InitBetMoney();
+
             // 판돈 100만씩 지불
             await Task.Delay(1000);
             CurrentPot = Ante * 2;
@@ -591,6 +594,12 @@ namespace Seotta
                     return $"{unit}억 {manUnit}만 {manRemainderRemainder}전"; // 억단위, 만단위, 나머지 표현
                 }
             }
+        }
+
+        void InitBetMoney()
+        {
+            cpuBettingMoney = 0;
+            playerBettingMoney = 0;
         }
     }
 }
