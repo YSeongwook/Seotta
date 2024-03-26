@@ -33,3 +33,6 @@ D:\Git\Seotta\Seotta\obj\Debug\Seotta.HelpForm.resources
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.HelpForm.resources
 C:\Git\Seotta\Seotta\obj\Debug\Seotta.Opening.resources
 D:\Git\Seotta\Seotta\obj\Debug\Seotta.Opening.resources
+C:\Git\Seotta\Seotta\bin\Debug\Newtonsoft.Json.dll
+C:\Git\Seotta\Seotta\bin\Debug\Newtonsoft.Json.xml
+C:\Git\Seotta\Seotta\obj\Debug\Seotta.csproj.Up2Date

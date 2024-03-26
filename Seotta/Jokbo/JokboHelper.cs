@@ -8,10 +8,13 @@ namespace Seotta
         Form1 form;
         Game game;
 
+        JokboDescription jokboDescription;
+
         public JokboHelper(Form1 form, Game game)
         {
             this.form = form;
             this.game = game;
+            jokboDescription = new JokboDescription("jokbo_descriptions.json");
         }
 
         public void DisplayJokboHelper(TextBox textBox, Pae[] pae, string name)
@@ -121,7 +124,7 @@ namespace Seotta
             else
             {
                 // 족보 도우미 텍스트 박스에 족보 설명 출력
-                textBox.Text = jokbo + "\r\n" + JokboDescription.GetDescription(jokbo);
+                textBox.Text = jokbo + "\r\n" + jokboDescription.GetDescription(jokbo);
 
                 game.PlayerJokbo = jokbo;
                 jokbo = GroupingJokbo(jokbo);

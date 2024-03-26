@@ -611,7 +611,7 @@ namespace Seotta
         // 컴퓨터와 플레이어 족보 비교
         public void CompareJokbo(string cpuJokbo, string playerJokbo)
         {
-            JokboComparer jokboComparer = new JokboComparer(this, gameProgress);
+            JokboComparer jokboComparer = new JokboComparer(this, gameProgress, "jokbo_levels.json");
             jokboComparer.GetWinner(cpuJokbo, playerJokbo);
             // 승자 구하고 돈 돌려주기?
         }

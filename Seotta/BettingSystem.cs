@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System;
-using static System.Console;
 using System.Windows.Forms;
 
 namespace Seotta

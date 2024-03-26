@@ -1,5 +1,7 @@
-﻿using Seotta;
+﻿using Newtonsoft.Json;
+using Seotta;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 // 족보로 승패 결정하는 클래스
@@ -9,39 +11,23 @@ public class JokboComparer
     TextBox gameProgress;
     BettingSystem bettingSystem;
 
-    Dictionary<string, int> jokboLevels = new Dictionary<string, int>
-    {
-        { "38광땡", 15 },
+    Dictionary<string, int> jokboLevels;
 
-        { "암행어사", 14},
-
-        { "18광땡", 13}, { "13광땡", 13},
-
-        { "장땡", 12},
-
-        { "멍텅구리구사", 11 },
-
-        { "땡잡이", 10},
-
-        { "9땡", 9 }, { "8땡", 9 }, { "7땡", 9 }, { "6땡", 9 }, { "5땡", 9 }, { "4땡", 9 }, { "3땡", 9 }, { "2땡", 9 }, { "1땡", 9 },
-
-        { "구사", 8 },
-
-        { "알리", 7 }, { "독사", 6 }, { "구삥", 5 }, { "장삥", 4 }, { "장사", 3 }, { "세륙", 2 },
-
-        { "갑오(9끗)", 1 },
-
-        { "8끗", 1 }, { "7끗", 1 }, { "6끗", 1 }, { "5끗", 1 },
-        { "4끗", 1 }, { "3끗", 1 }, { "2끗", 1 }, { "1끗", 1 },
-        
-        { "망통(0끗)", 1 }
-    };
-
-    public JokboComparer(Game game, TextBox gameProgress)
+    public JokboComparer(Game game, TextBox gameProgress, string filePath)
     { 
         this.game = game;
         this.gameProgress = gameProgress;
         this.bettingSystem = game.GetBettingSystem();
+        LoadDescriptionsFromJson(filePath);
+    }
+
+    void LoadDescriptionsFromJson(string filePath)
+    {
+        // JSON 파일에서 문자열을 읽어옴
+        string jsonText = File.ReadAllText(filePath);
+
+        // JSON 문자열을 딕셔너리로 변환
+        this.jokboLevels = JsonConvert.DeserializeObject<Dictionary<string, int>>(jsonText);
     }
 
     public void GetWinner(string cpuJokbo, string playerJokbo)
@@ -128,6 +114,8 @@ public class JokboComparer
                 playerLevel = 1;
             }
         }
+
+        // 현재 구사에서 오류가 생김
 
         if (cpuJokbo.Equals("멍텅구리구사"))
         {
