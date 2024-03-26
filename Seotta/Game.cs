@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Console;
@@ -87,20 +88,12 @@ namespace Seotta
             timer2.Interval = 1; // 1밀리초마다 변경
             timer2.Tick += Timer2_Tick;
 
+            InitIndex();
             InitMoney();
             cpuMoney = 1000000000;
             playerMoney = 1000000000;
 
             bettingSystem = new BettingSystem(this, gameProgress, seon, cpuMoney, playerMoney, currentPot, cpuBettingMoney, playerBettingMoney);
-        }
-
-        public void InitIndex()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                cpuIndex[i] = 0;
-                playerIndex[i] = 0;
-            }
         }
 
         #region GetterSetter
@@ -111,6 +104,8 @@ namespace Seotta
         public string PlayerJokbo { get; set; }
         public bool IsFirst { get; set; }
         public bool ReGame { get; set; }
+
+        public bool IsCpuBetting { get; set; }
 
         public Timer GetTimer(int i)
         {
@@ -201,6 +196,16 @@ namespace Seotta
 
         #endregion
 
+        // Ascii Art 출력에 사용할 인덱스 변수 초기화
+        public void InitIndex()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                cpuIndex[i] = 0;
+                playerIndex[i] = 0;
+            }
+        }
+
         // 소지금, 베팅금, 판돈 초기화
         public void InitMoney()
         {
@@ -224,7 +229,6 @@ namespace Seotta
 
             GameLoop(); // 게임 진행
         }
-
 
         public void ChangeAllButtonColors(Color backColor, Color foreColor)
         {
@@ -480,31 +484,42 @@ namespace Seotta
 
         #region Timer
 
-        // PrintResult(), cpu 패도 모두 출력하고 비교하여 결과 산출, 1밀리초마다 이벤트 발생
+        // DisplayLinesBeforeBetting 메서드를 호출하던 부분을 DisplayLines 메서드 호출로 수정
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            // 베팅이 끝나지 않았다면
             if (!endBetting)
             {
-                DisplayLinesBeforeBetting(0, pae1, cpuPae[0], true);
-                DisplayLinesBeforeBetting(0, pae3, playerPae[0], false);
+                DisplayLines(0, pae1, cpuPae[0], TargetType.Cpu, DisplayMode.BackAsciiArt);
+                DisplayLines(0, pae3, playerPae[0], TargetType.Player, DisplayMode.AsciiArt);
             }
             else
             {
-                DisplayLines(0, pae1, cpuPae[0], true);
-                DisplayLines(0, pae3, playerPae[0], false);
-                DisplayLines(1, pae2, cpuPae[1], true);
-                DisplayLines(1, pae4, playerPae[1], false);
+                DisplayLines(0, pae1, cpuPae[0], TargetType.Cpu, DisplayMode.AsciiArt);
+                DisplayLines(0, pae3, playerPae[0], TargetType.Player, DisplayMode.AsciiArt);
+                DisplayLines(1, pae2, cpuPae[1], TargetType.Cpu, DisplayMode.AsciiArt);
+                DisplayLines(1, pae4, playerPae[1], TargetType.Player, DisplayMode.AsciiArt);
             }
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            // 베팅이 끝나지 않았다면
             if (!endBetting)
             {
-                DisplayLinesBeforeBetting(1, pae2, cpuPae[1], true);
-                DisplayLinesBeforeBetting(1, pae4, playerPae[1], false);
+                DisplayLines(1, pae2, cpuPae[1], TargetType.Cpu, DisplayMode.BackAsciiArt);
+                DisplayLines(1, pae4, playerPae[1], TargetType.Player, DisplayMode.AsciiArt);
+            }
+        }
+
+        // 해당 인덱스의 타이머를 멈추는 메서드 추가
+        private void StopTimerByIndex(int index)
+        {
+            if (index == 0)
+            {
+                timer1.Stop();
+            }
+            else
+            {
+                timer2.Stop();
             }
         }
 
@@ -512,95 +527,35 @@ namespace Seotta
 
         #region Print Ascii Art
 
-        // Ascii Art 출력
-        private void DisplayLines(int index, TextBox textBox, Pae pae, bool isCpu)
+        // 대상을 지정하는 열거형 추가
+        public enum TargetType
         {
-            if (isCpu)
-            {
-                if (cpuIndex[index] < pae.AsciiArt.Length)
-                {
-                    // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(pae.AsciiArt[cpuIndex[index]] + Environment.NewLine);
-                    cpuIndex[index]++;
-                }
-                else
-                {
-                    if (index == 0)
-                    {
-                        timer1.Stop();
-                        timer2.Start();
-                    }
-                    else
-                    {
-                        timer2.Stop();
-                    }
-                }
-            }
-            else
-            {
-                if (playerIndex[index] < pae.AsciiArt.Length)
-                {
-                    // Ascii Art를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(pae.AsciiArt[playerIndex[index]] + Environment.NewLine);
-                    playerIndex[index]++;
-                }
-                else
-                {
-                    if (index == 0)
-                    {
-                        timer1.Stop();
-                        timer2.Start();
-                    }
-                    else
-                    {
-                        timer2.Stop();
-                    }
-                }
-            }
+            Cpu,
+            Player
         }
 
-        // Ascii Art 출력(cpu는 뒷면 출력)
-        private void DisplayLinesBeforeBetting(int index, TextBox textBox, Pae pae, bool isCpu)
+        // 출력 방법을 지정하는 열거형 추가
+        public enum DisplayMode
         {
-            if (isCpu)
+            AsciiArt,
+            BackAsciiArt
+        }
+
+        // DisplayLines 메서드 수정
+        private void DisplayLines(int index, TextBox textBox, Pae pae, TargetType targetType, DisplayMode displayMode)
+        {
+            int[] indexArray = targetType == TargetType.Cpu ? cpuIndex : playerIndex;
+
+            if (indexArray[index] < pae.AsciiArt.Length)
             {
-                if (cpuIndex[index] < pae.AsciiArt.Length)
-                {
-                    // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(pae.BackAsciiArt[cpuIndex[index]] + Environment.NewLine);
-                    cpuIndex[index]++;
-                }
-                else
-                {
-                    if (index == 0)
-                    {
-                        timer1.Stop();
-                    }
-                    else
-                    {
-                        timer2.Stop();
-                    }
-                }
+                string line = displayMode == DisplayMode.AsciiArt ? pae.AsciiArt[indexArray[index]] : pae.BackAsciiArt[indexArray[index]];
+                textBox.AppendText(line + Environment.NewLine);
+                indexArray[index]++;
             }
             else
             {
-                if (playerIndex[index] < pae.AsciiArt.Length)
-                {
-                    // ASCII ART를 한줄 씩 TextBox에 추가
-                    textBox.AppendText(pae.AsciiArt[playerIndex[index]] + Environment.NewLine);
-                    playerIndex[index]++;
-                }
-                else
-                {
-                    if (index == 0)
-                    {
-                        timer1.Stop();
-                    }
-                    else
-                    {
-                        timer2.Stop();
-                    }
-                }
+                // 해당 인덱스에 대한 ASCII Art가 없을 때 타이머를 멈추도록 추가
+                StopTimerByIndex(index);
             }
         }
 

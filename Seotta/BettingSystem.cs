@@ -73,10 +73,12 @@ namespace Seotta
             currentPotBox.Text = $"현재 판돈: {ToKoreanCurrency(CurrentPot)}";
         }
 
-        #region CpuBetting
+        #region Cpu Betting
         // CPU 베팅 메서드
         public void CpuBetting(Pae[] pae, int turn)
         {
+            game.IsCpuBetting = true;
+
             // 첫번째 베팅
             if (turn == 1)
             {
@@ -184,6 +186,8 @@ namespace Seotta
                         break;
                 }
             }
+
+            game.IsCpuBetting = false;
         }
 
         // 하프 베팅 메서드
@@ -389,6 +393,8 @@ namespace Seotta
 
         #endregion
 
+        #region Player Betting
+
         public async void PlayerBetting(int betBtn)
         {
             switch (betBtn)
@@ -545,6 +551,8 @@ namespace Seotta
             game.RestartGame();
         }
 
+        #endregion
+
         public string ToKoreanCurrency(int amount)
         {
             if (amount < 10000)
@@ -584,7 +592,5 @@ namespace Seotta
                 }
             }
         }
-
-        // 94 재경기, 재경기하면 판돈 그대로 유지
     }
 }

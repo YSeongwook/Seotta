@@ -61,30 +61,34 @@ namespace Seotta
                 Application.Exit();
             }
 
-            // 숫자 키패드를 눌러 베팅 가능
-            if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7)
+            // cpu가 현재 베팅중이지 않다면 플레이어 베팅 가능
+            if (!game.IsCpuBetting)
             {
-                BetButton_Click(betBtn7, EventArgs.Empty);
-            }
-            else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8)
-            {
-                BetButton_Click(betBtn8, EventArgs.Empty);
-            }
-            else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4)
-            {
-                BetButton_Click(betBtn4, EventArgs.Empty);
-            }
-            else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5)
-            {
-                BetButton_Click(betBtn5, EventArgs.Empty);
-            }
-            else if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
-            {
-                BetButton_Click(betBtn1, EventArgs.Empty);
-            }
-            else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0)
-            {
-                BetButton_Click(betBtn0, EventArgs.Empty);
+                // 숫자 키패드를 눌러 베팅 가능
+                if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7)
+                {
+                    BetButton_Click(betBtn7, EventArgs.Empty);
+                }
+                else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8)
+                {
+                    BetButton_Click(betBtn8, EventArgs.Empty);
+                }
+                else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4)
+                {
+                    BetButton_Click(betBtn4, EventArgs.Empty);
+                }
+                else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5)
+                {
+                    BetButton_Click(betBtn5, EventArgs.Empty);
+                }
+                else if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
+                {
+                    BetButton_Click(betBtn1, EventArgs.Empty);
+                }
+                else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0)
+                {
+                    BetButton_Click(betBtn0, EventArgs.Empty);
+                }
             }
         }
 
@@ -248,19 +252,22 @@ namespace Seotta
         {
             foreach (Control control in panel.Controls)
             {
-                if (control is JokboButton jokboBtn)
+                if (!game.IsCpuBetting)
                 {
-                    // 패널에 있는 족보 버튼인 경우 배경색을 변경
-                    if (jokboBtn.Text.Equals(jokbo) && !(jokboBtn.Name.Equals("족보 레이블")))
+                    if (control is JokboButton jokboBtn)
                     {
-                        jokboBtn.BackColor = Color.Gray;
-                        jokboBtn.ForeColor = Color.Black;
-                    }    
-                    else
-                    {
-                        // 다른 족보 버튼의 배경색을 원래 상태로 변경
-                        jokboBtn.BackColor = Color.Black;
-                        jokboBtn.ForeColor = Color.White;
+                        // 패널에 있는 족보 버튼인 경우 배경색을 변경
+                        if (jokboBtn.Text.Equals(jokbo) && !(jokboBtn.Name.Equals("족보 레이블")))
+                        {
+                            jokboBtn.BackColor = Color.Gray;
+                            jokboBtn.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            // 다른 족보 버튼의 배경색을 원래 상태로 변경
+                            jokboBtn.BackColor = Color.Black;
+                            jokboBtn.ForeColor = Color.White;
+                        }
                     }
                 }
             }
