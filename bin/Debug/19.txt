@@ -1,0 +1,72 @@
+;c;;;L;L;L;L;L;L;LLL;L;LLLLLLL;L;L;L;LLLLLLLLL;L;L;L;L;L;LLLLL;L;LLr;rLLLLLLLrLL;L;L;LLLLL;L;L;L;L;r
+;LLLrLL;;;,,,,;,LrcLcLcr7rrLrLcLrLrLcrzczc7rcLL;;;;;;;;;;;LLL;;;c7yzyFyFjyjyyFF;;;;;rLL;;;;;LLLLrLLL
+;L;;LL. .:,;;zF3, ...... :.............     ...L;L;;;;;;;L. .Fj:       .       LL;.   .;;;;...,L;L;L
+;LLL; ;g@@@@@@g@L rLL;rL :7LL;LLL;LLzL;;, K7  ,5yzyjZnKZ5hSy;Lbgb.             y@g@@Q5FLzSg@gK. L;LL
+;r;L b@@g@bL. ..:,;LLLL7, rL;LLLL7L;...L GG.Q3 BBOSEhGhSoEhn.  ;@@@j            :3;rypQg8j,;n@@; r;L
+;LL: O;::  .;;cr7ccLrLccF ;77LL;,...,Lc L5 Q@@; @QQQgQBpSyLFb@@g@@@g             Q@bGy;;chQBy:zK ;LL
+;LL: @S  ;......:::,,;,;; .;,:..:;LcL, SQ Q@@@@ L@Qg.:;LyOgg@@@@@@@Q              ;zLZGBOn;;3Q8, LLL
+;Lr. @@@ .cLL;;;;,,:::,,.   .,L7zLrLr:.b,G@7 y@Q @@, @@@@@@   ::L3gg              .gQEy;;yOO3;yh LLL
+;LL: @g@b  LLLLLLrLLL7F: 77L:...:,,;;Fc  L     ; j7L@@@@@@L ;  ;.. :    .,;LL:.; Q3 zjK88O7;rGO; L;L
+;LL: @@@@@. .:;LLLL;Lc. rLLLcLL;;::.::;r           S@@@@@@ ;nz:.LcLLzLLcyyn;.:zF; @.LbSz;L3OOc7L ;L;
+;LL: @@@@@@g7,..;L;Lc: rLL;L;LLr7yyZzL,:            ,Q5y7L .,;L, ,crLLrrcr..;7;LL o@ ;z58BoL;nbj LLL
+;LL..B.L, @@@@g ;;LL; ;rL;L;L;LL:::.                            ,..;zLLc; :Lr;L;c ,gK,gS7;yOQEz, LL;
+;LL::y @z @@@@g ;LLc .cL;L;;;L;;                               ;F7: ,FF, ;7rLrLcL;.L; :5EEnc;yQO LLL
+;Lr: @.QB r:L g, ;L; ;r;L;;,.  .K                             .yzcyL..: ;L;,;,,,,;;:::..:;zcFFy; ;LL
+;LL; c, 88;bF O@j :;..     .;3Q@@@                           ,r;,,::,   :;:::::::,:,:;,  .h8K777 LLL
+;LL: ggZ :@3 @@@@@  .7O8g@@g@@@@@@@z                        :;,::,;L, r,.:7zzLrLcrccL. F@QF,;ZO; ;LL
+;rL, @@z:Q 5F;;z r@O@@@@g@g@@@@@@@@.                         Ly7rrcL ;rcL: :LcLLLL;..Z..jGg@Qj;; LLL
+;Lr: @@;.g@ gggp y@g@@@@@@@@@@@@@Q                            rLLLc ,7L;Lr;..,cLLL, @@Q by;,3g@5 ;LL
+;LL; .Q@.;@z.@b g@@@@@@@@@@@@@@@@                              7Lz..LL;L;LcF;. ;cF: g@g ,Sp8F,cO LLL
+;Lr:.S.;gL,G g@ b@@@@@@@@g@@@g@@@                         .  ,,Lc, Lr;LL7;.,7z;..c. .;@L OcLnpO: ;LL
+;rL: @@z.KOc ;O; 7FnoB@@@@@@@@@@;        L             rcyjn.,F7r :Fc7L;. ....:,.: ..  g .ny7cy7 L;L
+;LL: @@@@c.. :3O8h5ny;,,Kg@@@@@@,,58QQ@g@@p           ryz;,:: .;; 7;,:..,;7rL;;;;;;;  @g@ 887;ZL LL;
+;rL, h;cyE3Lc77QQQQBBQgbL.:yQ@@@@@g@@@@@@@@@;       ,y;:..:;;7;.  .  .,Lc7LL;LLLL;:.;@@@@  8QBo, LLL
+;Lr: n.zpQ@@@gQbQn.L3   bQO;..rG@@@@@@@@@@@@@@5    L;..,LLLLLLy..LrLL;,...;LcLL;r. g@@@O    jLKj LLL
+;rL: @@y   7 ,;8Bb55Z;;LGQBQQb3r.;;g@@@@g@@@@@.,c;;..;rr;L;L;Lc.:zLL;7Fn7;::;F77rz zg@;     y@B; L;L
+;LL: @@ Q 8S BQbbbQQgg@gQbBbBQQ5Ln F@@@g@@@@@8 L;..;cLL;L;L;LLr ,rLL;  .:,;,  ;;Lc;.@.       ;K7 ;LL
+;LL,.@;;  .;Ogbb8bbBBQQQQQbBbQnL. O@@@@@@@@@g  ..;LL;;;LLL;;;LL ,c;Lc,              .        ;gn LLL
+;Lr,  OB:Z ggbB8bBgQZ;;;;,,,,,;LLB@g@g@@@@@@;   .     . :LL;LLL ;rL;rz.                       cr ;LL
+;LL;  ; ;,Ggbb8BQQ;.;hBgg@g@@@@@@@@@g@g@@@@@@@@@@gQQQg@h ,;L;LL ,rL;.::                       gh LLL
+;Lr; @G BgQbb8bBb ;@@@@g@g@@@@@@@@@@@g@@@@@@@@@@@@@g@@@@G  :LLL ;c, ryyc                      jr ;LL
+;LL; L.pgQ8b8bbg ,@@@@g@g@@@@@@@g@@@@@@@@@@@@@@@@@@@@@@@@@o. .; :. G@@@@@.                    GF L;L
+LLr, ;.gQbbpb8bQ; @@@@@@@@@@@@@@@@@@@g@@@@@@@QBOpOpEO8Qg@g@@@3.  L@g@@@@@@@.                 Lg; ;LL
+;LL,.g bBb888b8Bg;.Q@@@@@@g@@@@@@@@@g@@@8j,. ;r:     c.   .rO@@Q@@g@@@@@@@g                  L55 L;L
+;Lr,  ;gB888b8bbg8  .LGg@g@@@@@@@@gQ5, ,.  .;b@g3:;Lg@g,...h    ;S@@@g@@@@                  .@g; ;LL
+;LL;.E gBb88888bQ8: .Z    .,.,: .;    og@S..:gQgO:.:pgQ;:,b@S  ro   .G@@@G                  3;yp L;L
+;Lr; ;;gB8b8b8b8BQZ,LgQ;:.;Z   .BgQ,;;Qggb..;OQQbr;;Qgj:;;Q@g.;@@z .7:  .        .         .Q@8. ;LL
+;LL;  Sgbb888b8b8Qp;:S@G,,,BO,,cgggZ.,ygBgK,;GQQo.:ngg,.,5@gy o@Q:.@g     5orL7Sg@n       :g;.SQ L;L
+;LL,.g yQ888b8b8bbgj.yggG:.G@3,:EQQgy,:KgQp,,zQQO.L@B; LQ8j  :Bj .Oo  Lbg.S@@g@g@g.       ;Q@gc  LLL
+;rL; 3 EBb8bp88b8bbB;:bQgE.:8@j.;gQQB. ,QgQj ;QQ;.yh:,hgj .GBQy,Kggg 8@@g@: oQQgp K;Zb.  EB;.y@b ;;L
+;LL, ogQb8b8b8b888bQB;rEQQn jQgF.yQBgQ; LQQpzzQOLyp778gOLOgQQBQQQBBgZ @@@y,;OQgn y@L.@@. B@@BL:, ;LL
+;LL; o@Q8b888b888b8bQ8FybQQb8bBg;.LBbQQ7:3BQQQbQQgQQQQbBQBbb8b8B8bbQg S@: Qggg, EggO @n:8,.5@@gL L;L
+;Lr;  gBB8b8b888b888bbQBBbBbB8BBBb88b8BBQbB8b8BBQBBbb8b8b8b8b8b8b8bbg:r@ Q@gj ,QgbQg : z@gS..O@Q ;LL
+;rL,.,,gbb8b8b888b888b8b8b8b88pbbBbb888bbb8b8bBb OQb8bpb8b888b8b8b8Bg;LL7@y..pggQBQ@. Qr.7@@j Lb LLL
+;Lr:.@ zgbb8b8b8b8888888bBQbb8b8bbb8bbb8b8bbBbgg ogb88888pb8b8b8b8bbg.. . :hgB83bQ@z .Q@Q, 7@gL  LL;
+;rL: @g 5gbb8b8QbB8b888bBy;gbb8b8bbbbB8BbQQgQQO3 rgB8b888b8b888b8bbQ8 O3;7zL;;L. @F Qp :Q@b: O@h L;L
+;LL. g@8 KgQBBBhQbb8b8b8QO 5gbBbBBQQQQQb85oz;:;yr gQb88888b8b8b8b8Qg ;@@@@@@@@@@;  g@ggL L@@E Lb ;LL
+;rL: @@@@ .oBgg ;gbb8b8bbg; gQOEKnzr;,:,;. .Gggg@ :@BB8b8888888bbBg; @@@g@@@@@@@b :c8gQgb. bggL  LLL
+;LL. g@@Q K;:;j; QQ8b8b8bQB ,;;;Lrjh8Q@@@@@c.,pggQ ,gQBbb8b8b8b8Qgc @@@@@@@@@@@5 B@n.:bgggy n@@n LLL
+;LL: @g@::@gBGjo zgBpb888Qg 5@@@@@@@@@g@@@@@@Z..3@g..OgQbb8b8b8bQF @@@@@@@@@@@h r;,8@K ;ggg8 ;@g L;L
+;LL. g@g 7gbBBQ@L gBb888bBg S@@g@g@@@@@@@@@@@@@p, OgZ :GgQB8b8bBO @g@g@@@g@@@K K@@G:.O@: Bggg On LLL
+;rL: @@@ nQB8bbgZ QQ8b8bbgO @@@@@@@@@@@@g@@@g@@@@B y@g7..OQB8b8BQ;.@@@@@@@@@h n;.Fg@S.:@y b@@@;  7Lr
+;Lr: @@@ 7gbb8bQ5 QBb8b8Qg ,@g@@@@@@@@@@@@@@@g@@@@g OQgg3 jgb8bbQ@ ;@@@@@@@S r@@b, F@@L gy @@:   cLL
+;rL: @@@.:gB8bbgo QQ8bbBgL @@@@@@@@@g@@@@@@@@@@@g@g; gBQ@O 8QbbQgn G@@@@@@5 b7.rg@8 .g@o Qyh.    7;L
+;LL: @@@K gBb8BQK QBb8bQE g@@@@g@@@@@@@@@@@@@g@g@@@:.ggQr; ;gBQQ: gg@@@@@8 .Fgg; y@@; B@h.B      cLL
+;rL: @@@@ og8bbgj QB8bBg Z@@g@g@@@g@@@@@@@g@@@@@@@@ hgb L@;:gQQ .@g@@@@@b h@F.;@B..g@z g@L       zLL
+;LL. @@@@, gB8bg;.gBbbgL @@@@@@@@g@g@@@@@@@@@@@@@@j @g ,@@ K@Q ;@@@g@@@g L:;@@L O@L B@;.Q        cLL
+;rL: @@@gg 8QbB@ ;@B8BQ Z@@@@@@@@@g@@@@@@@@@@@@@@@ c@8 @gz @g ,@@@g@@@@ .@@r Z@b K@E Q@:         7LL
+;Lr. @@@@@.:gbQQ  QQBBB g@@@@@@@@@@@@@@g@@@@@@@@@O Q@;.@@ OgL @g@@@@@@ yy y@Q ;@O zQL @,         cLL
+;LL: @@@@@o gQg.Lp BQQQ p@@@@@@@g@@@@@@@g@@@@@@@@ ;@@ j@.,@Q Qg@@@@@@  8@Q..g@;... :: :          zLL
+;LL. @@@@@E ggO @@L gQg.,@@@@@@g@@@@@@@@@@@@@@@@Q @gg @p g@..@@@@@@@ ;g:.b@c gy L7 :FL;;.        LLL
+;rL: @@@@@j gg; @@@ ,ggS @@@@@g@@@@@@@@@g@@@@@@@ ..L; @ b@b g@g@@@@. ,h@K ;@E  LLc; LLLczz.  ;zL r;L
+;LL. @@g@gL @g.,@@@@ Sgg L@@@@@@@@@@@g@g@@@@@gB L; Qy :,@Q,.@@@@@@  @Q..@@;;F LLL;7..cL;Lr7LyFn; LL;
+;rL: @@@@@.;@@ 7@@@@;:@@G g@@@g@g@@@@@@@g@@@@@..F,LnFz F z O@@@@@,.;,Qgy g@. LLL;LLL ;rL;LLzrL:. L;L
+;LL. @@@@@ j@g o@@@@y ozF p@@g@@@@@g@@@@@@@@@@@@@@@@@ L; b Q@g@@. h@p.5g. ::LrrLLLc7: z7cL;:..,, LLL
+;rL: @@@@F ; F p@@@@ F..g:.@@@g@g@@@@@@@@@g@@@g@@@g@g,FLcFF@@@b Fgc;QS .,;LL;;;;;;;;L ,;:..;;7z; L;r
+;LL. g@@o o ;8 E@@@g b ;@. @@@@@@@@@@@@@@@@@@@@@@@@@@@@g@@@@@;.:LB@,  .::.....:...::,   ..;;;;7; ;L;
+;rL: @g@;;yLnyS@@@@Q.c;L7;Q@g@@@@@@@@@@@@@@@g@@@g@@@@@@@@@@Z .;GE,  :;;;;LLLLrLLLczL., LcL,,.... rLL
+;LL: @@@@g@@@@@@@@@g@@@@@@@@@@@@@@@g@g@@@@@@@@@@@g@g@@@g@n ,.zQz,K8  ,;LrLLLL;L;Lc; ;y: 7LrLcLc: LLL
+;L;L Z@@@@@@@@@@@@g@@@@@@@@@@@@@@@g@@@@@g@@@g@@@@@@@@@Qr.;:;Qj.BgL,g7.L,.,;cLL;rc: LcrL ;cLLLFL .c;L
+LL;;; :p@@@@@@@@@@@@@@@g@@@@@@@@@@@@@@@@@@@@@g@@@@@QZ;;3@@@S.bg j@8 QO,QbL,.;;LL: LLLLc..LL;;..:7;;;
+;L;;;L.  ....:.:.:...:.:.:.:.:...:.:.......:.:.:.:   .,;:::;. ;: ,;. L .LL,  ... ............,;c;;;L
+;LrLLLrL;;;,;,;,;,;,;,;,,,;,,,;,;,,,,,;,;,,,;,,,;,;LrLL;;;;;rLLLr;LLr;cLLLrcy777y77c7rz7Fc7r7ccLcLrL
